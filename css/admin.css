@@ -1,0 +1,72 @@
+:root {
+  --cor-matricula: rgb(26, 26, 26);
+  --cor-preferencial: rgb(19, 94, 19);
+  --cor-remanescente: rgb(16, 48, 96);
+}
+
+.cima {
+  height: 20%;
+}
+
+.meio {
+  height: 60%;
+}
+
+.baixo {
+  height: 20%;
+}
+
+.background  {
+  background-color: red;
+}
+
+.titulo {
+  height: 15%;
+  width: 100%;
+}
+
+.matricula {
+  background-color: var(--cor-matricula);
+}
+
+.remanescente {
+  background-color: var(--cor-remanescente);
+}
+
+.preferencial {
+  background-color: var(--cor-preferencial);
+}
+
+.conteudo {
+  height: 85%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.senha {
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: solid;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.border-matricula {
+  border-color: var(--cor-matricula);
+}
+
+.border-remanescente {
+  border-color: var(--cor-remanescente);
+}
+
+.border-preferencial {
+  border-color: var(--cor-preferencial);
+}
+
+.bg-cinza {
+  background-color: rgb(198, 198, 198);
+}
