@@ -2,18 +2,19 @@
   --cor-matricula: rgb(26, 26, 26);
   --cor-preferencial: rgb(19, 94, 19);
   --cor-remanescente: rgb(16, 48, 96);
+  --cor-listas: gray;
 }
 
 .cima {
-  height: 20%;
+  height: 15%;
 }
 
 .meio {
-  height: 60%;
+  height: 75%;
 }
 
 .baixo {
-  height: 20%;
+  height: 10%;
 }
 
 .background  {
@@ -35,6 +36,10 @@
 
 .preferencial {
   background-color: var(--cor-preferencial);
+}
+
+.listas {
+  background-color: var(--cor-listas);
 }
 
 .conteudo {
@@ -69,4 +74,9 @@
 
 .bg-cinza {
   background-color: rgb(198, 198, 198);
+}
+
+.item{
+  height: 10%;
+  width: 100%;
 }
