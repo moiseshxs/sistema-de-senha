@@ -28,18 +28,26 @@
 
 .matricula {
   background-color: var(--cor-matricula);
+  border: solid;
+  border-color:rgb(0, 0, 0);
 }
 
 .remanescente {
   background-color: var(--cor-remanescente);
+  border: solid;
+  border-color: rgb(5, 5, 55);
 }
 
 .preferencial {
   background-color: var(--cor-preferencial);
+  border: solid;
+  border-color:rgb(0, 74, 6);
 }
 
 .listas {
   background-color: var(--cor-listas);
+  border: solid;
+  border-color:rgb(78, 78, 78);
 }
 
 .conteudo {
@@ -47,6 +55,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  border: solid;
+  border-color: rgb(165, 165, 165);
 }
 
 .senha {
