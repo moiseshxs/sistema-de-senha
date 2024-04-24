@@ -1,0 +1,26 @@
+body {
+   overflow: hidden;
+}
+
+.scrolling-text {
+   white-space: nowrap;
+   animation: scroll-left 60s linear infinite;
+}
+
+@keyframes scroll-left {
+   0% {
+       transform: translateX(0%);
+   }
+   100% {
+       transform: translateX(calc(-100% - 20px)); /* incluindo a largura do último item */
+   }
+}
+
+.scrolling-text p {
+   display: inline-block;
+   margin-right: 500px; /* Espaço entre cada texto */
+}
+
+.scrolling-text:hover {
+   animation-play-state: paused;
+}
