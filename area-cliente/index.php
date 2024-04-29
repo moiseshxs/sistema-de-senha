@@ -189,7 +189,7 @@
                         <div class="col-9">
                             <div class="row">
                                 <div class="col">
-                                    <p class="fw-bold text-uppercase lh-1" style="font-size: 15px;">Contato:</p>
+                                    <p class="fw-bold text-uppercase lh-1" style="font-size: 15px; color:#B20000">Contato:</p>
                                 </div>
                             </div>
                             <div class="col-3">
