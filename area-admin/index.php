@@ -1,6 +1,11 @@
+<?php  
+  ob_flush();
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Sistema de Senhas</title>
@@ -65,7 +70,9 @@
               Suas Informações
             </div>
             <div class=" d-flex justify-content-end h5">Sala: 3</div>
+            
             <div class=" d-flex justify-content-end h5">Guichê: 2</div>
+            <input type="hidden" id="guiche" value="2">
           </div>
         </div>
         <div class="row meio border border-secondary">
@@ -79,7 +86,9 @@
               </div>
             </div>
             <div class="conteudo">
-              <div class="senha border-matricula bg-cinza"><p class="m-0 fs-1 fw-bold"><span class="text-dark">AM</span>001</p></div>
+              
+              <div id="salvarAM" class="senha border-matricula bg-cinza"><p id="senhaAM" class="m-0 fs-1 fw-bold"><span class="text-dark">AM</span>001</p></div>
+              
             </div>
           </div>
           <div class="col p-0 bg-cinza">
@@ -92,7 +101,7 @@
               </div>
             </div>
             <div class="conteudo">
-              <div class="senha border-remanescente bg-cinza"><p class="m-0 fs-1 fw-bold"><span class="text-primary-emphasis">AR</span>001</p></div>
+              <div id="salvarAR" class="senha border-remanescente bg-cinza"><p id="senhaAR" class="m-0 fs-1 fw-bold"><span class="text-primary-emphasis">AR</span>001</p></div>
             </div>
           </div>
           <div class="col p-0">
@@ -105,7 +114,7 @@
               </div>
             </div>
             <div class="conteudo">
-              <div class="senha border-preferencial bg-cinza"><p class="m-0 fs-1 fw-bold"><span class="text-success">AP</span>001</p></div>
+              <div id="salvarAP" class="senha border-preferencial bg-cinza"><p id="senhaAP" class="m-0 fs-1 fw-bold"><span class="text-success">AP</span>001</p></div>
             </div>
           </div>
           <div class="col p-0 bg-cinza">
@@ -133,8 +142,8 @@
                 Ultimos
               </div>
             </div>
-            <div class="conteudo d-flex flex-column justify-content-start">
-              <div class="row item border-bottom border-secondary">
+            <div class="conteudo overflow-auto d-flex flex-column justify-content-start">
+              <div id="ultimos" class="row item">
                 <div class="col d-flex align-items-center justify-content-center"><p class="h3 fw-bold">AP001</p></div>
                 <div class="col d-flex align-items-center justify-content-center"><button class="btn btn-success fw-semibold">Chamar</button></div>
               </div>
@@ -170,5 +179,9 @@
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"
     ></script>
+    <script src="./js/ajax-setup.js"></script>
   </body>
 </html>
+<?php  
+  ob_end_flush();
+?>
