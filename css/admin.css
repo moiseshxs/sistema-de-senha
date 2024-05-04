@@ -8,9 +8,34 @@
 .cima {
   height: 15%;
 }
+.icon{
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
+}
+
+.modalzin {
+  min-height: 500px!important;
+  overflow-y: auto;
+}
+
+.sala {
+  height: 20%;
+  cursor: pointer!important ;
+}
+
+
+.guiche {
+  height: 20%;
+  cursor: pointer!important ;
+}
 
 .meio {
-  height: 75%;
+  height: 70%;
+}
+
+.meiomeio {
+  height: 5%;
 }
 
 .baixo {
