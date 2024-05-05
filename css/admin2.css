@@ -1,0 +1,42 @@
+.cima, .baixo {
+  height: 10%;
+}
+
+.meio {
+  height: 80%;
+  background-color: rgb(198, 198, 198);
+}
+
+.select {
+  background-color: #ffffff ;
+  height: 80%;
+  overflow: auto;
+}
+
+.opcao {
+  width: 100%;
+  height: 20%;
+  background-color:  rgb(198, 198, 198);
+  border: 5px solid white;
+  cursor: pointer;
+}
+
+.add {
+  background-color: rgb(59, 253, 59);
+  color: white;
+}
+
+.borda-verde {
+  border-color: rgb(59, 253, 59);
+}
+
+.tra {
+  height: 50px;
+}
+
+.escolher {
+  height: 90%;
+  cursor: pointer;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+}
+
