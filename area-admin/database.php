@@ -9,7 +9,7 @@
 
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Controle de Salas</title>
+  <title>Controle de DataBase</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
   <link rel="stylesheet" href="../css/admin2.css" />
@@ -75,77 +75,21 @@
           </g>
         </svg>
       </div>
-      <div class="col d-flex align-items-center justify-content-center">
-        <p class="fs-1 fw-semibold text-uppercase">Controle de Salas</p>
+      <div class="col-5 d-flex align-items-center justify-content-center">
+        <p class="fs-1 fw-semibold text-uppercase">Controle de DataBase</p>
       </div>
       <div class="col"></div>
     </div>
-    <div class="row w-100 meio">
-      <div class="col"></div>
-      <div class="col-4 d-flex align-items-center">
-        <div class="select w-100">
-          <div class="opcao d-flex align-items-center justify-content-center" onclick="borda(this)">
-            <p class="fs-1">SALA 1</p>
-          </div>
-          <div class="opcao d-flex align-items-center justify-content-center" onclick="borda(this)">
-            <p class="fs-1">SALA 2</p>
-          </div>
-          <div class="opcao d-flex align-items-center justify-content-center" onclick="borda(this)">
-            <p class="fs-1">SALA 3</p>
-          </div>
-          <div class="opcao add d-flex align-items-center justify-content-center">
-            <p class="fs-1 fw-bold">+ ADD SALA</p>
-          </div>
+    <div class="row w-100 meio1">
+      <div class="col d-flex justify-content-center align-items-center">
+        <div class="excluir">
+            Resetar Banco
         </div>
       </div>
-      <div class="col"></div>
-      <div class="col-4 d-flex align-items-center">
-        <div class="select w-100">
-          <div class="opcao safado d-flex align-items-center justify-content-center" onclick="borda1(this)">
-            <p class="fs-1">GUICHÊ 1</p>
-          </div>
-          <div class="opcao safado d-flex align-items-center justify-content-center" onclick="borda1(this)">
-            <p class="fs-1">GUICHÊ 2</p>
-          </div>
-          <div class="opcao safado d-flex align-items-center justify-content-center" onclick="borda1(this)">
-            <p class="fs-1">GUICHÊ 3</p>
-          </div>
-          <div class="opcao safado d-flex align-items-center justify-content-center" onclick="borda1(this)">
-            <p class="fs-1">GUICHÊ 4</p>
-          </div>
-          <div class="opcao safado d-flex align-items-center justify-content-center" onclick="borda1(this)">
-            <p class="fs-1">GUICHÊ 5</p>
-          </div>
-        </div>
-      </div>
-      <div class="col"></div>
-    </div>
-    <div class="row w-100 baixo ">
-      <div class="col d-flex justify-content-end align-items-center  "><button
-          class="btn btn-sm btn-success tra fw-bold">SALVAR</button></div>
     </div>
     <?php include ("./componentes/menu.php");?>
 
   </div>
-  <script>
-  function borda(div) {
-    var divs = document.querySelectorAll('.opcao');
-    divs.forEach(function(element) {
-      element.classList.remove('borda-verde');
-    });
-
-    div.classList.add('borda-verde');
-  }
-
-  function borda1(div) {
-    var divs = document.querySelectorAll('.safado');
-    divs.forEach(function(element) {
-      element.classList.remove('borda-verde');
-    });
-
-    div.classList.add('borda-verde');
-  }
-  </script>
   <script async src="https://app2.weatherwidget.org/js/?id=ww_f5c4ab7d7d6c6"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
     integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous">

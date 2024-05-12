@@ -3,8 +3,25 @@
 }
 
 .meio {
+  height: 70%;
+  background-color: rgb(198, 198, 198);
+}
+
+.meio1 {
   height: 80%;
   background-color: rgb(198, 198, 198);
+}
+
+.excluir {
+  background-color: green;
+  width: 300px;
+  height: 300px;
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size:2rem ;
+  cursor: pointer;
 }
 
 .select {

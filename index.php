@@ -9,10 +9,9 @@
 
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Controle de Salas</title>
+  <title>Controle de DataBase</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
-  <link rel="stylesheet" href="../css/admin2.css" />
 
 
 </head>
@@ -75,77 +74,54 @@
           </g>
         </svg>
       </div>
-      <div class="col d-flex align-items-center justify-content-center">
-        <p class="fs-1 fw-semibold text-uppercase">Controle de Salas</p>
+      <div class="col-5 d-flex align-items-center justify-content-center">
+        <p class="fs-1 fw-semibold text-uppercase">Entrar</p>
       </div>
       <div class="col"></div>
     </div>
     <div class="row w-100 meio">
-      <div class="col"></div>
-      <div class="col-4 d-flex align-items-center">
-        <div class="select w-100">
-          <div class="opcao d-flex align-items-center justify-content-center" onclick="borda(this)">
-            <p class="fs-1">SALA 1</p>
-          </div>
-          <div class="opcao d-flex align-items-center justify-content-center" onclick="borda(this)">
-            <p class="fs-1">SALA 2</p>
-          </div>
-          <div class="opcao d-flex align-items-center justify-content-center" onclick="borda(this)">
-            <p class="fs-1">SALA 3</p>
-          </div>
-          <div class="opcao add d-flex align-items-center justify-content-center">
-            <p class="fs-1 fw-bold">+ ADD SALA</p>
-          </div>
+      <div class="col">
+        <div class="w-100 fs-2 pt-3 fw-bold d-flex justify-content-center align-items-center">Esse computador entrará como?</div>
+        <div class="w-100 escolhas">
+            <div class="escolha d-flex justify-content-center align-items-center text-light fs-1 fw-semibold"><a href="./area-admin/controleSalas.php">Admin</a></div>
+            <div class="escolha d-flex justify-content-center align-items-center text-light fs-1 fw-semibold"><a href="./area-admin/escolha.php">Chamar</a></div>
+            <div class="escolha d-flex justify-content-center align-items-center text-light fs-1 fw-semibold"><a href="./area-cliente/index.php">Visor</a></div>
         </div>
       </div>
-      <div class="col"></div>
-      <div class="col-4 d-flex align-items-center">
-        <div class="select w-100">
-          <div class="opcao safado d-flex align-items-center justify-content-center" onclick="borda1(this)">
-            <p class="fs-1">GUICHÊ 1</p>
-          </div>
-          <div class="opcao safado d-flex align-items-center justify-content-center" onclick="borda1(this)">
-            <p class="fs-1">GUICHÊ 2</p>
-          </div>
-          <div class="opcao safado d-flex align-items-center justify-content-center" onclick="borda1(this)">
-            <p class="fs-1">GUICHÊ 3</p>
-          </div>
-          <div class="opcao safado d-flex align-items-center justify-content-center" onclick="borda1(this)">
-            <p class="fs-1">GUICHÊ 4</p>
-          </div>
-          <div class="opcao safado d-flex align-items-center justify-content-center" onclick="borda1(this)">
-            <p class="fs-1">GUICHÊ 5</p>
-          </div>
-        </div>
-      </div>
-      <div class="col"></div>
     </div>
-    <div class="row w-100 baixo ">
-      <div class="col d-flex justify-content-end align-items-center  "><button
-          class="btn btn-sm btn-success tra fw-bold">SALVAR</button></div>
-    </div>
-    <?php include ("./componentes/menu.php");?>
+
 
   </div>
-  <script>
-  function borda(div) {
-    var divs = document.querySelectorAll('.opcao');
-    divs.forEach(function(element) {
-      element.classList.remove('borda-verde');
-    });
 
-    div.classList.add('borda-verde');
-  }
+  <style>
+    .cima{
+      height: 10%
+    }
 
-  function borda1(div) {
-    var divs = document.querySelectorAll('.safado');
-    divs.forEach(function(element) {
-      element.classList.remove('borda-verde');
-    });
+    .meio{
+      height: 80%;
+      background-color: rgb(198, 198, 198);
+    }
 
-    div.classList.add('borda-verde');
-  }
-  </script>
+    .escolhas {
+      height: 80%;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+    }
+
+    .escolha {
+      width: 300px;
+      height: 300px;
+      background: green;
+      cursor: pointer;
+    }
+
+    .escolha a {
+      text-decoration: none;
+      color: white;
+    }
+  </style>
   <script async src="https://app2.weatherwidget.org/js/?id=ww_f5c4ab7d7d6c6"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
     integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous">
