@@ -209,10 +209,12 @@
           <div class="container-fluid h-100">
             <div class="row h-100 modalzin">
               <div class="col-1"></div>
-              <div class="col-4 bg-light p-1">
-                <div class="sala w-100 bg-secondary d-flex justify-content-center align-items-center">
+              <div class="col-4 bg-light p-1" id="salasTotal">
+
+                <div class="sala w-100 bg-secondary border border-dark d-flex justify-content-center align-items-center">
                   <p class="titulo-sala fs-1 fw-bold text-light">SALA 1</p>
                 </div>
+
               </div>
               <div class="col-2"></div>
               <div class="col-4 bg-light p-1 flex-column">

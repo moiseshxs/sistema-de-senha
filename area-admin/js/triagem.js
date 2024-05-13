@@ -1,3 +1,25 @@
+$('#abrirModal').on('click', function (e){
+    $.ajax({
+        type: 'GET',
+        dataType: 'json',
+        url: '../app/Controller/trazerSalas.php',
+        async: true,
+    
+         success: function(response) {
+             console.log(response)
+
+               let newHtml = `<div class="col-4 bg-light w-100 p-1" id="salasTotal">`
+                           response.result.forEach(result => {
+                            console.log(result.sala);
+                               newHtml +=`<div class="sala w-100 bg-secondary border border-dark d-flex justify-content-center align-items-center">`
+                               newHtml += `<p class="titulo-sala fs-1 fw-bold text-light">${result.sala}</p>`
+                               newHtml +=`</div>`
+                           })
+               newHtml +=`</div>`
+               $('#salasTotal').html(newHtml)
+         }
+    })
+})
 
 //função para corrigir senhas menores que 3 digitos ex: 2 => 002
 const tratamentoSenha = senha =>{
@@ -68,6 +90,8 @@ const buscarUltimasSenhas = async() =>{
         }
     });
 }
+
+ 
 
 //funcao que insere a senha no banco
 const inserirSenha = async(senha, guiche) =>{
