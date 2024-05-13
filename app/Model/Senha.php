@@ -31,7 +31,7 @@
             if($stmt->rowCount() > 0){
                 $senhas['am'] = $stmt->fetch(PDO::FETCH_ASSOC);
             }else{
-                $senhas['am'] = "AM000";
+                $senhas['am'] = ["senha" => "AM000"];
             }
 
             $comAR = "SELECT  senha FROM tbsenha
@@ -43,7 +43,7 @@
             if($stmt->rowCount() > 0){
                 $senhas['ar'] = $stmt->fetch(PDO::FETCH_ASSOC);
             }else{
-                $senhas['ar'] = "AM000";
+                $senhas['ar'] = ["senha" => "AR000"];
             }
 
             $comAP = "SELECT  senha FROM tbsenha
@@ -55,7 +55,7 @@
             if($stmt->rowCount() > 0){
                 $senhas['ap'] = $stmt->fetch(PDO::FETCH_ASSOC);
             }else{
-                $senhas['ap'] = "AM000";
+                $senhas['ap'] = ["senha" => "AM000"];
             }
             return $senhas;
         }
@@ -80,7 +80,7 @@
             $com = "SELECT senha, nomeSala as sala, nomeGuiche as guiche FROM tbsenha
             INNER JOIN tbguiche ON `tbsenha`.`idGuiche` = `tbGuiche`.`idGuiche`
             INNER JOIN tbSala ON `tbguiche`.`idSala` = `tbsala`.`idSala`
-            ORDER BY idSenha DESC
+            ORDER BY updateAt DESC
             LIMIT 5";
             $stmt = $pdo->prepare($com);
             $stmt->execute();
@@ -90,6 +90,18 @@
                 return false;
             }
             return $senhas;
+        }
+        public function reCall($senha, $data){
+            $pdo = Conexao::conexao();
+            $com = "UPDATE tbsenha SET updateAt = :ua WHERE senha = :s";
+            $stmt = $pdo->prepare($com);
+            $stmt->bindValue(":ua", $data);
+            $stmt->bindValue(":s", $senha);
+            $stmt->execute();
+            if($stmt->rowCount() >0){
+                return true;
+            }
+            return false;
         }
         public function setSenha($senha){
             $this->senha = $senha;

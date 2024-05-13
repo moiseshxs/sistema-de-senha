@@ -58,7 +58,7 @@ const buscarUltimasSenhas = async() =>{
             response.result.forEach(senha => {
                 
                 newHtml += "<div class='col d-flex align-items-center justify-content-center'><p class='h3 fw-bold'>"+senha.senha+"</p></div>"
-                newHtml += "<div class='col d-flex align-items-center justify-content-center'><button class='btn btn-success fw-semibold'>Chamar</button></div>"
+                newHtml += `<div onclick="reCall('${senha.senha}')" class="col d-flex align-items-center justify-content-center"><button class="btn btn-success fw-semibold">Chamar</button></div>`
             });
             newHtml += "</div>"
             //atualizando html
@@ -87,9 +87,75 @@ const inserirSenha = async(senha, guiche) =>{
     });
 }
 
+const reCall = async (senha) =>{
+    await updateSenha(senha)
+    setTimeout(() =>{
+     trazerSenhas()
+}, 500)     
+}
+
+const updateSenha = async (senha) =>{
+    $(document).ready(function() {
+    let newSenha = senha.toString() 
+    $.ajax({
+        type: 'POST',
+        dataType: 'json',
+        url: '../app/Controller/recallSenha.php',
+        async: true,
+        data: {senha:newSenha,
+        },
+        success: function(response) {
+            console.log(response)
+        }
+
+    })
+})
+}
+
+const trazerSenhas = async() =>{
+    $.ajax({
+        type: 'GET',
+        dataType: 'json',
+        url: '../app/Controller/trazerSenhas.php',
+        async: true,
+        
+        success: function(response) {
+            
+            console.log( response)
+            let newHtml = "<div class='row item'>"
+            if(response.result){
+            response.result.forEach(senha => {
+                    let prefix = tratamentoPrefixo(senha.senha)
+                    let number = senha.senha.split(prefix)[1]
+                    number = parseInt(number)
+                    console.log(number)
+                    newHtml += "<div class='col d-flex align-items-center justify-content-center'><p class='h3 fw-bold'>"+senha.senha+"</p></div>"
+                    newHtml += `<div onclick="reCall('${senha.senha}')" class="col d-flex align-items-center justify-content-center"><button class="btn btn-success fw-semibold">Chamar</button></div>`
+                    
+                });
+            }
+            newHtml += "</div>"
+            $('#ultimos').html(newHtml) 
+            
+            
+        }
+    });
+}
+
+    
+
+    
+
+
 $(document).ready(function() {
+
     /// quando clicar na proxima senha 'AM'
-    $('#salvarAM').click(async function() {
+
+    /// Quando usuário clicar em salvar será feito todos os passo abaixo
+
+    
+    $('#salvarAM').click(function() {
+
 
         let guiche = $("#guiche").val()
         let senha = $("#senhaAM").text()
@@ -102,7 +168,10 @@ $(document).ready(function() {
         senha = tratamentoSenha(senha)
         senha = prefixo + senha
 
+
         inserirSenha(senha, guiche)
+        
+
         return false;
     });
 
@@ -120,6 +189,7 @@ $(document).ready(function() {
         
         senha = tratamentoSenha(senha)
         senha = prefixo + senha
+
 
         inserirSenha(senha, guiche)
         
@@ -143,15 +213,16 @@ $(document).ready(function() {
         
         inserirSenha(senha, guiche)
 
+                
+        
+
         return false;
     });
 
-
-
-    
     //de 1 em 1 segundo é buscado as ultimas senhas
     setInterval(()=>{
     buscarUltimasSenhas()
+   
     $.ajax({
         type: 'GET',
         dataType: 'json',
@@ -161,8 +232,10 @@ $(document).ready(function() {
         success: function(response) {
             
             atualizarHtmlProximasSenhas(response)
+
         }
     })
     }, 1000)
 
 })
+
