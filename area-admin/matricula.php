@@ -115,11 +115,11 @@
               Atendimento
             </div>
             <div class="text2 h-50 w-100 text-center text-light h3">
-              Matrícula
+              Próximos
             </div>
           </div>
           <div class="conteudo p-2 overflow-auto d-flex flex-column justify-content-start">
-            <div id="" class="row item">
+            <div id="proximos" class="row item">
               <div class="col d-flex align-items-center justify-content-center">
                 <p class="h3 fw-bold">AP001</p>
               </div>
@@ -261,7 +261,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
   </script>
-  <script src="./js/triagem.js"></script>
+  <script src="./js/matricula.js"></script>
 </body>
 
 </html>

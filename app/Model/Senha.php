@@ -63,7 +63,7 @@
             $pdo = Conexao::conexao();
             $senhas = array();
             $comAM = "SELECT  senha FROM tbsenha
-            ORDER BY idSenha DESC
+            ORDER BY updateAt DESC
             LIMIT 8";
             $stmt = $pdo->prepare($comAM);
             $stmt->execute();
