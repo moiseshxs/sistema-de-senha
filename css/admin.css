@@ -6,7 +6,34 @@
 }
 
 .cima {
-  height: 15%;
+  height: 17%;
+  position: relative;
+}
+
+.cima-2 {
+  height: 25%;
+  position: relative;
+  background-color: rgb(168, 177, 185) !important;
+  
+}
+
+#abrirModal{
+  position: absolute;
+  width: 8%;
+  top: 50%;
+  right: 9%;
+  font-size: 18px !important;
+}
+#abrirModal2{
+  position: absolute;
+  width: 8%;
+  top: 35%;
+  right: 10%;
+  font-size: 18px !important;
+}
+#compareceu-area{
+  position: absolute;
+  top: 75%;
 }
 .icon{
   width: 24px;
