@@ -94,7 +94,7 @@
 
         </div>
         <div class="col d-flex flex-column suas-informacoes h-100 pe-3">
-          <div class=" d-flex justify-content-end fs-4 fw-bold text-uppercase">
+          <div class=" d-flex justify-content-end fs-5 fw-bold text-uppercase">
             Suas Informações
           </div>
           <div class=" d-flex justify-content-end fs-5"><span class="fw-bold fs-5">Sala</span>: 1</div>
@@ -209,12 +209,10 @@
           <div class="container-fluid h-100">
             <div class="row h-100 modalzin">
               <div class="col-1"></div>
-              <div class="col-4 bg-light p-1" id="salasTotal">
-
-                <div class="sala w-100 bg-secondary border border-dark d-flex justify-content-center align-items-center">
+              <div class="col-4 bg-light p-1">
+                <div class="sala w-100 bg-secondary d-flex justify-content-center align-items-center">
                   <p class="titulo-sala fs-1 fw-bold text-light">SALA 1</p>
                 </div>
-
               </div>
               <div class="col-2"></div>
               <div class="col-4 bg-light p-1 flex-column">
@@ -236,6 +234,26 @@
       </div>
     </div>
   </div>
+  
+  <div class="modal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Modal body text goes here.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 
   <script>
   document.addEventListener("DOMContentLoaded", function() {

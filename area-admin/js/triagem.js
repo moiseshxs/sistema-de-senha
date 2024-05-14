@@ -2,7 +2,7 @@ $('#abrirModal').on('click', function (e){
     $.ajax({
         type: 'GET',
         dataType: 'json',
-        url: '../app/Controller/trazerSalas.php',
+        url: '../app/Controller/trazerSalasWithGuiches.php',
         async: true,
     
          success: function(response) {

@@ -5,7 +5,7 @@
 
 <style>
   .menu{
-    height: 10%;
+    height: 12%;
     background-color: green;
   }
   .imga {

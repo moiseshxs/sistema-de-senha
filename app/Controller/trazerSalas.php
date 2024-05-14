@@ -1,10 +1,11 @@
 <?php
-    require_once(__DIR__."../../Model/Sala.php");
-    $sala = new Sala();
-    $salas = $sala->selectAllGuicheComSala();
-    $response = array("success" => true, "result" => $salas);
+require_once(__DIR__."../../Model/Sala.php");
+$sala = new Sala();
+$salas = $sala->selectAllSala();
+
+$response = array("success" => true, "salas" => $salas);
     
-    echo json_encode($response);
+echo json_encode($response);
 
 
 ?>

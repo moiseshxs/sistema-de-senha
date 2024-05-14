@@ -93,12 +93,12 @@
 
         </div>
         <div class="col d-flex flex-column suas-informacoes h-100 pe-3">
-          <div class=" d-flex justify-content-end fs-4 fw-bold text-uppercase">
+          <div class=" d-flex justify-content-end fs-5 fw-bold text-uppercase">
             Suas Informações
           </div>
-          <div class=" d-flex justify-content-end fs-4"><span class="fw-bold fs-4">Sala</span>: 1</div>
+          <div class=" d-flex justify-content-end fs-5"><span class="fw-bold fs-5">Sala</span>: 1</div>
 
-          <div class=" d-flex justify-content-end fs-4"><span class="fw-bold fs-4">Guichê</span>: 3</div>
+          <div class=" d-flex justify-content-end fs-5"><span class="fw-bold fs-5">Guichê</span>: 3</div>
           <input type="hidden" id="guiche" value="2">
         </div>
         <div id="compareceu-area" class="col d-flex justify-content-center align-items-center">

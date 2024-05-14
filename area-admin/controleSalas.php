@@ -19,7 +19,7 @@
 
 <body>
   <div class="container-fluid vw-100 vh-100">
-    <div class="row w-100 cima">
+    <div class="row w-100 cima" style="height: 13%;">
       <div class="col pt-1">
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve"
           width="140px" height="71px" version="1.1"
@@ -83,24 +83,18 @@
     <div class="row w-100 meio">
       <div class="col"></div>
       <div class="col-4 d-flex align-items-center">
-        <div class="select w-100">
+        <div class="select w-100 overflow-auto" id="salasTotal" style="height: 80%">
           <div class="opcao d-flex align-items-center justify-content-center" onclick="borda(this)">
             <p class="fs-1">SALA 1</p>
           </div>
-          <div class="opcao d-flex align-items-center justify-content-center" onclick="borda(this)">
-            <p class="fs-1">SALA 2</p>
-          </div>
-          <div class="opcao d-flex align-items-center justify-content-center" onclick="borda(this)">
-            <p class="fs-1">SALA 3</p>
-          </div>
           <div class="opcao add d-flex align-items-center justify-content-center">
-            <p class="fs-1 fw-bold">+ ADD SALA</p>
+            <p class="fs-1 fw-bold" data-bs-toggle="modal" data-bs-target="#modaal">+ ADD SALA</p>
           </div>
         </div>
       </div>
       <div class="col"></div>
       <div class="col-4 d-flex align-items-center">
-        <div class="select w-100">
+        <div class="select w-100" style="height: 80%">
           <div class="opcao safado d-flex align-items-center justify-content-center" onclick="borda1(this)">
             <p class="fs-1">GUICHÊ 1</p>
           </div>
@@ -110,23 +104,38 @@
           <div class="opcao safado d-flex align-items-center justify-content-center" onclick="borda1(this)">
             <p class="fs-1">GUICHÊ 3</p>
           </div>
-          <div class="opcao safado d-flex align-items-center justify-content-center" onclick="borda1(this)">
-            <p class="fs-1">GUICHÊ 4</p>
-          </div>
-          <div class="opcao safado d-flex align-items-center justify-content-center" onclick="borda1(this)">
-            <p class="fs-1">GUICHÊ 5</p>
+          <div class="opcao add d-flex align-items-center justify-content-center">
+            <p class="fs-1 fw-bold">+ ADD GUICHE</p>
           </div>
         </div>
       </div>
       <div class="col"></div>
+      
     </div>
-    <div class="row w-100 baixo ">
-      <div class="col d-flex justify-content-end align-items-center  "><button
-          class="btn btn-sm btn-success tra fw-bold">SALVAR</button></div>
-    </div>
+    <div class="linha py-3"></div>
     <?php include ("./componentes/menu.php");?>
-
   </div>
+
+  <div class="modal" tabindex="-1" id="modaal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header" style="border: transparent !important">
+        <h5 class="modal-title fs-3">INSIRA O NOME DA SALA</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" action="" id="storeSala">
+        <input type="text" class="w-100 border border-none fs-2" id="nomeSala"/>
+      </div>
+      <div class="modal-footer" style="border: transparent !important">
+          <button type="button" class="btn btn-secondary fs-5" data-bs-dismiss="modal">Fechar</button>
+          <button type="button" class="btn btn-success fs-5" id="inserirSala">Salvar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
   <script>
   function borda(div) {
     var divs = document.querySelectorAll('.opcao');
@@ -145,6 +154,7 @@
 
     div.classList.add('borda-verde');
   }
+
   </script>
   <script async src="https://app2.weatherwidget.org/js/?id=ww_f5c4ab7d7d6c6"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
@@ -156,7 +166,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
   </script>
-  <script src="./js/ajax-setup.js"></script>
+  <script src="./js/controleSala.js"></script>
 </body>
 
 </html>
