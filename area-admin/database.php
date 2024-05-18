@@ -14,12 +14,19 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
   <link rel="stylesheet" href="../css/admin2.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 
 </head>
 
+
+
+
 <body>
-  <div class="container-fluid p-0 vw-100 vh-100">
+  <div id="loader-space">
+  <div class="loader"></div>
+  </div>
+  <div class="container-fluid p-0 w-100 vh-100">
     <div class="row m-0 w-100 cima">
       <div class="col pt-1">
       <?php include ("./componentes/logo.php");?>
@@ -31,12 +38,12 @@
     </div>
     <div class="row m-0 w-100 meio1">
       <div class="col d-flex justify-content-around align-items-center">
-        <div class="excluir bg-success">
+        <div id="banco" class="excluir bg-success">
           <img src="./imgs/banco.jpg" alt="" class="fundo">
           <div class="overlay"></div>
           <p class="fs-1 fw-bold text-light">Resetar Banco</p>
         </div>
-        <div class="excluir bg-success">
+        <div id="senhas" class="excluir bg-success">
           <img src="./imgs/bancosenha.jpg" alt="" class="fundo">
           <div class="overlay"></div>
           <p class="fs-1 fw-bold text-light">Resetar Senhas</p>
@@ -57,7 +64,9 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
   </script>
-  <script src="./js/ajax-setup.js"></script>
+  <script src="./js/database.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 </body>
 
 </html>

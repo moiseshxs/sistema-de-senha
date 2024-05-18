@@ -37,6 +37,12 @@
                 (NULL, 'Guichê 02', 3)"
                 );
             $stmt->execute();
+            return true;
+        }
+        public static function resetarSenhas(){
+            $pdo = Conexao::conexao();
+            $pdo->exec("TRUNCATE TABLE tbsenha");
+            return true;
         }
     }
 
