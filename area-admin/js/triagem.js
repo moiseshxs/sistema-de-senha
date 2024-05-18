@@ -21,6 +21,8 @@ $('#abrirModal').on('click', function (e){
     })
 })
 
+
+
 //função para corrigir senhas menores que 3 digitos ex: 2 => 002
 const tratamentoSenha = senha =>{
     if(senha.toString().length ==1 ){
@@ -87,6 +89,9 @@ const buscarUltimasSenhas = async() =>{
             $('#ultimos').html(newHtml) 
 
             
+        },
+        error: (e)=>{
+            console.log(e)
         }
     });
 }
@@ -244,22 +249,23 @@ $(document).ready(function() {
     });
 
     //de 1 em 1 segundo é buscado as ultimas senhas
-    setInterval(()=>{
-    buscarUltimasSenhas()
-   
-    $.ajax({
-        type: 'GET',
-        dataType: 'json',
-        url: '../app/Controller/ultimasSenhas.php',
-        async: true,
-        
-        success: function(response) {
-            
-            atualizarHtmlProximasSenhas(response)
-
-        }
-    })
-    }, 1000)
-
+    
 })
 
+setInterval(()=>{
+    console.log("aaaaa")
+buscarUltimasSenhas()
+
+$.ajax({
+    type: 'GET',
+    dataType: 'json',
+    url: '../app/Controller/ultimasSenhas.php',
+    async: true,
+    
+    success: function(response) {
+        console.log(response)
+        atualizarHtmlProximasSenhas(response)
+
+    }
+})
+}, 1000)
