@@ -6,6 +6,8 @@
 
 <head>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
 
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -31,10 +33,10 @@
     </div>
     <div class="row m-0 w-100 meio">
       <div class="col"></div>
-      <div class="salas col-4 d-flex align-items-center">
-        <div class="select w-100 overflow-auto" id="salasTotal" style="height: 80% !important">
+      <div class="col-4 d-flex align-items-center">
+        <div class="select w-100 overflow-auto" id="salasTotal" style="height: 400px !important">
           <div class="opcao d-flex align-items-center justify-content-center" onclick="borda(this)" >
-            <p class="fs-1">SALA 1</p>
+            <p class="fs-1" id="salaNome">SALA 1 </p> <a id="trocarNomeSala"> <i class='bx bx-edit-alt'></i></a>
           </div>
           <div class="opcao bg-success add d-flex align-items-center justify-content-center ">
             <p class="fs-1 fw-bold" data-bs-toggle="modal" data-bs-target="#modaal">+ ADD SALA</p>
@@ -45,7 +47,7 @@
       <div class="col-4 d-flex align-items-center">
         <div class="select w-100" style="height: 80%">
           <div class="opcao safado d-flex align-items-center justify-content-center" >
-            <p class="fs-1">GUICHÊ 1</p>
+            <p class="fs-1">GUICHÊ 1 </p>
           </div>
           <div class="opcao safado d-flex align-items-center justify-content-center" >
             <p class="fs-1">GUICHÊ 2</p>
@@ -85,6 +87,28 @@
     </div>
   </div>
 </div>
+
+<div class="modal" tabindex="-1" id="modalAltera">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header" style="border: transparent !important">
+        <h5 class="modal-title fs-3">TROQUE O NOME</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" action="" id="updateSala">
+        <input type="text" class="w-100 border border-none fs-2" id="salaA"/>
+      </div>
+      <div class="modal-footer" style="border: transparent !important">
+          <button type="button" class="btn btn-secondary fs-5" data-bs-dismiss="modal">Fechar</button>
+          <button type="button" class="btn btn-success fs-5" id="alterarSala">Salvar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 
   <script>
   function borda(div) {
