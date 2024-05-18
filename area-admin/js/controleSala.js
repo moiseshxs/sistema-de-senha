@@ -26,14 +26,13 @@ const allSalas = async() =>{
         async: true,
 
         success: function(response) {
-            let newHtml = `<div class="select w-100 overflow-auto" id="salasTotal" style="height: 80%">` 
-                response.salas.forEach(salas =>{
-                    // console.log(salas.nomeSala);
+            let newHtml = `<div class="select w-100 overflow-auto" id="salasTotal" style="height: 80% !important">` 
+                response.salas.forEach(salas =>{                 
                     newHtml += `<div class="opcao d-flex align-items-center justify-content-center" onclick="borda(this)">`
                     newHtml += `<p class="fs-1">${salas.nomeSala}</p>`
                     newHtml += `</div>`
                 })
-                newHtml += `</div>`
+            newHtml += `</div>`
                 $('#salasTotal').html(newHtml)
         }
     })

@@ -31,12 +31,12 @@
     </div>
     <div class="row m-0 w-100 meio">
       <div class="col"></div>
-      <div class="col-4 d-flex align-items-center">
-        <div class="select w-100 overflow-auto" id="salasTotal" style="height: 80%">
-          <div class="opcao d-flex align-items-center justify-content-center" >
+      <div class="salas col-4 d-flex align-items-center">
+        <div class="select w-100 overflow-auto" id="salasTotal" style="height: 80% !important">
+          <div class="opcao d-flex align-items-center justify-content-center" onclick="borda(this)" >
             <p class="fs-1">SALA 1</p>
           </div>
-          <div class="bg-success add d-flex align-items-center justify-content-center ">
+          <div class="opcao bg-success add d-flex align-items-center justify-content-center ">
             <p class="fs-1 fw-bold" data-bs-toggle="modal" data-bs-target="#modaal">+ ADD SALA</p>
           </div>
         </div>
