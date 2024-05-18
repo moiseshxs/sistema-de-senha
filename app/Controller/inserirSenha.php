@@ -5,6 +5,7 @@
     $data = date("Y-m-d H:i:s");
     $senha->setSenha($_POST['senha']);
     $senha->setStatusSenha("0");
+    $senha->setTipoSenha($_POST['tipo']);
     $senha->setUpdatedAt($data);
     $senha->setIdGuiche($_POST['guiche']);
     $senha->storeSenha($senha);

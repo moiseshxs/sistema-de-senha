@@ -5,15 +5,17 @@
         protected $statusSenha;
         protected $updatedAt;
         protected $idGuiche;
+        protected $tipoSenha;
 
         public function storeSenha($senha)
         {
             
             $pdo = Conexao::conexao();
-            $com = "INSERT INTO tbsenha VALUES (NULL, :s,:ss, :ua, :ig)";
+            $com = "INSERT INTO tbsenha VALUES (NULL, :s,:ss,:ts, :ua, :ig)";
             $stmt = $pdo->prepare($com);
             $stmt->bindValue(":s", $senha->getSenha());
             $stmt->bindValue(":ss", $senha->getStatusSenha());
+            $stmt->bindValue(":ts", $senha->getTipoSenha());
             $stmt->bindValue(":ua", $senha->getUpdatedAt());
             $stmt->bindValue(":ig", $senha->getIdGuiche());
             $stmt->execute();
@@ -77,7 +79,7 @@
 
         public function getSenhasWithGuiche(){
             $pdo = Conexao::conexao();
-            $com = "SELECT senha, nomeSala as sala, nomeGuiche as guiche FROM tbsenha
+            $com = "SELECT senha, nomeSala as sala, nomeGuiche as guiche, tipoSenha as tipo FROM tbsenha
             INNER JOIN tbguiche ON `tbsenha`.`idGuiche` = `tbGuiche`.`idGuiche`
             INNER JOIN tbSala ON `tbguiche`.`idSala` = `tbsala`.`idSala`
             ORDER BY updateAt DESC
@@ -109,6 +111,9 @@
         public function setStatusSenha($statusSenha){
             $this->statusSenha = $statusSenha;
         }
+        public function setTipoSenha($tipoSenha){
+            $this->tipoSenha = $tipoSenha;
+        }
         public function setUpdatedAt($updatedAt){
             $this->updatedAt = $updatedAt;
         }
@@ -120,6 +125,9 @@
         }
         public function getStatusSenha(){
             return $this->statusSenha;
+        }
+        public function getTipoSenha(){
+            return $this->tipoSenha;
         }
         public function getUpdatedAt(){
             return $this->updatedAt;

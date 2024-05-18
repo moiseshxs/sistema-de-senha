@@ -20,104 +20,11 @@
             <div id="lasts" class="col-4 border d-flex align-items-center justify-content-center flex-column"
                 style="background-color: #2B8C44;">
                 <div
-                    class="row w-75 d-flex align-items-center justify-content-center border-bottom border-light border-4">
+                    class="row w-75 d-flex align-items-center overflow-auto justify-content-center border-bottom border-light border-4">
                     <p class="fs-2 fw-bold text-center text-uppercase text-light lh-1">Chamadas recentes</p>
                 </div>
-                <div class="row w-75 my-3 border-bottom border-light border-4">
-                    <div class="col d-flex justify-content-center align-items-center">
-                        <p class="fw-bold text-center text-uppercase text-light lh-1" style="font-size: 60px;">AP07</p>
-                    </div>
-                    <div class="col">
-                        <div class="row">
-                            <div class="col d-flex align-items-center">
-                                <p class="fw-bold text-center text-uppercase text-light lh-1" style="font-size: 20px;">
-                                    Sala - 5</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col d-flex align-items-center">
-                                <p class="fw-bold text-center text-uppercase text-light lh-1" style="font-size: 20px;">
-                                    Guichê - 5</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row w-75 my-3 border-bottom border-light border-4">
-                    <div class="col d-flex justify-content-center align-items-center">
-                        <p class="fw-bold text-center text-uppercase text-light lh-1" style="font-size: 60px;">AP07</p>
-                    </div>
-                    <div class="col">
-                        <div class="row">
-                            <div class="col d-flex align-items-center">
-                                <p class="fw-bold text-center text-uppercase text-light lh-1" style="font-size: 20px;">
-                                    Sala - 5</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col d-flex align-items-center">
-                                <p class="fw-bold text-center text-uppercase text-light lh-1" style="font-size: 20px;">
-                                    Guichê - 5</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row w-75 my-3 border-bottom border-light border-4">
-                    <div class="col d-flex justify-content-center align-items-center">
-                        <p class="fw-bold text-center text-uppercase text-light lh-1" style="font-size: 60px;">AP07</p>
-                    </div>
-                    <div class="col">
-                        <div class="row">
-                            <div class="col d-flex align-items-center">
-                                <p class="fw-bold text-center text-uppercase text-light lh-1" style="font-size: 20px;">
-                                    Sala - 5</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col d-flex align-items-center">
-                                <p class="fw-bold text-center text-uppercase text-light lh-1" style="font-size: 20px;">
-                                    Guichê - 5</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row w-75 my-3 border-bottom border-light border-4">
-                    <div class="col d-flex justify-content-center align-items-center">
-                        <p class="fw-bold text-center text-uppercase text-light lh-1" style="font-size: 60px;">AP07</p>
-                    </div>
-                    <div class="col">
-                        <div class="row">
-                            <div class="col d-flex align-items-center">
-                                <p class="fw-bold text-center text-uppercase text-light lh-1" style="font-size: 20px;">
-                                    Sala - 5</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col d-flex align-items-center">
-                                <p class="fw-bold text-center text-uppercase text-light lh-1" style="font-size: 20px;">
-                                    Guichê - 5</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row pt-2 w-75">
-                    <div class="col d-flex justify-content-center align-items-center">
-                        <p class="fw-bold text-center text-uppercase text-light lh-1" style="font-size: 60px;">AP07</p>
-                    </div>
-                    <div class="col">
-                        <div class="row">
-                            <div class="col d-flex align-items-center">
-                                <p class="fw-bold text-center text-uppercase text-light lh-1" style="font-size: 20px;">
-                                    Sala - 5</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col d-flex align-items-center">
-                                <p class="fw-bold text-center text-uppercase text-light lh-1" style="font-size: 20px;">
-                                    Guichê - 5</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <p class="fs-3 my-3 fw-bold text-white">Não há chamadas no histórico</p>
+                
             </div>
 
             <div class="col-8 p-0 d-flex align-items-center justify-content-center flex-column">
@@ -138,20 +45,21 @@
                         <div class="row">
                             <div class="col d-flex align-items-center justify-content-center">
                                 <p id="senhaAtual" class="fw-bold text-center text-uppercase text-dark lh-1"
-                                    style="font-size: 150px;"><span style="color: #106018;">AP</span>06</p>
+                                    style="font-size: 150px;"><span style="color: #106018;">00</span>000</p>
+                                    
                             </div>
                         </div>
-
+                        <div class="w-100 d-flex justify-content-center align-items-center"><p id="tipo"></p></div>
                         <div class="row">
                             <div class="col d-flex align-items-center justify-content-center flex-column">
                                 <p class="fw-bold text-center text-uppercase lh-1" style="font-size: 25px;">Sala</p>
                                 <p id="salaAtual" class="fw-bold text-center text-uppercase lh-1"
-                                    style="font-size: 40px; color: #106018;">5</p>
+                                    style="font-size: 40px; color: #106018;">0</p>
                             </div>
                             <div class="col d-flex align-items-center justify-content-center flex-column">
                                 <p class="fw-bold text-center text-uppercase lh-1" style="font-size: 25px;">Guichê</p>
                                 <p id="guicheAtual" class="fw-bold text-center text-uppercase lh-1"
-                                    style="font-size: 40px; color: #106018;">6</p>
+                                    style="font-size: 40px; color: #106018;">0</p>
                             </div>
                         </div>
                     </div>
