@@ -55,7 +55,7 @@
         <div class="escolher w-100 d-flex justify-content-center align-items-center">
           <img src="./imgs/apm.jpg" alt="" class="fundo">
           <div class="overlay"></div>
-          <a href="./matricula.php">
+          <a href="./apm.php">
           <p class="fs-1 fw-bold text-light">APM</p>
           </a>
         </div>

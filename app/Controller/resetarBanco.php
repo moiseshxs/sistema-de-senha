@@ -1,6 +1,10 @@
 <?php 
     require_once(__DIR__."../../Model/Conexao.php");
-    Conexao::resetarBanco();
+    if(Conexao::resetarBanco()){
+        echo json_encode([
+            'success' => true
+        ]);
+    }
 
 
 ?>

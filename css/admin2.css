@@ -16,6 +16,44 @@
   height: 70%;
   background-color: rgb(198, 198, 198);
 }
+#loader-space{
+  position: absolute;
+  height: 100vh;
+  width: 100%;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(5px);  
+  z-index: 2;
+}
+
+
+.loader {
+  width: 50px;
+  aspect-ratio: 1;
+  display: grid;
+  color: rgba(0, 147, 0, 0.559);
+  position: absolute;
+  background: 
+    conic-gradient(from 90deg at 3px 3px,#0000 90deg,currentColor 0)
+    -3px -3px/calc(50% + 1.5px) calc(50% + 1.5px);
+  animation: l28 2s infinite;
+  
+}
+.loader::before,
+.loader::after {
+  content: "";
+  grid-area: 1/1;
+  background: repeating-conic-gradient(#0000 0 35deg,currentColor 0 90deg);
+  -webkit-mask: radial-gradient(farthest-side,#0000 calc(100% - 3px),#000 0);
+  border-radius: 50%;
+}
+.loader::after {
+  margin: 20%;
+}
+@keyframes l28 {
+  100% {transform: rotate(1turn)}
+}
 
 .excluir {
   width: 300px;
