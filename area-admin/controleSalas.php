@@ -35,7 +35,7 @@
       <div class="col"></div>
       <div class="col-4 d-flex align-items-center">
         <div class="select w-100 overflow-auto" id="salasTotal" style="height: 400px !important">
-          <div class="opcao d-flex align-items-center justify-content-center" onclick="borda(this)" >
+          <div class="opcao d-flex align-items-center justify-content-center" onclick="borda(this)" id="areaNome">
             <p class="fs-1" id="salaNome">SALA 1 </p> <a id="trocarNomeSala"> <i class='bx bx-edit-alt'></i></a>
           </div>
           <div class="opcao bg-success add d-flex align-items-center justify-content-center ">
@@ -45,15 +45,9 @@
       </div>
       <div class="col"></div>
       <div class="col-4 d-flex align-items-center">
-        <div class="select w-100" style="height: 80%">
+        <div class="select w-100" style="height: 400px" id="allGuiches">
           <div class="opcao safado d-flex align-items-center justify-content-center" >
             <p class="fs-1">GUICHÊ 1 </p>
-          </div>
-          <div class="opcao safado d-flex align-items-center justify-content-center" >
-            <p class="fs-1">GUICHÊ 2</p>
-          </div>
-          <div class="opcao safado d-flex align-items-center justify-content-center" >
-            <p class="fs-1">GUICHÊ 3</p>
           </div>
           <div class="add bg-success d-flex align-items-center justify-content-center">
             <p class="fs-1 fw-bold">+ ADD GUICHE</p>
@@ -77,7 +71,7 @@
       </div>
       <div class="modal-body">
         <form method="POST" action="" id="storeSala">
-        <input type="text" class="w-100 border border-none fs-2" id="nomeSala"/>
+        <input type="text" class="w-100 border border-none fs-2" id="nomeSala" maxlength="13"/>
       </div>
       <div class="modal-footer" style="border: transparent !important">
           <button type="button" class="btn btn-secondary fs-5" data-bs-dismiss="modal">Fechar</button>
@@ -111,14 +105,7 @@
 
 
   <script>
-  function borda(div) {
-    var divs = document.querySelectorAll('.opcao');
-    divs.forEach(function(element) {
-      element.classList.remove('borda-verde');
-    });
 
-    div.classList.add('borda-verde');
-  }
 
   function borda1(div) {
     var divs = document.querySelectorAll('.safado');
