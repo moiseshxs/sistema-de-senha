@@ -1,3 +1,5 @@
+let tipo = "Triagem"
+
 $('#abrirModal').on('click', function (e){
     $.ajax({
         type: 'GET',
@@ -114,13 +116,19 @@ const inserirSenha = async(senha, guiche) =>{
         dataType: 'json',
         url: '../app/Controller/inserirSenha.php',
         async: true,
-        data: {senha:senha,
-        guiche: guiche},
+        data: {
+            senha:senha,
+            guiche: guiche,
+            tipo: tipo
+        },
         success: async function(response) {
             //callback em caso de sucesso na requisição
               
             atualizarHtmlProximasSenhas(response)
             await buscarUltimasSenhas()
+        },
+        error: (e) =>{
+            console.log(e)
         }
     });
 }
