@@ -35,8 +35,12 @@
           <div class=" h-25 d-flex justify-content-center fs-4 fw-bold text-uppercase">
             <p class="text-center" style="font-size: 30px;">Senha Atual</p>
           </div>
-          <div class=" h-75 d-flex justify-content-center fs-1 fw-bold">
-            <p class="text-center" style="font-size: 60px;"><span class="text-success">AP</span>000</p>
+          <div class=" h-75 d-flex w-100  gap-2 justify-content-center fs-1 fw-bold ">
+            <p class="text-center" style="font-size: 60px;"><span id="prefixo-atual" class="">AP</span><span id="digitos-atual">000</span></p>
+            <div class="d-flex flex-column justify-content-center align-items-center gap-2">
+            <button class="btn btn-outline-primary" style="font-size:14px; height:40px; width:150px">Atendimento Ok</button>
+            <button class="btn btn-outline-dark" style="font-size:14px; height:40px; width:150px">Não Compareceu</button>
+            </div>
           </div>
         </div>
         <div class="col">

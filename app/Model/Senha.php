@@ -64,7 +64,9 @@
         public function getSenhas(){
             $pdo = Conexao::conexao();
             $senhas = array();
-            $comAM = "SELECT  senha FROM tbsenha
+            $comAM = "SELECT  senha  FROM tbsenha
+            
+            WHERE statusSenha =1
             ORDER BY updateAt DESC
             LIMIT 8";
             $stmt = $pdo->prepare($comAM);
@@ -75,6 +77,22 @@
                 return false;
             }
             return $senhas;
+        }
+
+        public function getSenhaCalledInGuiche($idGuiche)
+        {
+            $pdo = Conexao::conexao();
+            $com = "SELECT senha FROM tbsenha
+            WHERE idGuiche = :ig AND statusSenha = 0 AND tipoSenha = 'Triagem'
+            ORDER BY updateAt DESC
+            LIMIT 1";
+            $stmt= $pdo->prepare($com);
+            $stmt->bindParam(":ig", $idGuiche);
+            $stmt->execute();
+            if($stmt->rowCount() > 0){
+                return $stmt->fetch(PDO::FETCH_ASSOC);
+            }
+            return false;
         }
 
         public function getSenhasWithGuiche(){

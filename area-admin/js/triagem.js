@@ -33,6 +33,38 @@ $('#abrirModal').on('click', function (e){
 })
 
 
+const senhaAtual = idGuiche =>{
+    $.ajax({
+        type: 'POST',
+        dataType: 'json',
+        data:{idGuiche:idGuiche},
+        url: '../app/Controller/senhaChamadaPeloGuicheTriagem.php',
+        async: true,
+        success: (response) => {
+            console.log(response[0].senha)
+            if(response[0].senha){
+                console.log("fodase")
+                let prefixo = tratamentoPrefixo(response[0].senha.senha)
+                let color
+                if(prefixo == "AM"){
+                    color = "rgb(26, 26, 26);"
+                }else if(prefixo == "AR"){
+                    color = "rgb(16, 48, 96);"
+                }else{
+                    color = "rgb(19, 94, 19);"
+                }
+                let html = `<span id="prefixo-atual" style="color:${color} !important">${prefixo}</span>`
+                $("#prefixo-atual").html(html)
+                
+                document.getElementById("digitos-atual").innerText = (response[0].senha.senha).split(prefixo)[1]
+            }
+        },
+        error:(e) => {
+            console.log(e)
+        }
+    })
+}
+
 
 //função para corrigir senhas menores que 3 digitos ex: 2 => 002
 const tratamentoSenha = senha =>{
@@ -87,9 +119,10 @@ const buscarUltimasSenhas = async() =>{
         async: true,
         
         success: function(response) {
-            
+            console.log(response)
             //construção da tag html
             let newHtml = "<div class='row item'>"
+            if(response.result){
             response.result.forEach(senha => {
                 
                 newHtml += "<div class='col d-flex align-items-center justify-content-center'><p class='h3 fw-bold'>"+senha.senha+"</p></div>"
@@ -98,6 +131,7 @@ const buscarUltimasSenhas = async() =>{
             newHtml += "</div>"
             //atualizando html
             $('#ultimos').html(newHtml) 
+        }
 
             
         },
@@ -125,6 +159,7 @@ const inserirSenha = async(senha, guiche) =>{
             //callback em caso de sucesso na requisição
               
             atualizarHtmlProximasSenhas(response)
+            senhaAtual(guiche)
             await buscarUltimasSenhas()
         },
         error: (e) =>{
