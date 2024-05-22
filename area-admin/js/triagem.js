@@ -33,11 +33,11 @@ $('#abrirModal').on('click', function (e){
 })
 
 
-const senhaAtual = idGuiche =>{
+const senhaAtual = () =>{
     $.ajax({
         type: 'POST',
         dataType: 'json',
-        data:{idGuiche:idGuiche},
+        data:{idSenha:localStorage.getItem("idSenhaAtual")},
         url: '../app/Controller/senhaChamadaPeloGuicheTriagem.php',
         async: true,
         success: (response) => {
@@ -111,6 +111,32 @@ const atualizarHtmlProximasSenhas =  (response) =>{
 }
 
 //funcao que faz requisição ajax para trazer as ultimas senhas chamadas
+
+
+const update = status =>{
+
+    if(localStorage.getItem('idSenhaAtual') != undefined){
+    $.ajax({
+        type: 'POST',
+        dataType: 'json',
+        data:{
+            status:status,
+            id: localStorage.getItem("idSenhaAtual")
+        },
+        url: '../app/Controller/atualizarSenhaChamadaPeloGuicheTriagem.php',
+        async: true,
+        
+        success: function(response) {
+            console.log(response)
+            localStorage.removeItem("idSenhaAtual")
+            $("#embacada").css('display', 'none')
+            $("#senhaAtual").html(`<p id="senhaAtual" class="text-center" style="font-size: 60px;"><span id="prefixo-atual" class="">00</span><span id="digitos-atual">000</span></p>`)
+        }
+    })
+}
+}
+
+
 const buscarUltimasSenhas = async() =>{
     $.ajax({
         type: 'GET',
@@ -122,11 +148,18 @@ const buscarUltimasSenhas = async() =>{
             console.log(response)
             //construção da tag html
             let newHtml = "<div class='row item'>"
+            let icon;
             if(response.result){
             response.result.forEach(senha => {
-                
-                newHtml += "<div class='col d-flex align-items-center justify-content-center'><p class='h3 fw-bold'>"+senha.senha+"</p></div>"
-                newHtml += `<div onclick="reCall('${senha.senha}')" class="col d-flex align-items-center justify-content-center"><button class="btn btn-success fw-semibold">Chamar</button></div>`
+                if(senha.status == '1'){
+                    icon = `<i class='bx bx-check-circle fs-1 text-success'></i>`
+                }else if(senha.status == '2'){
+                    icon = `<i class='bx bx-x-circle fs-1 text-danger'></i>`
+                }
+                console.log(senha)
+                newHtml += "<div class='col-5 d-flex align-items-center justify-content-center'><p class='h3 fw-bold'>"+senha.senha+"</p></div>"
+                newHtml += `<div class='col-3 d-flex align-items-center justify-content-center'>${icon}</div>`
+                newHtml += `<div onclick="reCall('${senha.senha}', '${senha.id}')" class="col-4 d-flex align-items-center justify-content-center"><button class="btn btn-success fw-semibold">Chamar</button></div>`
             });
             newHtml += "</div>"
             //atualizando html
@@ -157,9 +190,24 @@ const inserirSenha = async(senha, guiche) =>{
         },
         success: async function(response) {
             //callback em caso de sucesso na requisição
-              
+              console.log(response)
+              let prefixo = tratamentoPrefixo(senha)
+                let color
+                if(prefixo == "AM"){
+                    color = "rgb(26, 26, 26);"
+                }else if(prefixo == "AR"){
+                    color = "rgb(16, 48, 96);"
+                }else{
+                    color = "rgb(19, 94, 19);"
+                }
+                let html = `<span id="prefixo-atual" style="color:${color} !important">${prefixo}</span>`
+                $("#prefixo-atual").html(html)
+                
+                document.getElementById("digitos-atual").innerText = (senha).split(prefixo)[1]
+                localStorage.setItem("idSenhaAtual", response.idSenhaAtual)
+                $("#embacada").css('display', 'flex')
             atualizarHtmlProximasSenhas(response)
-            senhaAtual(guiche)
+            
             await buscarUltimasSenhas()
         },
         error: (e) =>{
@@ -168,14 +216,16 @@ const inserirSenha = async(senha, guiche) =>{
     });
 }
 
-const reCall = async (senha) =>{
-    await updateSenha(senha)
+const reCall = async (senha, id) =>{
+    console.log(id)
+    await updateSenha(senha, id)
     setTimeout(() =>{
      trazerSenhas()
 }, 500)     
 }
 
-const updateSenha = async (senha) =>{
+const updateSenha = async (senha, id) =>{
+    localStorage.setItem('idSenhaAtual', id)
     $(document).ready(function() {
     let newSenha = senha.toString() 
     $.ajax({
@@ -186,7 +236,26 @@ const updateSenha = async (senha) =>{
         data: {senha:newSenha,
         },
         success: function(response) {
-            console.log(response)
+            let prefixo = tratamentoPrefixo(senha)
+            let color
+            if(prefixo == "AM"){
+                color = "rgb(26, 26, 26);"
+            }else if(prefixo == "AR"){
+                color = "rgb(16, 48, 96);"
+            }else{
+                color = "rgb(19, 94, 19);"
+            }
+            let html = `<span id="prefixo-atual" style="color:${color} !important">${prefixo}</span>`
+            $("#prefixo-atual").html(html)
+            
+            document.getElementById("digitos-atual").innerText = (senha).split(prefixo)[1]
+            localStorage.setItem("idSenhaAtual", id)
+            $("#embacada").css('display', 'flex')
+            atualizarHtmlProximasSenhas(response)
+        
+            buscarUltimasSenhas()
+        },error: (e) =>{
+            console.log(e)
         }
 
     })
@@ -211,7 +280,7 @@ const trazerSenhas = async() =>{
                     number = parseInt(number)
                     console.log(number)
                     newHtml += "<div class='col d-flex align-items-center justify-content-center'><p class='h3 fw-bold'>"+senha.senha+"</p></div>"
-                    newHtml += `<div onclick="reCall('${senha.senha}')" class="col d-flex align-items-center justify-content-center"><button class="btn btn-success fw-semibold">Chamar</button></div>`
+                    newHtml += `<div onclick="reCall('${senha.senha}', '${senha.id}')" class="col d-flex align-items-center justify-content-center"><button class="btn btn-success fw-semibold">Chamar</button></div>`
                     
                 });
             }
@@ -303,6 +372,11 @@ $(document).ready(function() {
     //de 1 em 1 segundo é buscado as ultimas senhas
     
 })
+
+if(localStorage.getItem("idSenhaAtual") != undefined){
+    senhaAtual()
+    $("#embacada").css('display', 'flex')
+}
 
 setInterval(()=>{
     console.log("aaaaa")

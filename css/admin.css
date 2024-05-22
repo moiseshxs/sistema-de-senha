@@ -16,6 +16,20 @@
   
 }
 
+#main{
+  position: relative;
+}
+#embacada{
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.8);
+  width: 100%;
+  left: 0;
+  height: 95%;
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
 #abrirModal{
   position: absolute;
   width: 8%;

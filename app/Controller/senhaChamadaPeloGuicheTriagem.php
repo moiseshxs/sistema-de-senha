@@ -4,7 +4,7 @@ include_once('../Model/Senha.php');
 
 
 $senha = new Senha();
-$senha = $senha->getSenhaCalledInGuiche($_POST['idGuiche']);
+$senha = $senha->getSenhaCalledInGuiche($_POST['idSenha']);
 $response = array([
     'success' => true,
     'senha' => $senha

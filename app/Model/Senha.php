@@ -19,6 +19,7 @@
             $stmt->bindValue(":ua", $senha->getUpdatedAt());
             $stmt->bindValue(":ig", $senha->getIdGuiche());
             $stmt->execute();
+            return $pdo->lastInsertId();
         }
 
         public function getLastSenhas(){
@@ -64,9 +65,9 @@
         public function getSenhas(){
             $pdo = Conexao::conexao();
             $senhas = array();
-            $comAM = "SELECT  senha  FROM tbsenha
+            $comAM = "SELECT  senha, statusSenha as 'status', idSenha as id  FROM tbsenha
             
-            WHERE statusSenha =1
+            WHERE statusSenha !=0 
             ORDER BY updateAt DESC
             LIMIT 8";
             $stmt = $pdo->prepare($comAM);
@@ -79,15 +80,15 @@
             return $senhas;
         }
 
-        public function getSenhaCalledInGuiche($idGuiche)
+        public function getSenhaCalledInGuiche($idSenha)
         {
             $pdo = Conexao::conexao();
             $com = "SELECT senha FROM tbsenha
-            WHERE idGuiche = :ig AND statusSenha = 0 AND tipoSenha = 'Triagem'
+            WHERE idSenha = :id
             ORDER BY updateAt DESC
             LIMIT 1";
             $stmt= $pdo->prepare($com);
-            $stmt->bindParam(":ig", $idGuiche);
+            $stmt->bindParam(":id", $idSenha);
             $stmt->execute();
             if($stmt->rowCount() > 0){
                 return $stmt->fetch(PDO::FETCH_ASSOC);
@@ -113,10 +114,23 @@
         }
         public function reCall($senha, $data){
             $pdo = Conexao::conexao();
-            $com = "UPDATE tbsenha SET updateAt = :ua WHERE senha = :s";
+            $com = "UPDATE tbsenha SET updateAt = :ua,  statusSenha = '0' WHERE senha = :s";
             $stmt = $pdo->prepare($com);
             $stmt->bindValue(":ua", $data);
             $stmt->bindValue(":s", $senha);
+            $stmt->execute();
+            if($stmt->rowCount() >0){
+                return true;
+            }
+            return false;
+        }
+        public static function updateTriagem($id, $status)
+        {
+            $pdo = Conexao::conexao();
+            $com = "UPDATE tbsenha SET statusSenha = :ss WHERE idSenha = :id";
+            $stmt = $pdo->prepare($com);
+            $stmt->bindValue(":ss", $status);
+            $stmt->bindParam(":id", $id);
             $stmt->execute();
             if($stmt->rowCount() >0){
                 return true;

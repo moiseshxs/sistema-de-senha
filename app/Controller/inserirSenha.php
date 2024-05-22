@@ -8,11 +8,13 @@
     $senha->setTipoSenha($_POST['tipo']);
     $senha->setUpdatedAt($data);
     $senha->setIdGuiche($_POST['guiche']);
-    $senha->storeSenha($senha);
+    $idSenha =$senha->storeSenha($senha);
     
     $senhas = $senha->getLastSenhas();
     $response = array("success" => true,
-"senhas" => $senhas
+"senhas" => $senhas,
+"idSenhaAtual" => $idSenha
+
 );
     echo json_encode($response);
 ?>

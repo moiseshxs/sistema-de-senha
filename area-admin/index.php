@@ -14,13 +14,18 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
   <link rel="stylesheet" href="../css/admin.css" />
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
 
 
 
 </head>
 
 <body>
-  <div class="container-fluid w-100 vh-100">
+  <div id="main" class="container-fluid w-100 vh-100">
+    <div id="embacada">
+        <h3 style="color:#fff">Termine o Atendimento Atual</h3>
+    </div>
     <div class="content h-100 w-100">
       <div class="row cima bg-light pb-2 d-flex align-itens-center">
       <button id="abrirModal" type="button"
@@ -36,10 +41,10 @@
             <p class="text-center" style="font-size: 30px;">Senha Atual</p>
           </div>
           <div class=" h-75 d-flex w-100  gap-2 justify-content-center fs-1 fw-bold ">
-            <p class="text-center" style="font-size: 60px;"><span id="prefixo-atual" class="">AP</span><span id="digitos-atual">000</span></p>
+            <p id="senhaAtual" class="text-center" style="font-size: 60px;"><span id="prefixo-atual" class="">00</span><span id="digitos-atual">000</span></p>
             <div class="d-flex flex-column justify-content-center align-items-center gap-2">
-            <button class="btn btn-outline-primary" style="font-size:14px; height:40px; width:150px">Atendimento Ok</button>
-            <button class="btn btn-outline-dark" style="font-size:14px; height:40px; width:150px">Não Compareceu</button>
+            <button onclick="update('1')" class="btn btn-outline-primary" style="font-size:14px; height:40px; width:150px">Atendimento Ok</button>
+            <button onclick="update('2')" class="btn btn-outline-dark" style="font-size:14px; height:40px; width:150px">Não Compareceu</button>
             </div>
           </div>
         </div>
@@ -120,13 +125,17 @@
             </div>
           </div>
           <div class="conteudo overflow-auto d-flex flex-column justify-content-start">
-            <div id="ultimos" class="row item">
+            <div id="ultimos" class="row item mb-1">
               <div class="col d-flex align-items-center justify-content-center">
                 <p class="h3 fw-bold">AP001</p>
+              </div>
+              <div class="col d-flex align-items-center justify-content-center">
+              <i class='bx bx-check-circle fs-1 text-success'></i>
               </div>
               <div class="col d-flex align-items-center justify-content-center"><button
                   class="btn btn-success fw-semibold">Chamar</button></div>
             </div>
+            
           </div>
         </div>
       </div>
