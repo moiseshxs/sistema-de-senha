@@ -97,19 +97,13 @@ const getGuiche = (div, idSala) => {
 
         success: function(response) {
             numGuicheProx = response.guiches.length+1
-            
             let newHtml = `<div class="select w-100" style="height: 400px" id="allGuiches">`
-            
-            if(response.guiches == false) {
-                numGuicheProx = 1
-            } else {
                 response.guiches.forEach(guiche =>{
                     newHtml += `<div class="opcao safado d-flex align-items-center justify-content-center" >`
                     newHtml += `<p class="fs-1">${guiche.nomeGuiche}</p>`
                     newHtml += `</div>`
                 
                 })
-            }
                 newHtml += `<div class="add bg-success d-flex align-items-center justify-content-center">`
                 newHtml += `<p class="fs-1 fw-bold" onclick="addGuicheSala(${idSala})">+ ADD GUICHE</p>`
                 newHtml += `</div>`
@@ -127,7 +121,6 @@ const addGuicheSala = (idSala) => {
     } else {
         nomeGuiche = `Guichê ${numGuicheProx}`
     }
-    
     
     $.ajax ({
         type: 'POST',

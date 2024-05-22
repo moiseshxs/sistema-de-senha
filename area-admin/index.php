@@ -40,111 +40,11 @@
           <div class=" h-25 d-flex justify-content-center fs-4 fw-bold text-uppercase">
             <p class="text-center" style="font-size: 30px;">Senha Atual</p>
           </div>
-<<<<<<< Updated upstream
           <div class=" h-75 d-flex w-100  gap-2 justify-content-center fs-1 fw-bold ">
             <p id="senhaAtual" class="text-center" style="font-size: 60px;"><span id="prefixo-atual" class="">00</span><span id="digitos-atual">000</span></p>
             <div class="d-flex flex-column justify-content-center align-items-center gap-2">
             <button onclick="update('1')" class="btn btn-outline-primary" style="font-size:14px; height:40px; width:150px">Atendimento Ok</button>
             <button onclick="update('2')" class="btn btn-outline-dark" style="font-size:14px; height:40px; width:150px">Não Compareceu</button>
-=======
-          <div class="col d-flex flex-column senha-atual h-100">
-            <div
-              class=" h-25 d-flex justify-content-center fs-4 fw-bold text-uppercase"
-            >
-              <p class="text-center" style="font-size: 30px;">Senha Atual</p>
-            </div>
-            <div class=" h-75 d-flex justify-content-center fs-1 fw-bold">
-              <p id="atual" class="text-center" style="font-size: 60px;"><span class="text-success">AP</span>000</p>
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
-            </div>
-          </div>
-          <div class="col d-flex flex-column suas-informacoes h-100 pe-3">
-            <div
-              class=" d-flex justify-content-end fs-4 fw-bold text-uppercase"
-            >
-              Suas Informações
-            </div>
-            <div class=" d-flex justify-content-end h5">Sala: 3</div>
-            
-            <div class=" d-flex justify-content-end h5">Guichê: 2</div>
-            <input type="hidden" id="guiche" value="4">
-          </div>
-        </div>
-        <div class="row meio border border-secondary">
-          <div class="col p-0">
-            <div class="titulo matricula">
-              <div class="text1 h-25 w-100 text-center text-light h6 fw-normal">
-                Atendimento
-              </div>
-              <div class="text2 h-50 w-100 text-center text-light h3">
-                Matrícula
-              </div>
-            </div>
-            <div class="conteudo">
-              
-              <div id="salvarAM" class="senha border-matricula bg-cinza"><p id="senhaAM" class="m-0 fs-1 fw-bold"><span class="text-dark">AM</span>001</p></div>
-              
-            </div>
-          </div>
-          <div class="col p-0 bg-cinza">
-            <div class="titulo remanescente">
-              <div class="text1 h-25 w-100 text-center text-light h6 fw-normal">
-                Atendimento
-              </div>
-              <div class="text2 h-50 w-100 text-center text-light h3">
-                Remanescente
-              </div>
-            </div>
-            <div class="conteudo">
-              <div id="salvarAR" class="senha border-remanescente bg-cinza"><p id="senhaAR" class="m-0 fs-1 fw-bold"><span class="text-primary-emphasis">AR</span>001</p></div>
-            </div>
-          </div>
-          <div class="col p-0">
-            <div class="titulo preferencial">
-              <div class="text1 h-25 w-100 text-center text-light h6 fw-normal">
-                Atendimento
-              </div>
-              <div class="text2 h-50 w-100 text-center text-light h3">
-                Preferencial
-              </div>
-            </div>
-            <div class="conteudo">
-              <div id="salvarAP" class="senha border-preferencial bg-cinza"><p id="senhaAP" class="m-0 fs-1 fw-bold"><span class="text-success">AP</span>001</p></div>
-            </div>
-          </div>
-          <div class="col p-0 bg-cinza">
-            <div class="titulo listas">
-              <div class="text1 h-25 w-100 text-center text-light h6 fw-normal">
-                Listagem
-              </div>
-              <div class="text2 h-50 w-100 text-center text-light h3">
-                Próximos
-              </div>
-            </div>
-            <div class="conteudo d-flex flex-column justify-content-start">
-              <div class="row item border-bottom border-secondary">
-                <div class="col d-flex align-items-center justify-content-center"><p class="h3 fw-bold">AP001</p></div>
-                <div class="col d-flex align-items-center justify-content-center"><button class="btn btn-success fw-semibold">Chamar</button></div>
-              </div>
-            </div>
-          </div>
-          <div class="col p-0 ">
-            <div class="titulo listas">
-              <div class="text1 h-25 w-100 text-center text-light h6 fw-normal">
-                Listagem
-              </div>
-              <div class="text2 h-50 w-100 text-center text-light h3">
-                Ultimos
-              </div>
-            </div>
-            <div class="conteudo overflow-auto d-flex flex-column justify-content-start">
-              <div id="ultimos" class="row item">
-                <div class="col d-flex align-items-center justify-content-center"><p class="h3 fw-bold">AP001</p></div>
-                <div class="col d-flex align-items-center justify-content-center"><button class="btn btn-success fw-semibold">Chamar</button></div>
-              </div>
->>>>>>> Stashed changes
             </div>
           </div>
         </div>
@@ -236,11 +136,6 @@
                   class="btn btn-success fw-semibold">Chamar</button></div>
             </div>
             
-<<<<<<< Updated upstream
-=======
-            <div class=" d-flex justify-content-end h5">Guichê: 2</div>
-            <input type="hidden" id="guiche" value="4">
->>>>>>> Stashed changes
           </div>
         </div>
       </div>
