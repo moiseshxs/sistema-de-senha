@@ -65,9 +65,16 @@
         public function getSenhas(){
             $pdo = Conexao::conexao();
             $senhas = array();
+<<<<<<< Updated upstream
             $comAM = "SELECT  senha, statusSenha as 'status', idSenha as id  FROM tbsenha
             
             WHERE statusSenha !=0 
+=======
+            $comAM = "SELECT  senha FROM tbsenha
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
             ORDER BY updateAt DESC
             LIMIT 8";
             $stmt = $pdo->prepare($comAM);
@@ -114,7 +121,15 @@
         }
         public function reCall($senha, $data){
             $pdo = Conexao::conexao();
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
             $com = "UPDATE tbsenha SET updateAt = :ua,  statusSenha = '0' WHERE senha = :s";
+=======
+            $com = "UPDATE tbsenha SET updateAt = :ua WHERE senha = :s";
+>>>>>>> Stashed changes
+=======
+            $com = "UPDATE tbsenha SET updateAt = :ua WHERE senha = :s";
+>>>>>>> Stashed changes
             $stmt = $pdo->prepare($com);
             $stmt->bindValue(":ua", $data);
             $stmt->bindValue(":s", $senha);
@@ -124,6 +139,8 @@
             }
             return false;
         }
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
         public static function updateTriagem($id, $status)
         {
             $pdo = Conexao::conexao();
@@ -137,6 +154,10 @@
             }
             return false;
         }
+=======
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
         public function setSenha($senha){
             $this->senha = $senha;
         }
