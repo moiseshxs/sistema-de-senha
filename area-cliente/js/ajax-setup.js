@@ -54,7 +54,7 @@ $(document).ready(function() {
             $("#salaAtual").html(salaHtml)
             $("#guicheAtual").html(guicheHtml)
             $("#tipo").html(tipoAtual)
-            let audio = new Audio('./js/corinthians.mp3')
+            let audio = new Audio('./js/bereal.mp3')
             audio.play()
         
         }

@@ -51,12 +51,11 @@
         <div class="col">
 
         </div>
-        <div class="col d-flex flex-column suas-informacoes h-100 pe-3">
+        <div class="col d-flex flex-column suas-informacoes h-100" id="infos">
           <div class=" d-flex justify-content-end fs-5 fw-bold text-uppercase">
             Suas Informações
           </div>
           <div class=" d-flex justify-content-end fs-5"><span class="fw-bold fs-5">Sala</span>: 1</div>
-
           <div class=" d-flex justify-content-end fs-5"><span class="fw-bold fs-5">Guichê</span>: 3</div>
           <input type="hidden" id="guiche" value="2">
         </div>
@@ -171,13 +170,13 @@
           <div class="container-fluid h-100">
             <div class="row h-100 modalzin">
               <div class="col-1"></div>
-              <div class="col-4 bg-light p-1">
+              <div class="col-4 bg-light p-1" id="salasTotal">
                 <div class="sala w-100 bg-secondary d-flex justify-content-center align-items-center">
                   <p class="titulo-sala fs-1 fw-bold text-light">SALA 1</p>
                 </div>
               </div>
               <div class="col-2"></div>
-              <div class="col-4 bg-light p-1 flex-column">
+              <div class="col-4 bg-light p-1 flex-column" id="guiches">
                 <div class="titulo-sala w-100 d-flex justify-content-center align-items-center">
                   <p class="titulo-sala fs-3 fw-bold ">SALA 1</p>
                 </div>

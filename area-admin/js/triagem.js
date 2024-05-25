@@ -8,29 +8,57 @@ $('#abrirModal').on('click', function (e){
         async: true,
     
          success: function(response) {
-
                let newHtml = `<div class="col-4 bg-light w-100 p-1" id="salasTotal">`
-                           let totalSalas = []
-                           response.result.forEach(result => {
-                            if(totalSalas[totalSalas.length-1] == result.sala) {
-
-                            } else {
-                                totalSalas.push(result.sala)
-                            }
-                           })
-
-                           totalSalas.forEach(sala => {
-                            newHtml +=`<div class="sala w-100 bg-secondary border border-dark d-flex justify-content-center align-items-center">`
-                            newHtml += `<p class="titulo-sala fs-1 fw-bold text-light">${sala}</p>`
+                           response.salas.forEach(sala => {
+                            newHtml +=`<div class="sala w-100 bg-secondary border border-dark d-flex justify-content-center align-items-center" onclick="trazerGuiches('${sala.idSala}', '${sala.nomeSala}')">`
+                            newHtml += `<p class="titulo-sala fs-1 fw-bold text-light">${sala.nomeSala}</p>`
                             newHtml +=`</div>`
-                            
                            })
-                           console.log(totalSalas);
+
                newHtml +=`</div>`
                $('#salasTotal').html(newHtml)
          }
     })
 })
+
+const trazerGuiches = async(idSala, nomeSala) => {
+    $.ajax ({
+        type: 'POST',
+        data: {idSala: idSala},
+        dataType: 'json',
+        url: '../app/Controller/trazerGuicheDasSalas.php',
+        async: true,
+
+        success: function(response) {
+            console.log(response);
+            let newHtml = `<div class="col-4 w-100 bg-light p-1 flex-column d-flex gap-3" id="guiches">`
+                newHtml += `<p class="titulo-sala fs-3 fw-bold w-100 text-center text-uppercase">${nomeSala}</p>`
+                response.guiches.forEach(guiche => {
+                    newHtml += `<div class="guiche w-100 bg-secondary py-2 d-flex justify-content-center align-items-center" onclick="trocarInfos('${idSala}', '${guiche.nomeGuiche}', '${guiche.idGuiche}')">`
+                    newHtml += `<p class="titulo-sala fs-1 fw-bold text-light text-uppercase">${guiche.nomeGuiche}</p>`
+                    newHtml += `</div>`
+                })
+                newHtml += `</div>`
+                $('#guiches').html(newHtml)
+        }
+    })
+}
+
+const trocarInfos = async(idSala, nomeGuiche, idGuiche) => {
+    let tratamentoNomeGuiche = nomeGuiche.split(' ');
+    tratamentoNomeGuiche = tratamentoNomeGuiche[1].charAt(1)
+        newHtml = `<div class="col d-flex flex-column suas-informacoes h-100" id="infos">`
+            newHtml += `<div class="d-flex justify-content-end fs-5 fw-bold text-uppercase">`
+                newHtml += `Suas Informações`
+            newHtml += `</div>`
+        newHtml += `<div class=" d-flex justify-content-end fs-5"><span class="fw-bold fs-5">Sala</span>: ${idSala}</div>`
+            newHtml += `<div class=" d-flex justify-content-end fs-5"><span class="fw-bold fs-5">Guichê</span>: ${tratamentoNomeGuiche}</div>`
+        newHtml += `<input type="hidden" id="guiche" value="${idGuiche}">`
+        $('#infos').html(newHtml);
+
+
+
+}
 
 
 const senhaAtual = () =>{
