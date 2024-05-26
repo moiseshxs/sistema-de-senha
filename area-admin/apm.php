@@ -35,7 +35,7 @@
             <p class="text-center" style="font-size: 30px;">Senha Atual</p>
           </div>
           <div class=" h-75 d-flex justify-content-center fs-1 fw-bold">
-            <p class="text-center" style="font-size: 60px;"><span class="text-success">AP</span>000</p>
+            <p id="senhaAtual" class="text-center" style="font-size: 60px;"><span class="text-success">AP</span>000</p>
           </div>
         </div>
         <div class="col">
@@ -51,13 +51,16 @@
           <input type="hidden" id="guiche" value="2">
         </div>
         <div id="compareceu-area" class="col d-flex justify-content-center align-items-center">
-          <button class="btn btn-success me-3">Compareceu</button>
-          <button class="btn btn-danger ms-3">Não Compareceu</button>
+          <button onclick="compareceu('1')" class="btn btn-success me-3">Compareceu</button>
+          <button onclick="compareceu('2')" class="btn btn-danger ms-3">Não Compareceu</button>
         </div>
     </div>
       
 
-      <div class="row meio border border-secondary">
+      <div class="row meio border border-secondary"  id="conteudo">
+      <div id="embaca">
+          <h3 style="color:#fff">Termine o Atendimento Atual</h3>
+        </div>
         <div class="col p-0">
           <div class="titulo matricula">
             <div class="text1 h-25 w-100 text-center text-light h6 fw-normal">
@@ -78,7 +81,7 @@
           </div>
         </div>
         <div class="col p-0 bg-cinza">
-          <div class="titulo remanescente">
+          <div class="titulo preferencial">
             <div class="text1 h-25 w-100 text-center text-light h6 fw-normal">
               Atendimento
             </div>
@@ -97,7 +100,7 @@
           </div>
         </div>
         <div class="col p-0">
-          <div class="titulo preferencial">
+          <div class="titulo remanescente">
             <div class="text1 h-25 w-100 text-center text-light h6 fw-normal">
               Atendimento
             </div>
@@ -106,7 +109,7 @@
             </div>
           </div>
           <div class="conteudo p-2 overflow-auto d-flex flex-column justify-content-start">
-            <div id="" class="row item">
+            <div id="atendidas" class="row item">
               <div class="col d-flex align-items-center justify-content-center">
                 <p class="h3 fw-bold">AP001</p>
               </div>
@@ -125,7 +128,7 @@
             </div>
           </div>
           <div class="conteudo p-2 overflow-auto d-flex flex-column justify-content-start">
-            <div id="ultimos" class="row item">
+            <div id="nao-comparecidos" class="row item">
               <div class="col d-flex align-items-center justify-content-center">
                 <p class="h3 fw-bold">AP001</p>
               </div>

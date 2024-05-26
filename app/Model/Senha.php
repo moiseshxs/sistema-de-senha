@@ -91,6 +91,20 @@
                 ORDER BY updateAt DESC
                 LIMIT 8";
             }
+            else if($valor == "Apm-Atendidas"){
+                $comAM = "SELECT senha, statusSenha as 'status', idSenha as id FROM `tbsenha`
+                 WHERE (statusSenha =1 AND tipoSenha = 'Apm')
+                  
+                ORDER BY updateAt DESC
+                LIMIT 8";
+            }
+            else if($valor == "Apm-Nao"){
+                $comAM = "SELECT senha, statusSenha as 'status', idSenha as id FROM `tbsenha`
+                 WHERE (statusSenha =2 AND tipoSenha = 'Apm')
+                  
+                ORDER BY updateAt DESC
+                LIMIT 8";
+            }
             else {
                 $comAM = "SELECT  senha, statusSenha as 'status', idSenha as id  FROM tbsenha
                 WHERE statusSenha !=0
@@ -186,6 +200,20 @@
         public static function updateMatricula($id, $status, $data) {
             $pdo = Conexao::conexao();
             $com = "UPDATE tbsenha SET statusSenha = :ss, updateAt = :ua, tipoSenha ='Matricula' WHERE idSenha = :id";
+            $stmt = $pdo->prepare($com);
+            $stmt->bindValue(":ss", $status);
+            $stmt->bindValue(":ua", $data);
+            $stmt->bindParam(":id", $id);
+            $stmt->execute();
+            if($stmt->rowCount() >0){
+                return true;
+            }
+            return false;
+        }
+
+        public static function updateApm($id, $status, $data) {
+            $pdo = Conexao::conexao();
+            $com = "UPDATE tbsenha SET statusSenha = :ss, updateAt = :ua, tipoSenha ='Apm' WHERE idSenha = :id";
             $stmt = $pdo->prepare($com);
             $stmt->bindValue(":ss", $status);
             $stmt->bindValue(":ua", $data);
