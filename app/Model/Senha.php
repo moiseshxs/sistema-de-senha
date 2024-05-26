@@ -154,11 +154,12 @@
             }
             return $senhas;
         }
-        public function reCall($senha, $data){
+        public function reCall($senha, $data, $guicheId){
             $pdo = Conexao::conexao();
-            $com = "UPDATE tbsenha SET updateAt = :ua,  statusSenha = '0' WHERE senha = :s";
+            $com = "UPDATE tbsenha SET updateAt = :ua,  statusSenha = '0', idGuiche = :ig WHERE senha = :s";
             $stmt = $pdo->prepare($com);
             $stmt->bindValue(":ua", $data);
+            $stmt->bindValue(":ig", $guicheId);
             $stmt->bindValue(":s", $senha);
             $stmt->execute();
             if($stmt->rowCount() >0){

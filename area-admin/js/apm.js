@@ -1,8 +1,97 @@
 let tipo = "Apm"
-
+let idGuicheA;
 let clicksCarregar =1
 let atendidos = 1
 let nao =1
+
+$('#abrirModal').on('click', function (e){
+    $.ajax({
+        type: 'GET',
+        dataType: 'json',
+        url: '../app/Controller/trazerSalas.php',
+        async: true,
+    
+         success: function(response) {
+               let newHtml = `<div class="col-4 bg-light w-100 gap-1 d-flex flex-column p-1" id="salasTotal">`
+                           response.salas.forEach(sala => {
+                            newHtml +=`<div class="sala w-100 bg-secondary d-flex justify-content-center align-items-center" onclick="trazerGuiches('${sala.idSala}', '${sala.nomeSala}', this)" id="salaa" style="border: 1px solid black">`
+                            newHtml += `<p class="titulo-sala fs-1 fw-bold text-light">${sala.nomeSala}</p>`
+                            newHtml +=`</div>`
+                           })
+
+               newHtml +=`</div>`
+               $('#salasTotal').html(newHtml)
+         }
+    })
+})
+
+const trazerGuiches = async(idSala, nomeSala, div) => {
+    if(div != null) {
+        var divs = document.querySelectorAll('.sala');
+        console.log(divs)
+        divs.forEach(function(element) {
+            element.style.border = "1px solid black";
+        });
+        div.style.border = "3px solid #00FF00";
+    }
+     $.ajax ({
+        type: 'POST',
+        data: {idSala: idSala},
+        dataType: 'json',
+        url: '../app/Controller/trazerGuicheDasSalas.php',
+        async: true,
+
+        success: function(response) {
+            console.log(response);
+            let newHtml = `<div class="col-4 w-100 bg-light p-1 flex-column d-flex gap-3" id="guiches">`
+                newHtml += `<p class="titulo-sala fs-3 fw-bold w-100 text-center text-uppercase">${nomeSala}</p>`
+                response.guiches.forEach(guiche => {
+                    newHtml += `<div class="guiche w-100 bg-secondary py-1 d-flex justify-content-center align-items-center" onclick="focar(this, '${guiche.nomeGuiche}', '${idSala}', '${guiche.idGuiche}')">`
+                    newHtml += `<p class="titulo-sala fs-1 fw-bold text-light text-uppercase">${guiche.nomeGuiche}</p>`
+                    newHtml += `</div>`
+                })
+                newHtml += `</div>`
+                $('#guiches').html(newHtml)
+        }
+    })
+}
+
+const focar = (div,nomeGuiche, idSala, idGuiche) => {
+
+    let tratamentoNomeGuiche = nomeGuiche.split(' ');
+    tratamentoNomeGuiche = tratamentoNomeGuiche[1].charAt(1)
+    guicheAtual = tratamentoNomeGuiche;
+
+    if(div != null) {
+        var divs = document.querySelectorAll('.guiche');
+        console.log(divs)
+        divs.forEach(function(element) {
+            element.style.border = "1px solid black";
+        });
+        div.style.border = "3px solid #00FF00";
+    }
+        newHtml = `<button type="button" class="btn btn-danger btn-safado" data-bs-dismiss="modal">Cancelar</button>`
+        newHtml += `<button type="button" class="btn btn-success" data-bs-dismiss="modal" onclick="trocarInfos('${idSala}', '${guicheAtual}', '${idGuiche}')">Salvar</button>`
+    $('.modal-footer').html(newHtml)
+}
+
+const trocarInfos = async(idSala, guicheAtual, idGuiche) => {
+    console.log(idGuiche)
+        newHtml = `<div class="col d-flex flex-column suas-informacoes h-100" id="infos">`
+            newHtml += `<div class="d-flex justify-content-end fs-5 fw-bold text-uppercase">`
+                newHtml += `Suas Informações`
+            newHtml += `</div>`
+        newHtml += `<div class=" d-flex justify-content-end fs-5"><span class="fw-bold fs-5">Sala</span>: ${idSala}</div>`
+            newHtml += `<div class=" d-flex justify-content-end fs-5"><span class="fw-bold fs-5">Guichê</span>: ${guicheAtual}</div>`
+        newHtml += `<input type="hidden" id="guiche" value="${idGuiche}">`
+        idGuicheA = idGuiche
+        $('#infos').html(newHtml);
+}
+
+
+
+
+
 
 const carregar = (tipo) =>{
     switch(tipo){

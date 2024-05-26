@@ -172,7 +172,7 @@
             <div class="row h-100 modalzin">
               <div class="col-1"></div>
               <div class="col-4 bg-light p-1" id="salasTotal">
-                <div class="sala w-100 bg-secondary d-flex justify-content-center align-items-center">
+                <div class="sala w-100 bg-secondary d-flex justify-content-center align-items-center" id="salaa">
                   <p class="titulo-sala fs-1 fw-bold text-light">SALA 1</p>
                 </div>
               </div>

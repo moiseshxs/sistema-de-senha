@@ -1,5 +1,5 @@
 let guicheAtual;
-let idGuiche;
+let idGuicheA;
 let clicksCarregar =1
 let atendidos = 1
 let nao =1
@@ -17,6 +17,7 @@ const carregar = (tipo) =>{
             break   
     }
 }
+
 $('#abrirModal').on('click', function (e){
     $.ajax({
         type: 'GET',
@@ -83,7 +84,7 @@ const focar = (div,nomeGuiche, idSala, idGuiche) => {
         div.style.border = "3px solid #00FF00";
     }
         newHtml = `<button type="button" class="btn btn-danger btn-safado" data-bs-dismiss="modal">Cancelar</button>`
-        newHtml += `<button type="button" class="btn btn-success" onclick="trocarInfos('${idSala}', '${guicheAtual}', '${idGuiche}')">Salvar</button>`
+        newHtml += `<button type="button" class="btn btn-success" data-bs-dismiss="modal" onclick="trocarInfos('${idSala}', '${guicheAtual}', '${idGuiche}')">Salvar</button>`
     $('.modal-footer').html(newHtml)
 }
 

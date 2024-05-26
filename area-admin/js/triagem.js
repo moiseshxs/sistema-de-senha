@@ -1,6 +1,7 @@
 let tipo = "Triagem"
 let limit = 8
 let clicksCarregar =1
+let idGuicheA;
 
 $('#abrirModal').on('click', function (e){
     $.ajax({
@@ -10,9 +11,9 @@ $('#abrirModal').on('click', function (e){
         async: true,
     
          success: function(response) {
-               let newHtml = `<div class="col-4 bg-light w-100 p-1" id="salasTotal">`
+               let newHtml = `<div class="col-4 bg-light d-flex gap-1 flex-column w-100 p-1" id="salasTotal">`
                            response.salas.forEach(sala => {
-                            newHtml +=`<div class="sala w-100 bg-secondary border border-dark d-flex justify-content-center align-items-center" onclick="trazerGuiches('${sala.idSala}', '${sala.nomeSala}')">`
+                            newHtml +=`<div class="sala w-100 bg-secondary border border-dark d-flex justify-content-center align-items-center" onclick="trazerGuiches('${sala.idSala}', '${sala.nomeSala}', this)" id="salaa" style="border: 1px solid black">`
                             newHtml += `<p class="titulo-sala fs-1 fw-bold text-light">${sala.nomeSala}</p>`
                             newHtml +=`</div>`
                            })
@@ -28,8 +29,16 @@ const carregar = () =>{
     clicksCarregar ++
 }
 
-const trazerGuiches = async(idSala, nomeSala) => {
-    
+const trazerGuiches = async(idSala, nomeSala, div) => {
+    if(div != null) {
+        var divs = document.querySelectorAll('.sala');
+        console.log(divs)
+        divs.forEach(function(element) {
+            element.style.border = "1px solid black";
+        });
+        div.style.border = "3px solid #00FF00";
+        
+    }
     $.ajax ({
         type: 'POST',
         data: {idSala: idSala},
@@ -42,7 +51,7 @@ const trazerGuiches = async(idSala, nomeSala) => {
             let newHtml = `<div class="col-4 w-100 bg-light p-1 flex-column d-flex gap-3" id="guiches">`
                 newHtml += `<p class="titulo-sala fs-3 fw-bold w-100 text-center text-uppercase">${nomeSala}</p>`
                 response.guiches.forEach(guiche => {
-                    newHtml += `<div class="guiche w-100 bg-secondary py-2 d-flex justify-content-center align-items-center" onclick="trocarInfos('${idSala}', '${guiche.nomeGuiche}', '${guiche.idGuiche}')">`
+                    newHtml += `<div class="guiche w-100 bg-secondary py-2 d-flex justify-content-center align-items-center" onclick="focar(this, '${guiche.nomeGuiche}', '${idSala}', '${guiche.idGuiche}')">`
                     newHtml += `<p class="titulo-sala fs-1 fw-bold text-light text-uppercase">${guiche.nomeGuiche}</p>`
                     newHtml += `</div>`
                 })
@@ -51,19 +60,35 @@ const trazerGuiches = async(idSala, nomeSala) => {
         }
     })
 }
+const focar = (div,nomeGuiche, idSala, idGuiche) => {
 
-const trocarInfos = async(idSala, nomeGuiche, idGuiche) => {
     let tratamentoNomeGuiche = nomeGuiche.split(' ');
     tratamentoNomeGuiche = tratamentoNomeGuiche[1].charAt(1)
+    guicheAtual = tratamentoNomeGuiche;
 
+    if(div != null) {
+        var divs = document.querySelectorAll('.guiche');
+        console.log(divs)
+        divs.forEach(function(element) {
+            element.style.border = "1px solid black";
+        });
+        div.style.border = "3px solid #00FF00";
+    }
+        newHtml = `<button type="button" class="btn btn-danger btn-safado" data-bs-dismiss="modal">Cancelar</button>`
+        newHtml += `<button type="button" class="btn btn-success" data-bs-dismiss="modal" onclick="trocarInfos('${idSala}', '${guicheAtual}', '${idGuiche}')">Salvar</button>`
+    $('.modal-footer').html(newHtml)
+}
+
+const trocarInfos = async(idSala, guicheAtual, idGuiche) => {
+    console.log(idGuiche)
         newHtml = `<div class="col d-flex flex-column suas-informacoes h-100" id="infos">`
             newHtml += `<div class="d-flex justify-content-end fs-5 fw-bold text-uppercase">`
                 newHtml += `Suas Informações`
             newHtml += `</div>`
         newHtml += `<div class=" d-flex justify-content-end fs-5"><span class="fw-bold fs-5">Sala</span>: ${idSala}</div>`
-            newHtml += `<div class=" d-flex justify-content-end fs-5"><span class="fw-bold fs-5">Guichê</span>: ${tratamentoNomeGuiche}</div>`
+            newHtml += `<div class=" d-flex justify-content-end fs-5"><span class="fw-bold fs-5">Guichê</span>: ${guicheAtual}</div>`
         newHtml += `<input type="hidden" id="guiche" value="${idGuiche}">`
-
+        idGuicheA = idGuiche
         $('#infos').html(newHtml);
 }
 
@@ -199,7 +224,7 @@ const buscarUltimasSenhas = async() =>{
                 console.log(senha)
                 newHtml += "<div class='col-5 d-flex align-items-center justify-content-center'><p class='h3 fw-bold'>"+senha.senha+"</p></div>"
                 newHtml += `<div class='col-3 d-flex align-items-center justify-content-center'>${icon}</div>`
-                newHtml += `<div onclick="reCall('${senha.senha}', '${senha.id}')" class="col-4 d-flex align-items-center justify-content-center"><button class="btn btn-success fw-semibold">Chamar</button></div>`
+                newHtml += `<div onclick="reCall('${senha.senha}', '${senha.id}', ${idGuicheA})" class="col-4 d-flex align-items-center justify-content-center"><button class="btn btn-success fw-semibold">Chamar</button></div>`
             });
             newHtml += `<div class='col-12 mt-2 d-flex justify-content-around align-items-center'><button class="btn btn-primary">Pesquisar</button><button class="btn btn-success" onclick="carregar()">Carregar mais</button></div>`
            
@@ -258,15 +283,15 @@ const inserirSenha = async(senha, guiche) =>{
     });
 }
 
-const reCall = async (senha, id) =>{
+const reCall = async (senha, id, guicheId) =>{
     console.log(id)
-    await updateSenha(senha, id)
+    await updateSenha(senha, id, guicheId)
     setTimeout(() =>{
      trazerSenhas()
 }, 500)     
 }
 
-const updateSenha = async (senha, id) =>{
+const updateSenha = async (senha, id, guicheId) =>{
     localStorage.setItem('idSenhaAtual', id)
     $(document).ready(function() {
     let newSenha = senha.toString() 
@@ -276,6 +301,7 @@ const updateSenha = async (senha, id) =>{
         url: '../app/Controller/recallSenha.php',
         async: true,
         data: {senha:newSenha,
+               idGuiche: guicheId
         },
         success: function(response) {
             let prefixo = tratamentoPrefixo(senha)
