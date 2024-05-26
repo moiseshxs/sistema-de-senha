@@ -22,7 +22,7 @@
   <div class="container-fluid w-100 vh-100">
     <div class="content h-100 w-100">
       <div class="row cima-2 bg-light d-flex align-itens-center">
-      <button id="abrirModal2" type="button"
+      <button id="abrirModal" type="button"
             class="btn btn-dark btn-sm " data-bs-toggle="modal" data-bs-target="#config">
             Alterar
           </button>
@@ -35,13 +35,13 @@
             <p class="text-center" style="font-size: 30px;">Senha Atual</p>
           </div>
           <div class=" h-75 d-flex justify-content-center fs-1 fw-bold" id="senhaAtual">
-            <p id="senha-atual-text" class="text-center" style="font-size: 60px;"><span class="text-success">AP</span>000</p>
+            <p id="senha-atual-text" class="text-center" style="font-size: 60px;"><span class="">00</span>000</p>
           </div>
         </div>
         <div class="col">
 
         </div>
-        <div class="col d-flex flex-column suas-informacoes h-100 pe-3">
+        <div class="col d-flex flex-column suas-informacoes h-100 pe-3" id="infos">
           <div class=" d-flex justify-content-end fs-5 fw-bold text-uppercase">
             Suas Informações
           </div>
@@ -89,7 +89,7 @@
               Matrícula - Preferencial
             </div>
           </div>
-          <div class="conteudo p-2 overflow-auto d-flex flex-column justify-content-start">
+          <div class="conteudo p-2 overflow-auto d-flex flex-column justify-content-start" id="preferencial">
             <div id="" class="row item">
               <div class="col d-flex align-items-center justify-content-center">
                 <p class="h3 fw-bold">AP001</p>
@@ -155,13 +155,13 @@
           <div class="container-fluid h-100">
             <div class="row h-100 modalzin">
               <div class="col-1"></div>
-              <div class="col-4 bg-light p-1">
-                <div class="sala w-100 bg-secondary d-flex justify-content-center align-items-center">
+              <div class="col-4 bg-light p-1" id="salasTotal">
+                <div class="sala w-100 bg-secondary d-flex justify-content-center align-items-center" id="salaa">
                   <p class="titulo-sala fs-1 fw-bold text-light">SALA 1</p>
                 </div>
               </div>
               <div class="col-2"></div>
-              <div class="col-4 bg-light p-1 flex-column">
+              <div class="col-4 bg-light p-1 flex-column" id="guiches">
                 <div class="titulo-sala w-100 d-flex justify-content-center align-items-center">
                   <p class="titulo-sala fs-3 fw-bold ">SALA 1</p>
                 </div>

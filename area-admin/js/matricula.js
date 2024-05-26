@@ -1,3 +1,87 @@
+let guicheAtual;
+$('#abrirModal').on('click', function (e){
+    $.ajax({
+        type: 'GET',
+        dataType: 'json',
+        url: '../app/Controller/trazerSalas.php',
+        async: true,
+    
+         success: function(response) {
+               let newHtml = `<div class="col-4 bg-light w-100 gap-1 d-flex flex-column p-1" id="salasTotal">`
+                           response.salas.forEach(sala => {
+                            newHtml +=`<div class="sala w-100 bg-secondary d-flex justify-content-center align-items-center" onclick="trazerGuiches('${sala.idSala}', '${sala.nomeSala}', this)" id="salaa" style="border: 1px solid black">`
+                            newHtml += `<p class="titulo-sala fs-1 fw-bold text-light">${sala.nomeSala}</p>`
+                            newHtml +=`</div>`
+                           })
+
+               newHtml +=`</div>`
+               $('#salasTotal').html(newHtml)
+         }
+    })
+})
+
+const trazerGuiches = async(idSala, nomeSala, div) => {
+    if(div != null) {
+        var divs = document.querySelectorAll('.sala');
+        console.log(divs)
+        divs.forEach(function(element) {
+            element.style.border = "1px solid black";
+        });
+        div.style.border = "3px solid #00FF00";
+    }
+     $.ajax ({
+        type: 'POST',
+        data: {idSala: idSala},
+        dataType: 'json',
+        url: '../app/Controller/trazerGuicheDasSalas.php',
+        async: true,
+
+        success: function(response) {
+            console.log(response);
+            let newHtml = `<div class="col-4 w-100 bg-light p-1 flex-column d-flex gap-3" id="guiches">`
+                newHtml += `<p class="titulo-sala fs-3 fw-bold w-100 text-center text-uppercase">${nomeSala}</p>`
+                response.guiches.forEach(guiche => {
+                    newHtml += `<div class="guiche w-100 bg-secondary py-1 d-flex justify-content-center align-items-center" onclick="focar(this, '${guiche.nomeGuiche}', '${idSala}', '${guiche.idGuiche}')">`
+                    newHtml += `<p class="titulo-sala fs-1 fw-bold text-light text-uppercase">${guiche.nomeGuiche}</p>`
+                    newHtml += `</div>`
+                })
+                newHtml += `</div>`
+                $('#guiches').html(newHtml)
+        }
+    })
+}
+const focar = (div,nomeGuiche, idSala, idGuiche) => {
+
+    let tratamentoNomeGuiche = nomeGuiche.split(' ');
+    tratamentoNomeGuiche = tratamentoNomeGuiche[1].charAt(1)
+    guicheAtual = tratamentoNomeGuiche;
+
+    if(div != null) {
+        var divs = document.querySelectorAll('.guiche');
+        console.log(divs)
+        divs.forEach(function(element) {
+            element.style.border = "1px solid black";
+        });
+        div.style.border = "3px solid #00FF00";
+    }
+        newHtml = `<button type="button" class="btn btn-danger btn-safado" data-bs-dismiss="modal">Cancelar</button>`
+        newHtml += `<button type="button" class="btn btn-success" onclick="trocarInfos('${idSala}', '${guicheAtual}', '${idGuiche}')">Salvar</button>`
+    $('.modal-footer').html(newHtml)
+}
+
+const trocarInfos = async(idSala, guicheAtual, idGuiche) => {
+
+        newHtml = `<div class="col d-flex flex-column suas-informacoes h-100" id="infos">`
+            newHtml += `<div class="d-flex justify-content-end fs-5 fw-bold text-uppercase">`
+                newHtml += `Suas Informações`
+            newHtml += `</div>`
+        newHtml += `<div class=" d-flex justify-content-end fs-5"><span class="fw-bold fs-5">Sala</span>: ${idSala}</div>`
+            newHtml += `<div class=" d-flex justify-content-end fs-5"><span class="fw-bold fs-5">Guichê</span>: ${guicheAtual}</div>`
+        newHtml += `<input type="hidden" id="guiche" value="${idGuiche}">`
+        $('#infos').html(newHtml);
+}
+
+
 const buscarUltimasSenhasT = async() =>{
     $.ajax({
         data: {tipo: "Matricula"},
@@ -8,15 +92,34 @@ const buscarUltimasSenhasT = async() =>{
         
         success: function(response) {
             //construção da tag html
-            console.log()
+            console.log(response)
             let newHtml = "<div class='row item'>"
+            let newHtmlP = "<div class='row item'>"
             response.result.forEach(senha => {
-                newHtml += "<div class='col d-flex align-items-center justify-content-center'><p class='h3 fw-bold'>"+senha.senha+"</p></div>"
-                newHtml += `<div class='col d-flex align-items-center justify-content-center'><button class='btn btn-success fw-semibold' onclick="senhaAtual('${senha.senha}', '${senha.id}')">Chamar</button></div>`
+                console.log(senha)
+                let prefixo = senha.senha.substring(0,2);
+                senhaT = senha.senha.substring(2);
+                let color
+                if(prefixo == "AM"){
+                    color = "rgb(26, 26, 26);"
+                }else if(prefixo == "AR"){
+                    color = "rgb(16, 48, 96);"
+                }else{
+                    color = "rgb(19, 94, 19);"
+                }
+                if(prefixo == "AP") {
+                    newHtmlP += `<div class="col d-flex align-items-center justify-content-center"><p class="h3 fw-bold"><span style="color: ${color}">${prefixo}</span>${senhaT}</p></div>`
+                    newHtmlP += `<div class='col d-flex align-items-center justify-content-center'><button class='btn btn-success fw-semibold' onclick="senhaAtual('${senha.senha}', '${senha.id}')">Chamar</button></div>`
+                } else {
+                    newHtml += `<div class="col d-flex align-items-center justify-content-center"><p class="h3 fw-bold"><span style="color: ${color}">${prefixo}</span>${senhaT}</p></div>`
+                    newHtml += `<div class='col d-flex align-items-center justify-content-center'><button class='btn btn-success fw-semibold' onclick="senhaAtual('${senha.senha}', '${senha.id}')">Chamar</button></div>`
+                }
             });
             newHtml += "</div>"
+            newHtmlP += "</div>"
             //atualizando html
             $('#proximos').html(newHtml) 
+            $('#preferencial').html(newHtmlP)
         }
     });
 }
@@ -50,12 +153,11 @@ const senhaAtual = async(senha, idSenha) =>{
             $('#embaca').css('display','flex')
             $('#senhaAtual').html(newHtml)
             localStorage.setItem("idSenhaAtualMatricula", idSenha)
-    
            
         }
-    })
-
+    }) 
 }
+
  const compareceu = async(status) => {
     if(localStorage.getItem('idSenhaAtualMatricula') != undefined) {
         console.log(status)
@@ -71,16 +173,75 @@ const senhaAtual = async(senha, idSenha) =>{
          async:true,
 
          success: function(response) {
-            console.log(response)
             localStorage.removeItem("idSenhaAtualMatricula")
             $('#embaca').css('display', 'none')
             $("#senhaAtual").html(`<p id="senhaAtual" class="text-center" style="font-size: 60px;"><span id="prefixo-atual" class="">00</span><span id="digitos-atual">000</span></p>`)
-            
-            
+
          }
      })
     } 
  }
+
+const chamarSenhasAtendidas = () => {
+    $.ajax({
+        type: 'POST',
+        dataType: 'json',
+        data: {tipo: "Matricula-Atendidos"},
+        url: '../app/Controller/trazerSenhas.php',
+        async: true,
+        success: function(response) {
+        let newHtml = `<div class='row item'>`
+            response.result.forEach(senha => {
+            let prefixo = senha.senha.substring(0,2);
+            let senhaT = senha.senha.substring(2);
+            let color;
+            if(prefixo == "AM"){
+                color = "rgb(26, 26, 26);"
+            }else if(prefixo == "AR"){
+                color = "rgb(16, 48, 96);"
+            }else{
+                color = "rgb(19, 94, 19);"
+            }
+            newHtml += `<div class="col d-flex align-items-center justify-content-center"><p class="h3 fw-bold"><span style="color: ${color}">${prefixo}</span>${senhaT}</p></div>`
+            newHtml += `<div class='col d-flex align-items-center justify-content-center'><button class='btn btn-success fw-semibold' onclick="senhaAtual('${senha.senha}', '${senha.id}')">Chamar</button></div>`
+        })
+        newHtml += `</div>`
+        $('#senhasAtendidas').html(newHtml)
+        }
+    })
+}
+
+const naoComparecidos = () => {
+    $.ajax ({
+        type: 'POST',
+        data: {tipo: "Matricula-Nao"},
+        dataType: 'json',
+        url: '../app/Controller/trazerSenhas.php',
+        async: true,
+
+        success: function(response) {
+            console.log(response)
+            let newHtml = `<div class='row item' id='senhasNaoAtendidas'>`
+            response.result.forEach(senha => {
+                let prefixo = senha.senha.substring(0,2);
+                let senhaT = senha.senha.substring(2);
+                let color;
+                if(prefixo == "AM"){
+                    color = "rgb(26, 26, 26);"
+                }else if(prefixo == "AR"){
+                    color = "rgb(16, 48, 96);"
+                }else{
+                    color = "rgb(19, 94, 19);"
+                }
+                newHtml += `<div class="col d-flex align-items-center justify-content-center"><p class="h3 fw-bold"><span style="color: ${color}">${prefixo}</span>${senhaT}</p></div>`
+                newHtml += `<div class='col d-flex align-items-center justify-content-center'><button class='btn btn-success fw-semibold' onclick="senhaAtual('${senha.senha}', '${senha.id}')">Chamar</button></div>`
+            })
+            newHtml += `</div>`
+            $('#senhasNaoAtendidas').html(newHtml)
+        }
+    })
+}
+
 
  const chamarSenhaAtualCasoRecarregar = () =>{
     let id = localStorage.getItem("idSenhaAtualMatricula")
@@ -118,34 +279,8 @@ const senhaAtual = async(senha, idSenha) =>{
 }
 
 
-const ultimosAtendidos = async() => {
-    $.ajax({
-        type: 'POST',
-        data: {tipo: 1},
-        dataType: 'json',
-        url: '../app/Controller/trazerSenhasComparecidasMatricula.php',
-        async:true,
-
-        success: function(response) {
-            console.log(response)
-            let newHtml = `<div class="conteudo h-100  overflow-auto gap-2 d-flex flex-column justify-content-start w-100 " id="senhasAtendidas" style="border: transparent">`
-            response.senha.forEach(senha => {
-                newHtml += `<div id="" class="row item">`
-                    newHtml += `<div class="col d-flex align-items-center justify-content-center">`
-                        newHtml += `<p class="h3 fw-bold">${senha.senha}</p>`
-                    newHtml += `</div>`
-
-                    newHtml += `<div class="col d-flex align-items-center justify-content-center">`
-                        newHtml += `<button class="btn btn-success fw-semibold">Chamar</button>`
-                    newHtml += `</div>`
-                newHtml += `</div>`
-            })
-            newHtml += `</div>`
-            $('#senhasAtendidas').html(newHtml)
-        }
-    })
-}
-
 setInterval(() =>{
     buscarUltimasSenhasT()
+    chamarSenhasAtendidas()
+    naoComparecidos()
 },1000)

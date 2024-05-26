@@ -78,7 +78,7 @@
                 ORDER BY updateAt DESC
                 LIMIT 8";
             }
-            else if($valor == "Matriculo-Nao"){
+            else if($valor == "Matricula-Nao"){
                 $comAM = "SELECT senha, statusSenha as 'status', idSenha as id FROM `tbsenha`
                  WHERE  (statusSenha = 2 AND tipoSenha = 'Matricula') 
                 ORDER BY updateAt DESC

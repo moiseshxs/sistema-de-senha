@@ -108,15 +108,15 @@
 }
 
 .remanescente {
-  background-color: var(--cor-remanescente);
-  border: solid;
-  border-color: rgb(5, 5, 55);
-}
-
-.preferencial {
   background-color: var(--cor-preferencial);
   border: solid;
   border-color:rgb(0, 74, 6);
+}
+
+.preferencial {
+  background-color: var(--cor-remanescente);
+  border: solid;
+  border-color: rgb(5, 5, 55);
 }
 
 .listas {
@@ -151,6 +151,7 @@
 
 .border-remanescente {
   border-color: var(--cor-remanescente);
+  
 }
 
 .border-preferencial {
