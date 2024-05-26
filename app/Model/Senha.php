@@ -62,14 +62,22 @@
             }
             return $senhas;
         }
-        public function getSenhas(){
+        public function getSenhas($valor){
             $pdo = Conexao::conexao();
             $senhas = array();
-            $comAM = "SELECT  senha, statusSenha as 'status', idSenha as id  FROM tbsenha
-            
-            WHERE statusSenha !=0 
-            ORDER BY updateAt DESC
-            LIMIT 8";
+            if($valor == "Matricula") {
+                $comAM = "SELECT  senha, statusSenha as 'status', idSenha as id  FROM tbsenha
+                WHERE statusSenha = 1
+                AND tipoSenha = 'Triagem'
+                ORDER BY updateAt DESC
+                LIMIT 8";
+            } else {
+                $comAM = "SELECT  senha, statusSenha as 'status', idSenha as id  FROM tbsenha
+                WHERE statusSenha !=0
+                AND tipoSenha = 'Triagem'
+                ORDER BY updateAt DESC
+                LIMIT 8";
+            }
             $stmt = $pdo->prepare($comAM);
             $stmt->execute();
             if($stmt->rowCount() > 0){
@@ -124,6 +132,24 @@
             }
             return false;
         }
+        public static function getSenhasComparecidasMatricula($tipo) {
+            $pdo = Conexao::conexao();
+            $com = "SELECT senha FROM tbsenha
+            WHERE tipoSenha = 'Matricula'
+            AND statusSenha = :t
+            ORDER BY updateAt DESC
+            LIMIT 8";
+            $stmt = $pdo->prepare($com);
+            $stmt->bindParam(":t", $tipo);
+            $stmt->execute();
+            if($stmt->rowCount() > 0) {
+                $senhasC = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            } else {
+                return false;
+            }
+            return $senhasC;
+        }
+
         public static function updateTriagem($id, $status)
         {
             $pdo = Conexao::conexao();
@@ -136,6 +162,33 @@
                 return true;
             }
             return false;
+        }
+        public static function updateMatricula($id, $status, $data) {
+            $pdo = Conexao::conexao();
+            $com = "UPDATE tbsenha SET statusSenha = :ss, updateAt = :ua WHERE idSenha = :id";
+            $stmt = $pdo->prepare($com);
+            $stmt->bindValue(":ss", $status);
+            $stmt->bindValue(":ua", $data);
+            $stmt->bindParam(":id", $id);
+            $stmt->execute();
+            if($stmt->rowCount() >0){
+                return true;
+            }
+            return false;
+        }
+        public static function updateSenhaMatriculaAtendida($senhaId, $tipo, $status) {
+            $pdo = Conexao::conexao();
+            $com = "UPDATE tbsenha SET tipoSenha = :ts, statusSenha = :ss WHERE idSenha = :id";
+            $stmt = $pdo->prepare($com);
+            $stmt->bindValue(":ts", $tipo);
+            $stmt->bindValue(":ss", $status);
+            $stmt->bindParam(":id", $senhaId);
+            $stmt->execute();
+            if($stmt->rowCount() >0) {
+                return true;
+            } else {
+                return false;
+            }
         }
         public function setSenha($senha){
             $this->senha = $senha;

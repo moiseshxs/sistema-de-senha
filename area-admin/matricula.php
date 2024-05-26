@@ -34,7 +34,7 @@
           <div class=" h-25 d-flex justify-content-center fs-4 fw-bold text-uppercase">
             <p class="text-center" style="font-size: 30px;">Senha Atual</p>
           </div>
-          <div class=" h-75 d-flex justify-content-center fs-1 fw-bold">
+          <div class=" h-75 d-flex justify-content-center fs-1 fw-bold" id="senhaAtual">
             <p class="text-center" style="font-size: 60px;"><span class="text-success">AP</span>000</p>
           </div>
         </div>
@@ -57,8 +57,11 @@
     </div>
       
 
-      <div class="row meio border border-secondary">
+      <div class="row meio border border-secondary" id="conteudo">
         <div class="col p-0">
+        <div id="embaca">
+          <h3 style="color:#fff">Termine o Atendimento Atual</h3>
+        </div>
           <div class="titulo matricula">
             <div class="text1 h-25 w-100 text-center text-light h6 fw-normal">
               Atendimento
@@ -96,7 +99,7 @@
             </div>
           </div>
         </div>
-        <div class="col p-0">
+        <div class="col p-0 h-100">
           <div class="titulo preferencial">
             <div class="text1 h-25 w-100 text-center text-light h6 fw-normal">
               Atendimento
@@ -105,14 +108,16 @@
               Últimos atendidos
             </div>
           </div>
-          <div class="conteudo p-2 overflow-auto d-flex flex-column justify-content-start">
+          <div class="conteudo p-2 overflow-auto d-flex gap-2 flex-column justify-content-start" id="senhasAtendidas">
             <div id="" class="row item">
               <div class="col d-flex align-items-center justify-content-center">
                 <p class="h3 fw-bold">AP001</p>
               </div>
-              <div class="col d-flex align-items-center justify-content-center"><button
-                  class="btn btn-success fw-semibold">Chamar</button></div>
+              <div class="col d-flex align-items-center justify-content-center">
+                <button class="btn btn-success fw-semibold">Chamar</button>
+              </div>
             </div>
+            
           </div>
         </div>
         <div class="col p-0 ">
@@ -124,13 +129,14 @@
               Não Comparecedidos
             </div>
           </div>
-          <div class="conteudo p-2 overflow-auto d-flex flex-column justify-content-start">
-            <div id="ultimos" class="row item">
+          <div class="conteudo p-2 overflow-auto d-flex flex-column justify-content-start" id="senhasNaoAtendidas">
+            <div id="" class="row item">
               <div class="col d-flex align-items-center justify-content-center">
                 <p class="h3 fw-bold">AP001</p>
               </div>
-              <div class="col d-flex align-items-center justify-content-center"><button
-                  class="btn btn-success fw-semibold">Chamar</button></div>
+              <div class="col d-flex align-items-center justify-content-center">
+                <button class="btn btn-success fw-semibold">Chamar</button>
+              </div>
             </div>
           </div>
         </div>
