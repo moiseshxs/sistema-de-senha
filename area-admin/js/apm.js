@@ -1,5 +1,23 @@
 let tipo = "Apm"
 
+let clicksCarregar =1
+let atendidos = 1
+let nao =1
+
+const carregar = (tipo) =>{
+    switch(tipo){
+        case 'normal':
+            clicksCarregar++
+            break
+        case 'nao':
+            nao++
+            break 
+        case 'atendidas':
+            atendidos++
+            break   
+    }
+}
+
 const tratamentoPrefixo = senha => {
     return newSenha = senha.charAt(0) + senha.charAt(1)
 }
@@ -108,7 +126,9 @@ const senhaAtual = async(senha, idSenha) =>{
 
 const buscarUltimasSenhasT = async() =>{
     $.ajax({
-        data: {tipo: "Apm"},
+        data: {tipo: "Apm"
+            ,limit: clicksCarregar
+        },
         type: 'POST',
         dataType: 'json',
         url: '../app/Controller/trazerSenhas.php',
@@ -137,6 +157,8 @@ const buscarUltimasSenhasT = async() =>{
                 newHtml += `<div class='col d-flex align-items-center justify-content-center'><button class='btn btn-success fw-semibold' onclick="senhaAtual('${senha.senha}', '${senha.id}')">Chamar</button></div>`
                 }
             });
+            newHtml += `<div class='col-12 mt-2 d-flex justify-content-around align-items-center'><button class="btn btn-primary">Pesquisar</button><button class="btn btn-success" onclick="carregar('normal')">Carregar mais</button></div>`
+            newHtmlP += `<div class='col-12 mt-2 d-flex justify-content-around align-items-center'><button class="btn btn-primary">Pesquisar</button><button class="btn btn-success" onclick="carregar('normal')">Carregar mais</button></div>`
             newHtml += "</div>"
             newHtmlP += "</div>"
             //atualizando html
@@ -149,7 +171,7 @@ const buscarUltimasSenhasT = async() =>{
 
 const buscarUltimasSenhasAtendidas = async() =>{
     $.ajax({
-        data: {tipo: "Apm-Atendidas"},
+        data: {tipo: "Apm-Atendidas", limit: atendidos},
         type: 'POST',
         dataType: 'json',
         url: '../app/Controller/trazerSenhas.php',
@@ -176,6 +198,7 @@ const buscarUltimasSenhasAtendidas = async() =>{
                 newHtml += `<div class='col d-flex align-items-center justify-content-center'><button class='btn btn-success fw-semibold' onclick="senhaAtual('${senha.senha}', '${senha.id}')">Chamar</button></div>`
                 
             });
+            newHtml += `<div class='col-12 mt-2 d-flex justify-content-around align-items-center'><button class="btn btn-primary">Pesquisar</button><button class="btn btn-success" onclick="carregar('atendidas')">Carregar mais</button></div>`
             newHtml += "</div>"
           
             //atualizando html
@@ -187,7 +210,7 @@ const buscarUltimasSenhasAtendidas = async() =>{
 
 const buscarNaoComparecidas = async() =>{
     $.ajax({
-        data: {tipo: "Apm-Nao"},
+        data: {tipo: "Apm-Nao", limit: nao},
         type: 'POST',
         dataType: 'json',
         url: '../app/Controller/trazerSenhas.php',
@@ -214,6 +237,7 @@ const buscarNaoComparecidas = async() =>{
                 newHtml += `<div class='col d-flex align-items-center justify-content-center'><button class='btn btn-success fw-semibold' onclick="senhaAtual('${senha.senha}', '${senha.id}')">Chamar</button></div>`
                 
             });
+            newHtml += `<div class='col-12 mt-2 d-flex justify-content-around align-items-center'><button class="btn btn-primary">Pesquisar</button><button class="btn btn-success" onclick="carregar('nao')">Carregar mais</button></div>`
             newHtml += "</div>"
           
             //atualizando html

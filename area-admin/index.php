@@ -66,7 +66,7 @@
         
       </div>
 
-      <div class="row meio border border-secondary">
+      <div class="row meio   border border-secondary">
         <div class="col p-0">
           <div class="titulo matricula">
             <div class="text1 h-25 w-100 text-center text-light h6 fw-normal">
@@ -108,7 +108,7 @@
               Preferencial
             </div>
           </div>
-          <div class="conteudo">
+          <div class="conteudo ">
             <div id="salvarAP" class="senha border-preferencial bg-cinza">
               <p id="senhaAP" class="m-0 fs-1 fw-bold"><span class="text-success">AP</span>001</p>
             </div>
@@ -120,11 +120,11 @@
               Listagem
             </div>
             <div class="text2 h-50 w-100 text-center text-light h3">
-              Não Comparecedidos
+              Não Compareceram
             </div>
           </div>
           <div class="conteudo overflow-auto d-flex flex-column justify-content-start">
-            <div id="ultimos" class="row item mb-1">
+            <div id="ultimos" class="row overflow-auto  item mb-1" style="height:375px !important">
               <div class="col d-flex align-items-center justify-content-center">
                 <p class="h3 fw-bold">AP001</p>
               </div>
@@ -137,6 +137,7 @@
             
           </div>
         </div>
+       
       </div>
       <div class="row baixo bg-light d-flex align-items-center">
 

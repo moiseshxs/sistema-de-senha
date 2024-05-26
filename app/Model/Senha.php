@@ -62,55 +62,55 @@
             }
             return $senhas;
         }
-        public function getSenhas($valor){
+        public function getSenhas($valor, $limit){
             $pdo = Conexao::conexao();
             $senhas = array();
             if($valor == "Matricula") {
                 $comAM = "SELECT senha, statusSenha as 'status', idSenha as id FROM `tbsenha`
                  WHERE (statusSenha =1 AND tipoSenha = 'Triagem')
-                  
+                
                 ORDER BY updateAt DESC
-                LIMIT 8";
+                LIMIT $limit";
             } 
             else if($valor == "Matricula-Atendidos"){
                 $comAM = "SELECT senha, statusSenha as 'status', idSenha as id FROM `tbsenha`
                  WHERE  (statusSenha = 1 AND tipoSenha = 'Matricula') OR (statusSenha != 0 AND tipoSenha = 'Apm')
                 ORDER BY updateAt DESC
-                LIMIT 8";
+                LIMIT $limit";
             }
             else if($valor == "Matricula-Nao"){
                 $comAM = "SELECT senha, statusSenha as 'status', idSenha as id FROM `tbsenha`
                  WHERE  (statusSenha = 2 AND tipoSenha = 'Matricula') 
                 ORDER BY updateAt DESC
-                LIMIT 8";
+                LIMIT $limit";
             }
             else if($valor == "Apm"){
                 $comAM = "SELECT senha, statusSenha as 'status', idSenha as id FROM `tbsenha`
                  WHERE (statusSenha =1 AND tipoSenha = 'Matricula')
                   
                 ORDER BY updateAt DESC
-                LIMIT 8";
+                LIMIT $limit";
             }
             else if($valor == "Apm-Atendidas"){
                 $comAM = "SELECT senha, statusSenha as 'status', idSenha as id FROM `tbsenha`
                  WHERE (statusSenha =1 AND tipoSenha = 'Apm')
                   
                 ORDER BY updateAt DESC
-                LIMIT 8";
+                LIMIT $limit";
             }
             else if($valor == "Apm-Nao"){
                 $comAM = "SELECT senha, statusSenha as 'status', idSenha as id FROM `tbsenha`
                  WHERE (statusSenha =2 AND tipoSenha = 'Apm')
                   
                 ORDER BY updateAt DESC
-                LIMIT 8";
+                LIMIT $limit";
             }
             else {
                 $comAM = "SELECT  senha, statusSenha as 'status', idSenha as id  FROM tbsenha
                 WHERE statusSenha !=0
                 
                 ORDER BY updateAt DESC
-                LIMIT 8";
+                LIMIT $limit";
             }
             $stmt = $pdo->prepare($comAM);
             $stmt->execute();

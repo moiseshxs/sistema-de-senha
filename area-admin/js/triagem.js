@@ -1,4 +1,6 @@
 let tipo = "Triagem"
+let limit = 8
+let clicksCarregar =1
 
 $('#abrirModal').on('click', function (e){
     $.ajax({
@@ -21,8 +23,13 @@ $('#abrirModal').on('click', function (e){
     })
 })
 
+
+const carregar = () =>{
+    clicksCarregar ++
+}
+
 const trazerGuiches = async(idSala, nomeSala) => {
-    console.log(this);
+    
     $.ajax ({
         type: 'POST',
         data: {idSala: idSala},
@@ -168,7 +175,11 @@ const update = status =>{
 const buscarUltimasSenhas = async() =>{
     $.ajax({
         type: 'POST',
-        data: {tipo: "Triagem"},
+        data: {
+            tipo: "Triagem",
+            limit: clicksCarregar
+
+        },
         dataType: 'json',
         url: '../app/Controller/trazerSenhas.php',
         async: true,
@@ -190,6 +201,8 @@ const buscarUltimasSenhas = async() =>{
                 newHtml += `<div class='col-3 d-flex align-items-center justify-content-center'>${icon}</div>`
                 newHtml += `<div onclick="reCall('${senha.senha}', '${senha.id}')" class="col-4 d-flex align-items-center justify-content-center"><button class="btn btn-success fw-semibold">Chamar</button></div>`
             });
+            newHtml += `<div class='col-12 mt-2 d-flex justify-content-around align-items-center'><button class="btn btn-primary">Pesquisar</button><button class="btn btn-success" onclick="carregar()">Carregar mais</button></div>`
+           
             newHtml += "</div>"
             //atualizando html
             $('#ultimos').html(newHtml) 
@@ -215,7 +228,7 @@ const inserirSenha = async(senha, guiche) =>{
         data: {
             senha:senha,
             guiche: guiche,
-            tipo: tipo
+            tipo: tipo,
         },
         success: async function(response) {
             //callback em caso de sucesso na requisição

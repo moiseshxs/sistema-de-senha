@@ -71,7 +71,7 @@
             </div>
           </div>
           <div class="conteudo p-2 overflow-auto d-flex flex-column justify-content-start">
-            <div id="proximos" class="row item">
+            <div id="proximos" style="height:355px !important" class="row item">
               <div class="col d-flex align-items-center justify-content-center">
                 <p class="h3 fw-bold">AP001</p>
               </div>
@@ -89,8 +89,8 @@
               Matrícula - Preferencial
             </div>
           </div>
-          <div class="conteudo p-2 overflow-auto d-flex flex-column justify-content-start" id="preferencial">
-            <div id="" class="row item">
+          <div style="height:382px !important" class="conteudo p-2 overflow-auto d-flex flex-column justify-content-start" id="preferencial">
+            <div id=""  style="height:355px !important" class="row item">
               <div class="col d-flex align-items-center justify-content-center">
                 <p class="h3 fw-bold">AP001</p>
               </div>
@@ -108,8 +108,8 @@
               Últimos atendidos
             </div>
           </div>
-          <div class="conteudo p-2 overflow-auto d-flex gap-2 flex-column justify-content-start" id="senhasAtendidas">
-            <div id="" class="row item">
+          <div style="height:382px !important" class="conteudo p-2 overflow-auto d-flex gap-2 flex-column justify-content-start" id="senhasAtendidas">
+            <div id="" style="height:355px !important" class="row item">
               <div class="col d-flex align-items-center justify-content-center">
                 <p class="h3 fw-bold">AP001</p>
               </div>
@@ -129,8 +129,8 @@
               Não Comparecedidos
             </div>
           </div>
-          <div class="conteudo p-2 overflow-auto d-flex flex-column justify-content-start" id="senhasNaoAtendidas">
-            <div id="" class="row item">
+          <div style="height:382px !important" class="conteudo p-2 overflow-auto d-flex flex-column justify-content-start" id="senhasNaoAtendidas">
+            <div id=""  class="row item">
               <div class="col d-flex align-items-center justify-content-center">
                 <p class="h3 fw-bold">AP001</p>
               </div>

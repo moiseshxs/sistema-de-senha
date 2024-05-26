@@ -1,5 +1,22 @@
 let guicheAtual;
 let idGuiche;
+let clicksCarregar =1
+let atendidos = 1
+let nao =1
+
+const carregar = (tipo) =>{
+    switch(tipo){
+        case 'normal':
+            clicksCarregar++
+            break
+        case 'nao':
+            nao++
+            break 
+        case 'atendidas':
+            atendidos++
+            break   
+    }
+}
 $('#abrirModal').on('click', function (e){
     $.ajax({
         type: 'GET',
@@ -86,7 +103,10 @@ const trocarInfos = async(idSala, guicheAtual, idGuiche) => {
 
 const buscarUltimasSenhasT = async() =>{
     $.ajax({
-        data: {tipo: "Matricula"},
+        data: {
+            tipo: "Matricula",
+            limit: clicksCarregar
+        },
         type: 'POST',
         dataType: 'json',
         url: '../app/Controller/trazerSenhas.php',
@@ -117,11 +137,16 @@ const buscarUltimasSenhasT = async() =>{
                     newHtml += `<div class='col d-flex align-items-center justify-content-center'><button class='btn btn-success fw-semibold' onclick="senhaAtual('${senha.senha}', '${senha.id}', '${idGuicheA}')">Chamar</button></div>`
                 }
             });
+            newHtml += `<div class='col-12 mt-2 d-flex justify-content-around align-items-center'><button class="btn btn-primary">Pesquisar</button><button class="btn btn-success" onclick="carregar('normal')">Carregar mais</button></div>`
+            newHtmlP += `<div class='col-12 mt-2 d-flex justify-content-around align-items-center'><button class="btn btn-primary">Pesquisar</button><button class="btn btn-success" onclick="carregar('normal')">Carregar mais</button></div>`
             newHtml += "</div>"
             newHtmlP += "</div>"
             //atualizando html
             $('#proximos').html(newHtml) 
             $('#preferencial').html(newHtmlP)
+        },
+        error: (e) =>{
+            console.log(e)
         }
     });
 }
@@ -194,8 +219,7 @@ const chamarSenhasAtendidas = () => {
         dataType: 'json',
         data: {
             tipo: "Matricula-Atendidos",
-            limit: limit,
-
+            limit: atendidos
         },
         url: '../app/Controller/trazerSenhas.php',
         async: true,
@@ -215,6 +239,7 @@ const chamarSenhasAtendidas = () => {
             newHtml += `<div class="col d-flex align-items-center justify-content-center"><p class="h3 fw-bold"><span style="color: ${color}">${prefixo}</span>${senhaT}</p></div>`
             newHtml += `<div class='col d-flex align-items-center justify-content-center'><button class='btn btn-success fw-semibold' onclick="senhaAtual('${senha.senha}', '${senha.id}', '${idGuicheA}')">Chamar</button></div>`
         })
+        newHtml += `<div class='col-12 mt-2 d-flex justify-content-around align-items-center'><button class="btn btn-primary">Pesquisar</button><button class="btn btn-success" onclick="carregar('atendidas')">Carregar mais</button></div>`
         newHtml += `</div>`
         $('#senhasAtendidas').html(newHtml)
         }
@@ -224,7 +249,10 @@ const chamarSenhasAtendidas = () => {
 const naoComparecidos = () => {
     $.ajax ({
         type: 'POST',
-        data: {tipo: "Matricula-Nao"},
+        data: {
+            tipo: "Matricula-Nao"
+            ,limit: nao
+        },
         dataType: 'json',
         url: '../app/Controller/trazerSenhas.php',
         async: true,
@@ -246,6 +274,7 @@ const naoComparecidos = () => {
                 newHtml += `<div class="col d-flex align-items-center justify-content-center"><p class="h3 fw-bold"><span style="color: ${color}">${prefixo}</span>${senhaT}</p></div>`
                 newHtml += `<div class='col d-flex align-items-center justify-content-center'><button class='btn btn-success fw-semibold' onclick="senhaAtual('${senha.senha}', '${senha.id}', '${idGuicheA}')">Chamar</button></div>`
             })
+            newHtml += `<div class='col-12 mt-2 d-flex justify-content-around align-items-center'><button class="btn btn-primary">Pesquisar</button><button class="btn btn-success" onclick="carregar('nao')">Carregar mais</button></div>`
             newHtml += `</div>`
             $('#senhasNaoAtendidas').html(newHtml)
         }
@@ -284,7 +313,7 @@ const naoComparecidos = () => {
         }
     })
  }
- if(localStorage.getItem("idSenhaAtualMatricula") !== undefined){
+ if(localStorage.getItem("idSenhaAtualMatricula") != undefined){
  chamarSenhaAtualCasoRecarregar()
 }
 
