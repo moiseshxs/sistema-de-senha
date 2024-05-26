@@ -16,6 +16,7 @@ $(document).ready(function() {
         async: true,
         
         success: function(response) {
+            console.log(response)
             let infos = response.senhas[0]
             
             

@@ -3,7 +3,7 @@ include_once('../Model/Senha.php');
 $senha = new Senha();
 date_default_timezone_set('America/Sao_Paulo');
 $data = date("Y-m-d H:i:s");
-$row = $senha->updateMatricula($_POST['idSenha'], $_POST['statusSenha'], $data);
+$row = $senha->updateMatricula($_POST['idSenha'], $_POST['statusSenha'], $data, $_POST['idGuiche']);
 
 if($row) {
     echo json_encode([

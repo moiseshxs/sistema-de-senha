@@ -197,12 +197,13 @@
             }
             return false;
         }
-        public static function updateMatricula($id, $status, $data) {
+        public static function updateMatricula($id, $status, $data, $idGuiche) {
             $pdo = Conexao::conexao();
-            $com = "UPDATE tbsenha SET statusSenha = :ss, updateAt = :ua, tipoSenha ='Matricula' WHERE idSenha = :id";
+            $com = "UPDATE tbsenha SET statusSenha = :ss, updateAt = :ua, tipoSenha ='Matricula', idGuiche = :ig WHERE idSenha = :id";
             $stmt = $pdo->prepare($com);
             $stmt->bindValue(":ss", $status);
             $stmt->bindValue(":ua", $data);
+            $stmt->bindValue(":ig", $idGuiche);
             $stmt->bindParam(":id", $id);
             $stmt->execute();
             if($stmt->rowCount() >0){

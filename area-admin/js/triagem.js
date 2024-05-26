@@ -10,7 +10,7 @@ $('#abrirModal').on('click', function (e){
          success: function(response) {
                let newHtml = `<div class="col-4 bg-light w-100 p-1" id="salasTotal">`
                            response.salas.forEach(sala => {
-                            newHtml +=`<div class="sala w-100 bg-secondary border border-dark d-flex justify-content-center align-items-center" onclick="trazerGuiches('${sala.idSala}', '${sala.nomeSala}', this)">`
+                            newHtml +=`<div class="sala w-100 bg-secondary border border-dark d-flex justify-content-center align-items-center" onclick="trazerGuiches('${sala.idSala}', '${sala.nomeSala}')">`
                             newHtml += `<p class="titulo-sala fs-1 fw-bold text-light">${sala.nomeSala}</p>`
                             newHtml +=`</div>`
                            })
@@ -21,7 +21,7 @@ $('#abrirModal').on('click', function (e){
     })
 })
 
-const trazerGuiches = async(idSala, nomeSala, this) => {
+const trazerGuiches = async(idSala, nomeSala) => {
     console.log(this);
     $.ajax ({
         type: 'POST',
