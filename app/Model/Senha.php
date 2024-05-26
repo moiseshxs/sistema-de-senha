@@ -66,15 +66,28 @@
             $pdo = Conexao::conexao();
             $senhas = array();
             if($valor == "Matricula") {
-                $comAM = "SELECT  senha, statusSenha as 'status', idSenha as id  FROM tbsenha
-                WHERE statusSenha = 1
-                AND tipoSenha = 'Triagem'
+                $comAM = "SELECT senha, statusSenha as 'status', idSenha as id FROM `tbsenha`
+                 WHERE (statusSenha =1 AND tipoSenha = 'Triagem')
+                  
                 ORDER BY updateAt DESC
                 LIMIT 8";
-            } else {
+            } 
+            else if($valor == "Matricula-Atendidos"){
+                $comAM = "SELECT senha, statusSenha as 'status', idSenha as id FROM `tbsenha`
+                 WHERE  (statusSenha = 1 AND tipoSenha = 'Matricula') OR (statusSenha != 0 AND tipoSenha = 'Apm')
+                ORDER BY updateAt DESC
+                LIMIT 8";
+            }
+            else if($valor == "Matriculo-Nao"){
+                $comAM = "SELECT senha, statusSenha as 'status', idSenha as id FROM `tbsenha`
+                 WHERE  (statusSenha = 2 AND tipoSenha = 'Matricula') 
+                ORDER BY updateAt DESC
+                LIMIT 8";
+            }
+            else {
                 $comAM = "SELECT  senha, statusSenha as 'status', idSenha as id  FROM tbsenha
                 WHERE statusSenha !=0
-                AND tipoSenha = 'Triagem'
+                
                 ORDER BY updateAt DESC
                 LIMIT 8";
             }
@@ -165,7 +178,7 @@
         }
         public static function updateMatricula($id, $status, $data) {
             $pdo = Conexao::conexao();
-            $com = "UPDATE tbsenha SET statusSenha = :ss, updateAt = :ua WHERE idSenha = :id";
+            $com = "UPDATE tbsenha SET statusSenha = :ss, updateAt = :ua, tipoSenha ='Matricula' WHERE idSenha = :id";
             $stmt = $pdo->prepare($com);
             $stmt->bindValue(":ss", $status);
             $stmt->bindValue(":ua", $data);

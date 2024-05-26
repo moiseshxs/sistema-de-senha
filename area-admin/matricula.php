@@ -35,7 +35,7 @@
             <p class="text-center" style="font-size: 30px;">Senha Atual</p>
           </div>
           <div class=" h-75 d-flex justify-content-center fs-1 fw-bold" id="senhaAtual">
-            <p class="text-center" style="font-size: 60px;"><span class="text-success">AP</span>000</p>
+            <p id="senha-atual-text" class="text-center" style="font-size: 60px;"><span class="text-success">AP</span>000</p>
           </div>
         </div>
         <div class="col">
@@ -51,8 +51,8 @@
           <input type="hidden" id="guiche" value="2">
         </div>
         <div id="compareceu-area" class="col d-flex justify-content-center align-items-center">
-          <button class="btn btn-success me-3">Compareceu</button>
-          <button class="btn btn-danger ms-3">Não Compareceu</button>
+          <button onclick="compareceu('1')" class="btn btn-success me-3">Compareceu</button>
+          <button onclick="compareceu('2')" class="btn btn-danger ms-3">Não Compareceu</button>
         </div>
     </div>
       
