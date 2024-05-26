@@ -84,6 +84,13 @@
                 ORDER BY updateAt DESC
                 LIMIT 8";
             }
+            else if($valor == "Apm"){
+                $comAM = "SELECT senha, statusSenha as 'status', idSenha as id FROM `tbsenha`
+                 WHERE (statusSenha =1 AND tipoSenha = 'Matricula')
+                  
+                ORDER BY updateAt DESC
+                LIMIT 8";
+            }
             else {
                 $comAM = "SELECT  senha, statusSenha as 'status', idSenha as id  FROM tbsenha
                 WHERE statusSenha !=0
