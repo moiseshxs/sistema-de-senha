@@ -17,7 +17,7 @@
     <section class="container-fluid p-0">
         <div class="row vh-100 vw-100 m-0">
 
-            <div id="lasts" class="col-4 border d-flex align-items-center justify-content-center flex-column"
+            <div id="lasts" class="col-4 border d-flex align-items-center justify-content-start flex-column pt-5"
                 style="background-color: #2B8C44;">
                 <div
                     class="row w-75 d-flex align-items-center overflow-auto justify-content-center border-bottom border-light border-4">

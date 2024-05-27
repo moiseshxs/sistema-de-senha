@@ -55,8 +55,8 @@
           <div class=" d-flex justify-content-end fs-5 fw-bold text-uppercase">
             Suas Informações
           </div>
-          <div class=" d-flex justify-content-end fs-5"><span class="fw-bold fs-5">Sala</span>: 1</div>
-          <div class=" d-flex justify-content-end fs-5"><span class="fw-bold fs-5">Guichê</span>: 3</div>
+          <div class=" d-flex justify-content-end fs-5"><span class="fw-bold fs-5">Sala</span>: </div>
+          <div class=" d-flex justify-content-end fs-5"><span class="fw-bold fs-5">Guichê</span>: </div>
           <input type="hidden" id="guiche" value="2">
         </div>
       </div>
@@ -120,7 +120,7 @@
               Listagem
             </div>
             <div class="text2 h-50 w-100 text-center text-light h3">
-              Não Compareceram
+              Chamados
             </div>
           </div>
           <div class="conteudo overflow-auto d-flex flex-column justify-content-start">

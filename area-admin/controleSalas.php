@@ -23,13 +23,16 @@
 <body>
   <div class="container-fluid p-0 vw-100 vh-100">
     <div class="row m-0 w-100 cima" style="height: 10%;">
-      <div class="col pt-1">
-      <?php include ("./componentes/logo.php");?>
+      <div class="col d-flex align-items-center">
+        <a href="../index.php"><img src="./imgs/home.png" alt="" class="imga home">
+        </a>
       </div>
       <div class="col d-flex align-items-center justify-content-center">
         <p class="fs-1 fw-semibold text-uppercase">Controle de Salas</p>
       </div>
-      <div class="col"></div>
+      <div class="col pt-1 d-flex justify-content-end">
+        <?php include ("./componentes/logo.php");?>
+      </div>
     </div>
     <div class="row m-0 w-100 meio">
       <div class="col"></div>
@@ -46,7 +49,7 @@
       <div class="col"></div>
       <div class="col-4 d-flex align-items-center">
         <div class="select w-100" style="height: 400px" id="allGuiches">
-          <div class="opcao safado d-flex align-items-center justify-content-center" >
+          <div class="opcao safado d-flex align-items-center justify-content-center">
             <p class="fs-1">GUICHÊ 1 </p>
           </div>
           <div class="add bg-success d-flex align-items-center justify-content-center">
@@ -55,7 +58,7 @@
         </div>
       </div>
       <div class="col"></div>
-      
+
     </div>
     <div class="linha1" style="width: 100%; height: 5%"></div>
     <div class="linha"></div>
@@ -63,50 +66,48 @@
   </div>
 
   <div class="modal" tabindex="-1" id="modaal">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header" style="border: transparent !important">
-        <h5 class="modal-title fs-3">INSIRA O NOME DA SALA</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form method="POST" action="" id="storeSala">
-        <input type="text" class="w-100 border border-none fs-2" id="nomeSala" maxlength="13"/>
-      </div>
-      <div class="modal-footer" style="border: transparent !important">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header" style="border: transparent !important">
+          <h5 class="modal-title fs-3">INSIRA O NOME DA SALA</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form method="POST" action="" id="storeSala">
+            <input type="text" class="w-100 border border-none fs-2" id="nomeSala" maxlength="13" />
+        </div>
+        <div class="modal-footer" style="border: transparent !important">
           <button type="button" class="btn btn-secondary fs-5" data-bs-dismiss="modal">Fechar</button>
           <button type="button" class="btn btn-success fs-5" id="inserirSala">Salvar</button>
-        </form>
+          </form>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<div class="modal" tabindex="-1" id="modalAltera">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header" style="border: transparent !important">
-        <h5 class="modal-title fs-3">TROQUE O NOME</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form method="POST" action="" id="updateSala">
-        <input type="text" class="w-100 border border-none fs-2" id="salaA"/>
-      </div>
-      <div class="modal-footer" style="border: transparent !important">
+  <div class="modal" tabindex="-1" id="modalAltera">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header" style="border: transparent !important">
+          <h5 class="modal-title fs-3">TROQUE O NOME</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form method="POST" action="" id="updateSala">
+            <input type="text" class="w-100 border border-none fs-2" id="salaA" />
+        </div>
+        <div class="modal-footer" style="border: transparent !important">
           <button type="button" class="btn btn-secondary fs-5" data-bs-dismiss="modal">Fechar</button>
           <button type="button" class="btn btn-success fs-5" id="alterarSala">Salvar</button>
-        </form>
+          </form>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
 
-
+  
   <script>
-
-
   function borda1(div) {
     var divs = document.querySelectorAll('.safado');
     divs.forEach(function(element) {
@@ -115,7 +116,6 @@
 
     div.classList.add('borda-verde');
   }
-
   </script>
   <script async src="https://app2.weatherwidget.org/js/?id=ww_f5c4ab7d7d6c6"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"

@@ -21,13 +21,16 @@
 <body>
   <div class="container-fluid p-0 vw-100 vh-100">
     <div class="row m-0 w-100 cima">
-      <div class="col pt-1">
-      <?php include ("./componentes/logo.php");?>
+      <div class="col d-flex align-items-center">
+        <a href="../index.php"><img src="./imgs/seta.png" alt="Home" style="width: 20%;">
+        </a>
       </div>
       <div class="col-6 d-flex align-items-center justify-content-center">
         <p class="fs-1 fw-semibold text-uppercase">tipo de atendimento</p>
       </div>
-      <div class="col"></div>
+      <div class="col pt-1 d-flex justify-content-center">
+        <?php include ("./componentes/logo.php");?>
+      </div>
     </div>
     <div class="row m-0 w-100 meio">
       <div class="col"></div>
@@ -64,8 +67,6 @@
       <div class="col"></div>
     </div>
     <div class="row m-0 w-100 baixo">
-      <div class="col d-flex justify-content-end align-items-center "><button
-          class="btn btn-sm btn-success tra fw-bold">SALVAR</button></div>
     </div>
 
 

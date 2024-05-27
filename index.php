@@ -12,7 +12,7 @@
   <title>Bem-Vindo!</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
-    <link rel="icon" type="image/x-icon" href="./area-admin/imgs/etec-guaianazes.png">
+  <link rel="icon" type="image/x-icon" href="./area-admin/imgs/etec-guaianazes.png">
 
 </head>
 
@@ -20,12 +20,16 @@
   <div class="container-fluid p-0 vw-100 vh-100">
     <div class="row m-0 w-100 cima">
       <div class="col pt-1">
-      <?php include ("./area-admin/componentes/logo.php");?>
+        <?php include ("./area-admin/componentes/logo.php");?>
       </div>
       <div class="col-5 d-flex align-items-center justify-content-center">
         <p class="fs-1 fw-semibold text-uppercase">Entrar</p>
       </div>
-      <div class="col"></div>
+      <div class="col d-flex align-items-center justify-content-end">
+        <button type="button" class="btn btn-success btn-help" data-bs-toggle="modal" data-bs-target="#exampleModal">
+          ?
+        </button>
+      </div>
     </div>
     <div class="row m-0 w-100 meio">
       <div class="col"></div>
@@ -61,7 +65,27 @@
       <div class="col"></div>
     </div>
   </div>
-
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Ajuda</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p class="fw-bold">Escolha como quer entrar no sistema</p>
+          
+          <p>● <span class="fw-bold">Adm:</span> Administre as salas e o banco de dados</p>
+          
+          <p>● <span class="fw-bold">Atendimento:</span> Após escolher o tipo de atendimento e sua sala você pode começar a chamar</p>
+          
+          <p>● <span class="fw-bold">Visor:</span> Essa tela irá mostrar as senhas chamadas para as pessoas a serem atendidas</p>
+          
+        </div>
+        
+      </div>
+    </div>
+  </div>
 
   </div>
 
@@ -81,6 +105,8 @@
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
     position: relative;
     overflow: hidden;
+    display: inline-block;
+    transition: transform 0.5s ease;
   }
 
   .escolher .fundo {
@@ -110,8 +136,28 @@
     text-align: center;
     font-size: 100%;
     padding: 20px;
-    text-transform: uppercase; 
+    text-transform: uppercase;
     text-decoration: none;
+  }
+
+  .escolher:hover {
+    transform: translate(5px, 5px);
+    box-shadow: none;
+  }
+
+  .escolher:hover .overlay {
+    background-color: rgba(3, 64, 3, 0.559);
+  }
+
+  .btn-help {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    padding: 0;
   }
   </style>
   <script async src="https://app2.weatherwidget.org/js/?id=ww_f5c4ab7d7d6c6"></script>
