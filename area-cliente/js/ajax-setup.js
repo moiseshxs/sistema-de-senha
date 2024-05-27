@@ -20,8 +20,8 @@ $(document).ready(function() {
             let infos = response.senhas[0]
             
             
-            if(respostaCache == null || respostaCache != infos.senha){
-                respostaCache = infos.senha
+            if(respostaCache == null || respostaCache != infos.atualizado){
+                respostaCache = infos.atualizado
             let primeira = true
             let newHtml = "<div class='row py-2 w-75 d-flex align-items-center justify-content-center border-bottom border-light border-4'><p class='fs-2 fw-bold text-center text-uppercase text-light lh-1'>Chamadas recentes</p></div>"
             response.senhas.forEach(senhas => {

@@ -175,7 +175,7 @@ const compareceu = async(status) => {
  }
 
 
-const senhaAtual = async(senha, idSenha) =>{
+const senhaAtual = async(senha, idSenha, guicheId) =>{
     //pegando os 2 primeiros caracteres da senha
     let prefixo = senha.substring(0,2);
     senhaT = senha.substring(2);
@@ -192,7 +192,8 @@ const senhaAtual = async(senha, idSenha) =>{
         dataType: 'json',
         data: {
             idSenha: idSenha,
-            statusSenha: 0
+            statusSenha: 0,
+            idGuiche: guicheId
         },
         url: '../app/Controller/atualizarStatusSenhaApm.php',
         async:true,
@@ -239,11 +240,11 @@ const buscarUltimasSenhasT = async() =>{
                     color = "rgb(19, 94, 19);"
                 }
                 if(prefixo == "AP"){
-                    newHtmlP += `<div class='col d-flex align-items-center justify-content-center'><p class='h3 fw-bold'><span style="color:${color}">${prefixo}</span>${(senha.senha).split(prefixo)[1]}</p></div>`
-                    newHtmlP += `<div class='col d-flex align-items-center justify-content-center'><button class='btn btn-success fw-semibold' onclick="senhaAtual('${senha.senha}', '${senha.id}')">Chamar</button></div>`
+                    newHtmlP += `<div class='col-6 d-flex align-items-center justify-content-center'><p class='h3 fw-bold'><span style="color:${color}">${prefixo}</span>${(senha.senha).split(prefixo)[1]}</p></div>`
+                    newHtmlP += `<div class='col-6 d-flex align-items-center justify-content-center'><button class='btn btn-success fw-semibold' onclick="senhaAtual('${senha.senha}', '${senha.id}',${idGuicheA})">Chamar</button></div>`
                 }else{
-                    newHtml += `<div class='col d-flex align-items-center justify-content-center'><p class='h3 fw-bold'><span style="color:${color}">${prefixo}</span>${(senha.senha).split(prefixo)[1]}</p></div>`
-                newHtml += `<div class='col d-flex align-items-center justify-content-center'><button class='btn btn-success fw-semibold' onclick="senhaAtual('${senha.senha}', '${senha.id}')">Chamar</button></div>`
+                    newHtml += `<div class='col-6 d-flex align-items-center justify-content-center'><p class='h3 fw-bold'><span style="color:${color}">${prefixo}</span>${(senha.senha).split(prefixo)[1]}</p></div>`
+                newHtml += `<div class='col-6 d-flex align-items-center justify-content-center'><button class='btn btn-success fw-semibold' onclick="senhaAtual('${senha.senha}', '${senha.id}',${idGuicheA})">Chamar</button></div>`
                 }
             });
             newHtml += `<div class='col-12 mt-2 d-flex justify-content-around align-items-center'><button class="btn btn-primary">Pesquisar</button><button class="btn btn-success" onclick="carregar('normal')">Carregar mais</button></div>`
@@ -283,8 +284,8 @@ const buscarUltimasSenhasAtendidas = async() =>{
                 }
                 
                   
-                    newHtml += `<div class='col d-flex align-items-center justify-content-center'><p class='h3 fw-bold'><span style="color:${color}">${prefixo}</span>${(senha.senha).split(prefixo)[1]}</p></div>`
-                newHtml += `<div class='col d-flex align-items-center justify-content-center'><button class='btn btn-success fw-semibold' onclick="senhaAtual('${senha.senha}', '${senha.id}')">Chamar</button></div>`
+                    newHtml += `<div class='col-6 d-flex align-items-center justify-content-center'><p class='h3 fw-bold'><span style="color:${color}">${prefixo}</span>${(senha.senha).split(prefixo)[1]}</p></div>`
+                newHtml += `<div class='col-6 d-flex align-items-center justify-content-center'><button class='btn btn-success fw-semibold' onclick="senhaAtual('${senha.senha}', '${senha.id}',${idGuicheA})">Chamar</button></div>`
                 
             });
             newHtml += `<div class='col-12 mt-2 d-flex justify-content-around align-items-center'><button class="btn btn-primary">Pesquisar</button><button class="btn btn-success" onclick="carregar('atendidas')">Carregar mais</button></div>`
@@ -322,8 +323,8 @@ const buscarNaoComparecidas = async() =>{
                 }
                 
                   
-                    newHtml += `<div class='col d-flex align-items-center justify-content-center'><p class='h3 fw-bold'><span style="color:${color}">${prefixo}</span>${(senha.senha).split(prefixo)[1]}</p></div>`
-                newHtml += `<div class='col d-flex align-items-center justify-content-center'><button class='btn btn-success fw-semibold' onclick="senhaAtual('${senha.senha}', '${senha.id}')">Chamar</button></div>`
+                    newHtml += `<div class='col-6 d-flex align-items-center justify-content-center'><p class='h3 fw-bold'><span style="color:${color}">${prefixo}</span>${(senha.senha).split(prefixo)[1]}</p></div>`
+                newHtml += `<div class='col-6 d-flex align-items-center justify-content-center'><button class='btn btn-success fw-semibold' onclick="senhaAtual('${senha.senha}', '${senha.id}', ${idGuicheA})">Chamar</button></div>`
                 
             });
             newHtml += `<div class='col-12 mt-2 d-flex justify-content-around align-items-center'><button class="btn btn-primary">Pesquisar</button><button class="btn btn-success" onclick="carregar('nao')">Carregar mais</button></div>`

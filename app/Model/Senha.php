@@ -66,47 +66,47 @@
             $pdo = Conexao::conexao();
             $senhas = array();
             if($valor == "Matricula") {
-                $comAM = "SELECT senha, statusSenha as 'status', idSenha as id FROM `tbsenha`
+                $comAM = "SELECT senha, statusSenha as 'status', idSenha as id, tipoSenha as tipo FROM `tbsenha`
                  WHERE (statusSenha =1 AND tipoSenha = 'Triagem')
                 
                 ORDER BY updateAt DESC
                 LIMIT $limit";
             } 
             else if($valor == "Matricula-Atendidos"){
-                $comAM = "SELECT senha, statusSenha as 'status', idSenha as id FROM `tbsenha`
+                $comAM = "SELECT senha, statusSenha as 'status', idSenha as id, tipoSenha as tipo FROM `tbsenha`
                  WHERE  (statusSenha = 1 AND tipoSenha = 'Matricula') OR (statusSenha != 0 AND tipoSenha = 'Apm')
                 ORDER BY updateAt DESC
                 LIMIT $limit";
             }
             else if($valor == "Matricula-Nao"){
-                $comAM = "SELECT senha, statusSenha as 'status', idSenha as id FROM `tbsenha`
+                $comAM = "SELECT senha, statusSenha as 'status', idSenha as id, tipoSenha as tipo FROM `tbsenha`
                  WHERE  (statusSenha = 2 AND tipoSenha = 'Matricula') 
                 ORDER BY updateAt DESC
                 LIMIT $limit";
             }
             else if($valor == "Apm"){
-                $comAM = "SELECT senha, statusSenha as 'status', idSenha as id FROM `tbsenha`
+                $comAM = "SELECT senha, statusSenha as 'status', idSenha as id, tipoSenha as tipo FROM `tbsenha`
                  WHERE (statusSenha =1 AND tipoSenha = 'Matricula')
                   
                 ORDER BY updateAt DESC
                 LIMIT $limit";
             }
             else if($valor == "Apm-Atendidas"){
-                $comAM = "SELECT senha, statusSenha as 'status', idSenha as id FROM `tbsenha`
+                $comAM = "SELECT senha, statusSenha as 'status', idSenha as id, tipoSenha as tipo FROM `tbsenha`
                  WHERE (statusSenha =1 AND tipoSenha = 'Apm')
                   
                 ORDER BY updateAt DESC
                 LIMIT $limit";
             }
             else if($valor == "Apm-Nao"){
-                $comAM = "SELECT senha, statusSenha as 'status', idSenha as id FROM `tbsenha`
+                $comAM = "SELECT senha, statusSenha as 'status', idSenha as id, tipoSenha as tipo FROM `tbsenha`
                  WHERE (statusSenha =2 AND tipoSenha = 'Apm')
                   
                 ORDER BY updateAt DESC
                 LIMIT $limit";
             }
             else {
-                $comAM = "SELECT  senha, statusSenha as 'status', idSenha as id  FROM tbsenha
+                $comAM = "SELECT  senha, statusSenha as 'status', idSenha as id, tipoSenha as tipo  FROM tbsenha
                 WHERE statusSenha !=0
                 
                 ORDER BY updateAt DESC
@@ -140,7 +140,7 @@
 
         public function getSenhasWithGuiche(){
             $pdo = Conexao::conexao();
-            $com = "SELECT senha, nomeSala as sala, nomeGuiche as guiche, tipoSenha as tipo FROM tbsenha
+            $com = "SELECT senha, nomeSala as sala, nomeGuiche as guiche, tipoSenha as tipo, updateAt as atualizado FROM tbsenha
             INNER JOIN tbguiche ON `tbsenha`.`idGuiche` = `tbGuiche`.`idGuiche`
             INNER JOIN tbSala ON `tbguiche`.`idSala` = `tbsala`.`idSala`
             ORDER BY updateAt DESC
@@ -213,12 +213,13 @@
             return false;
         }
 
-        public static function updateApm($id, $status, $data) {
+        public static function updateApm($id, $status, $data, $guicheId) {
             $pdo = Conexao::conexao();
-            $com = "UPDATE tbsenha SET statusSenha = :ss, updateAt = :ua, tipoSenha ='Apm' WHERE idSenha = :id";
+            $com = "UPDATE tbsenha SET statusSenha = :ss, updateAt = :ua, idGuiche = :ig , tipoSenha ='Apm' WHERE idSenha = :id";
             $stmt = $pdo->prepare($com);
             $stmt->bindValue(":ss", $status);
             $stmt->bindValue(":ua", $data);
+            $stmt->bindValue(":ig", $guicheId);
             $stmt->bindParam(":id", $id);
             $stmt->execute();
             if($stmt->rowCount() >0){

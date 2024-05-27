@@ -3,7 +3,7 @@
        
 
         public static function conexao(){
-        $db = "dbchamadordesenhas";
+        $db = "bdchamadordesenhas";
         $user = "root";
         $password = "";
         $host = "localhost";

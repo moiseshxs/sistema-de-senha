@@ -116,7 +116,7 @@ const buscarUltimasSenhasT = async() =>{
         success: function(response) {
             //construção da tag html
             console.log(response)
-            let newHtml = "<div class='row item'>"
+            let newHtml = "<div class='row w-100 item'>"
             let newHtmlP = "<div class='row item'>"
             response.result.forEach(senha => {
                 console.log(senha)
@@ -131,11 +131,11 @@ const buscarUltimasSenhasT = async() =>{
                     color = "rgb(19, 94, 19);"
                 }
                 if(prefixo == "AP") {
-                    newHtmlP += `<div class="col d-flex align-items-center justify-content-center"><p class="h3 fw-bold"><span style="color: ${color}">${prefixo}</span>${senhaT}</p></div>`
-                    newHtmlP += `<div class='col d-flex align-items-center justify-content-center'><button class='btn btn-success fw-semibold' onclick="senhaAtual('${senha.senha}', '${senha.id}', '${idGuicheA}')">Chamar</button></div>`
+                    newHtmlP += `<div class="col-6 d-flex align-items-center justify-content-center"><p class="h3 fw-bold"><span style="color: ${color}">${prefixo}</span>${senhaT}</p></div>`
+                    newHtmlP += `<div class='col-6 d-flex align-items-center justify-content-center'><button class='btn btn-success fw-semibold' onclick="senhaAtual('${senha.senha}', '${senha.id}', '${idGuicheA}')">Chamar</button></div>`
                 } else {
-                    newHtml += `<div class="col d-flex align-items-center justify-content-center"><p class="h3 fw-bold"><span style="color: ${color}">${prefixo}</span>${senhaT}</p></div>`
-                    newHtml += `<div class='col d-flex align-items-center justify-content-center'><button class='btn btn-success fw-semibold' onclick="senhaAtual('${senha.senha}', '${senha.id}', '${idGuicheA}')">Chamar</button></div>`
+                    newHtml += `<div class="col-6 d-flex align-items-center justify-content-center"><p class="h3 fw-bold"><span style="color: ${color}">${prefixo}</span>${senhaT}</p></div>`
+                    newHtml += `<div class='col-6 d-flex align-items-center justify-content-center'><button class='btn btn-success fw-semibold' onclick="senhaAtual('${senha.senha}', '${senha.id}', '${idGuicheA}')">Chamar</button></div>`
                 }
             });
             newHtml += `<div class='col-12 mt-2 d-flex justify-content-around align-items-center'><button class="btn btn-primary">Pesquisar</button><button class="btn btn-success" onclick="carregar('normal')">Carregar mais</button></div>`
@@ -237,8 +237,8 @@ const chamarSenhasAtendidas = () => {
             }else{
                 color = "rgb(19, 94, 19);"
             }
-            newHtml += `<div class="col d-flex align-items-center justify-content-center"><p class="h3 fw-bold"><span style="color: ${color}">${prefixo}</span>${senhaT}</p></div>`
-            newHtml += `<div class='col d-flex align-items-center justify-content-center'><button class='btn btn-success fw-semibold' onclick="senhaAtual('${senha.senha}', '${senha.id}', '${idGuicheA}')">Chamar</button></div>`
+            newHtml += `<div class="col-6 d-flex align-items-center justify-content-center"><p class="h3 fw-bold"><span style="color: ${color}">${prefixo}</span>${senhaT}</p></div>`
+            newHtml += `<div class='col-6 d-flex align-items-center justify-content-center'><button class='btn btn-success fw-semibold' onclick="senhaAtual('${senha.senha}', '${senha.id}', '${idGuicheA}')">Chamar</button></div>`
         })
         newHtml += `<div class='col-12 mt-2 d-flex justify-content-around align-items-center'><button class="btn btn-primary">Pesquisar</button><button class="btn btn-success" onclick="carregar('atendidas')">Carregar mais</button></div>`
         newHtml += `</div>`
@@ -272,8 +272,8 @@ const naoComparecidos = () => {
                 }else{
                     color = "rgb(19, 94, 19);"
                 }
-                newHtml += `<div class="col d-flex align-items-center justify-content-center"><p class="h3 fw-bold"><span style="color: ${color}">${prefixo}</span>${senhaT}</p></div>`
-                newHtml += `<div class='col d-flex align-items-center justify-content-center'><button class='btn btn-success fw-semibold' onclick="senhaAtual('${senha.senha}', '${senha.id}', '${idGuicheA}')">Chamar</button></div>`
+                newHtml += `<div class="col-6 d-flex align-items-center justify-content-center"><p class="h3 fw-bold"><span style="color: ${color}">${prefixo}</span>${senhaT}</p></div>`
+                newHtml += `<div class='col-6 d-flex align-items-center justify-content-center'><button class='btn btn-success fw-semibold' onclick="senhaAtual('${senha.senha}', '${senha.id}', '${idGuicheA}')">Chamar</button></div>`
             })
             newHtml += `<div class='col-12 mt-2 d-flex justify-content-around align-items-center'><button class="btn btn-primary">Pesquisar</button><button class="btn btn-success" onclick="carregar('nao')">Carregar mais</button></div>`
             newHtml += `</div>`

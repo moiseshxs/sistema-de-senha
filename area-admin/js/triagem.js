@@ -216,7 +216,7 @@ const buscarUltimasSenhas = async() =>{
             let icon;
             if(response.result){
             response.result.forEach(senha => {
-                if(senha.status == '1'){
+                if(senha.status == '1' || senha.tipo){
                     icon = `<i class='bx bx-check-circle fs-1 text-success'></i>`
                 }else if(senha.status == '2'){
                     icon = `<i class='bx bx-x-circle fs-1 text-danger'></i>`
