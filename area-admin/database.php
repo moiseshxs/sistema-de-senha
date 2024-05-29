@@ -37,7 +37,7 @@
       <div class="col-5 d-flex align-items-center justify-content-center">
         <p class="fs-1 fw-semibold text-uppercase">Controle de DataBase</p>
       </div>
-      <div class="col pt-1 d-flex justify-content-end">
+      <div class="col pt-1 d-flex justify-content-end align-items-center">
         <?php include ("./componentes/logo.php");?>
       </div>
     </div>
@@ -55,7 +55,6 @@
         </div>
       </div>
     </div>
-    <div class="linha1" style="width: 100%; height: 5%"></div>
     <?php include ("./componentes/menu.php");?>
 
   </div>

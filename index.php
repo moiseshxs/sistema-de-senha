@@ -19,7 +19,7 @@
 <body>
   <div class="container-fluid p-0 vw-100 vh-100">
     <div class="row m-0 w-100 cima">
-      <div class="col pt-1">
+      <div class="col d-flex align-items-center">
         <?php include ("./area-admin/componentes/logo.php");?>
       </div>
       <div class="col-5 d-flex align-items-center justify-content-center">
@@ -91,7 +91,7 @@
 
   <style>
   .cima {
-    height: 10%
+    height: 15%
   }
 
   .meio {

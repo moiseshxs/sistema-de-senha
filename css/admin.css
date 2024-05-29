@@ -22,12 +22,12 @@
 #embacada{
   position: absolute;
   background-color: rgba(0, 0, 0, 0.8);
-  width: 100%;
-  left: 0;
-  height: 95%;
+  width: 99%;
+  height: 65%;
   display: none;
   justify-content: center;
   align-items: center;
+  z-index: 1;
 }
 #embaca{
   position: absolute;
@@ -51,10 +51,7 @@
   right: 10%;
   font-size: 18px !important;
 }
-#compareceu-area{
-  position: absolute;
-  top: 75%;
-}
+
 .icon{
   width: 24px;
   height: 24px;

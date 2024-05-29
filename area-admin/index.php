@@ -22,9 +22,7 @@ ob_flush();
 
 <body>
   <section class="container-fluid vh-100 m-0 px-3">
-    <div id="embacada">
-      <h3 style="color:#fff">Termine o Atendimento Atual</h3>
-    </div>
+
     <div class="row h-100">
       <div class="row" style="height: 25%;">
         <div class="col d-flex justify-content-start align-items-center">
@@ -63,6 +61,9 @@ ob_flush();
       </div>
 
       <div class="row" style="height: 65%;">
+        <div id="embacada">
+          <h3 style="color:#fff">Termine o Atendimento Atual</h3>
+        </div>
         <div class="col border">
           <div class="row matricula" style="height: 20%;">
             <p class="p-0 m-0 text-center text-light">Atendimento</p>
@@ -104,7 +105,7 @@ ob_flush();
             <p class="p-0 m-0 text-center text-light">Listagem</p>
             <p class="p-0 m-0 text-center text-light text-uppercase fs-3 fw-bold">Chamados</p>
           </div>
-          <div class="row conteudo overflow-auto d-flex flex-column justify-content-start">
+          <div class="row conteudo d-flex flex-column justify-content-start">
             <div id="ultimos" class="row overflow-auto  item mb-1" style="height:100% !important">
               <div class="col d-flex align-items-center justify-content-center">
                 <p class="h3 fw-bold">AP001</p>

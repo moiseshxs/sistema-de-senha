@@ -22,7 +22,7 @@
 
 <body>
   <div class="container-fluid p-0 vw-100 vh-100">
-    <div class="row m-0 w-100 cima" style="height: 10%;">
+    <div class="row m-0 w-100 cima" style="height: 15%;">
       <div class="col d-flex align-items-center">
         <a href="../index.php"><img src="./imgs/home.png" alt="" class="imga home">
         </a>
@@ -30,7 +30,7 @@
       <div class="col d-flex align-items-center justify-content-center">
         <p class="fs-1 fw-semibold text-uppercase">Controle de Salas</p>
       </div>
-      <div class="col pt-1 d-flex justify-content-end">
+      <div class="col pt-1 d-flex justify-content-end align-items-center">
         <?php include ("./componentes/logo.php");?>
       </div>
     </div>
@@ -60,8 +60,7 @@
       <div class="col"></div>
 
     </div>
-    <div class="linha1" style="width: 100%; height: 5%"></div>
-    <div class="linha"></div>
+
     <?php include ("./componentes/menu.php");?>
   </div>
 
