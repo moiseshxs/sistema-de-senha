@@ -185,6 +185,11 @@
             return $senhasC;
         }
 
+        public static function update($id, $status, $tipo, $idGuiche)
+        {
+            
+        }
+
         public static function updateTriagem($id, $status)
         {
             $pdo = Conexao::conexao();

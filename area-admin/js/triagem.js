@@ -216,7 +216,7 @@ const buscarUltimasSenhas = async() =>{
             let icon;
             if(response.result){
             response.result.forEach(senha => {
-                if(senha.status == '1' || senha.tipo){
+                if(senha.status == '1' || senha.tipo != 'Triagem'){
                     icon = `<i class='bx bx-check-circle fs-1 text-success'></i>`
                 }else if(senha.status == '2'){
                     icon = `<i class='bx bx-x-circle fs-1 text-danger'></i>`
@@ -224,7 +224,7 @@ const buscarUltimasSenhas = async() =>{
                 console.log(senha)
                 newHtml += "<div class='col-5 d-flex align-items-center justify-content-center'><p class='h3 fw-bold'>"+senha.senha+"</p></div>"
                 newHtml += `<div class='col-3 d-flex align-items-center justify-content-center'>${icon}</div>`
-                newHtml += `<div onclick="reCall('${senha.senha}', '${senha.id}', ${idGuicheA})" class="col-4 d-flex align-items-center justify-content-center"><button class="btn btn-success fw-semibold">Chamar</button></div>`
+                newHtml += `<div onclick="reCall('${senha.senha}', '${senha.id}', '${senha.tipo}','${senha.status}', ${idGuicheA})" class="col-4 d-flex align-items-center justify-content-center"><button class="btn btn-success fw-semibold">Chamar</button></div>`
             });
             newHtml += `<div class='col-12 mt-2 d-flex justify-content-around align-items-center'><button class="btn btn-primary">Pesquisar</button><button class="btn btn-success" onclick="carregar()">Carregar mais</button></div>`
            
@@ -283,16 +283,19 @@ const inserirSenha = async(senha, guiche) =>{
     });
 }
 
-const reCall = async (senha, id, guicheId) =>{
+const reCall = async (senha, id,tipo,status) =>{
     console.log(id)
-    await updateSenha(senha, id, guicheId)
+    await updateSenha(senha, id, tipo, status)
     setTimeout(() =>{
      trazerSenhas()
 }, 500)     
 }
 
-const updateSenha = async (senha, id, guicheId) =>{
+const updateSenha = async (senha, id, tipo, status) =>{
     localStorage.setItem('idSenhaAtual', id)
+    if(tipo != 'Triagem'){
+        localStorage.setItem('senha-modificada', `${tipo},${status}`)
+    }
     $(document).ready(function() {
     let newSenha = senha.toString() 
     $.ajax({
@@ -330,36 +333,7 @@ const updateSenha = async (senha, id, guicheId) =>{
 })
 }
 
-const trazerSenhas = async() =>{
-    $.ajax({
-        data: {tipo: "Triagem"},
-        type: 'GET',
-        dataType: 'json',
-        url: '../app/Controller/trazerSenhas.php',
-        async: true,
-        
-        success: function(response) {
-            
-            console.log( response)
-            let newHtml = "<div class='row item'>"
-            if(response.result){
-            response.result.forEach(senha => {
-                    let prefix = tratamentoPrefixo(senha.senha)
-                    let number = senha.senha.split(prefix)[1]
-                    number = parseInt(number)
-                    console.log(number)
-                    newHtml += "<div class='col d-flex align-items-center justify-content-center'><p class='h3 fw-bold'>"+senha.senha+"</p></div>"
-                    newHtml += `<div onclick="reCall('${senha.senha}', '${senha.id}')" class="col d-flex align-items-center justify-content-center"><button class="btn btn-success fw-semibold">Chamar</button></div>`
-                    
-                });
-            }
-            newHtml += "</div>"
-            $('#ultimos').html(newHtml) 
-            
-            
-        }
-    });
-}
+
 
     
 

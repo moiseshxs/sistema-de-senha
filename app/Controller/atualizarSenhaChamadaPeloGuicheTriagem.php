@@ -6,7 +6,7 @@ include_once('../Model/Senha.php');
     if($rows){
         echo json_encode([
             'success' => true,
-            "fodase" => 'desgraçaçaaçaçaç'
+            
         ]);
     }else{
         echo json_encode([
