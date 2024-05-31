@@ -132,10 +132,10 @@ const buscarUltimasSenhasT = async() =>{
                 }
                 if(prefixo == "AP") {
                     newHtmlP += `<div class="col-6 d-flex align-items-center justify-content-center"><p class="h3 fw-bold"><span style="color: ${color}">${prefixo}</span>${senhaT}</p></div>`
-                    newHtmlP += `<div class='col-6 d-flex align-items-center justify-content-center'><button class='btn btn-success fw-semibold' onclick="senhaAtual('${senha.senha}', '${senha.id}', '${idGuicheA}')">Chamar</button></div>`
+                    newHtmlP += `<div class='col-6 d-flex align-items-center justify-content-center'><button class='btn btn-success fw-semibold' onclick="senhaAtual('${senha.senha}', '${senha.id}', '${senha.tipo}','${senha.status}', '${idGuicheA}')">Chamar</button></div>`
                 } else {
                     newHtml += `<div class="col-6 d-flex align-items-center justify-content-center"><p class="h3 fw-bold"><span style="color: ${color}">${prefixo}</span>${senhaT}</p></div>`
-                    newHtml += `<div class='col-6 d-flex align-items-center justify-content-center'><button class='btn btn-success fw-semibold' onclick="senhaAtual('${senha.senha}', '${senha.id}', '${idGuicheA}')">Chamar</button></div>`
+                    newHtml += `<div class='col-6 d-flex align-items-center justify-content-center'><button class='btn btn-success fw-semibold' onclick="senhaAtual('${senha.senha}', '${senha.id}', '${senha.tipo}','${senha.status}', '${idGuicheA}')">Chamar</button></div>`
                 }
             });
             newHtml += `<div class='col-12 mt-2 d-flex justify-content-around align-items-center'><button class="btn btn-primary">Pesquisar</button><button class="btn btn-success" onclick="carregar('normal')">Carregar mais</button></div>`
@@ -151,10 +151,31 @@ const buscarUltimasSenhasT = async() =>{
         }
     });
 }
-const senhaAtual = async(senha, idSenha, guicheId) =>{
+const senhaAtual = async(senha, id, tipo, status) =>{
     //pegando os 2 primeiros caracteres da senha
+    let statusAtualizado =0
     let prefixo = senha.substring(0,2);
     senhaT = senha.substring(2);
+    let dados;
+    if(tipo == 'Triagem' && status == '1' ){
+        dados = {
+            idSenha: id,
+            statusSenha: 0,
+            idGuiche: idGuicheA,
+        }
+    }else{
+        localStorage.setItem('senha-modificada', `${tipo},${status}`)
+        console.log("fodase")
+        let newSenha = senha.toString() 
+         dados = {
+            senha: newSenha,
+            tipo: "Matricula",
+            idGuiche: idGuicheA,
+            outra_etapa: true,
+            status: statusAtualizado
+        }
+        
+    }
     let color;
     if(prefixo == "AP") {
         color = "rgb(19, 94, 19);"
@@ -166,11 +187,7 @@ const senhaAtual = async(senha, idSenha, guicheId) =>{
     $.ajax ({
         type: 'POST',
         dataType: 'json',
-        data: {
-            idSenha: idSenha,
-            statusSenha: 0,
-            idGuiche: guicheId,
-        },
+        data: dados,
         url: '../app/Controller/atualizarStatusSenhaMatriculaQuandoChamada.php',
         async:true,
 
@@ -181,7 +198,7 @@ const senhaAtual = async(senha, idSenha, guicheId) =>{
     
             $('#embaca').css('display','flex')
             $('#senhaAtual').html(newHtml)
-            localStorage.setItem("idSenhaAtualMatricula", idSenha)
+            localStorage.setItem("idSenhaAtualMatricula", id)
             seila = $('#guiche').val();
             console.log(seila)
            
@@ -191,7 +208,38 @@ const senhaAtual = async(senha, idSenha, guicheId) =>{
 
  const compareceu = async(status) => {
     if(localStorage.getItem('idSenhaAtualMatricula') != undefined) {
-        console.log(status)
+
+        if(localStorage.getItem('senha-modificada')){
+            let infos = localStorage.getItem('senha-modificada').split(',')
+            console.log($("#senhaAtual").text())
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                data:{
+                    status:infos[1],
+                    outra_etapa: true,
+                    retomada:true,
+                    tipo: infos[0],
+                    senha: $("#senhaAtual").text(),
+                    idGuiche: idGuicheA
+                },
+                url: '../app/Controller/recallSenha.php',
+                async: true,
+                
+                success: function(response) {
+                    console.log(response)
+                    localStorage.removeItem("idSenhaAtual")
+                    localStorage.removeItem("senha-modificada")
+                    $("#embacada").css('display', 'none')
+                    $("#senhaAtual").html(`<p id="senhaAtual" class="text-center" style="font-size: 60px;"><span id="prefixo-atual" class="">00</span><span id="digitos-atual">000</span></p>`)
+                },
+                error: (e) =>{
+                    console.log(e)
+                }
+            })
+        }else{
+
+        
      $.ajax({
          type: 'POST',
          dataType: 'json',
@@ -210,6 +258,7 @@ const senhaAtual = async(senha, idSenha, guicheId) =>{
 
          }
      })
+    }
     } 
  }
 
@@ -225,6 +274,7 @@ const chamarSenhasAtendidas = () => {
         url: '../app/Controller/trazerSenhas.php',
         async: true,
         success: function(response) {
+            console.log(response)
         let newHtml = `<div class='row item'>`
             response.result.forEach(senha => {
             let prefixo = senha.senha.substring(0,2);
@@ -238,7 +288,7 @@ const chamarSenhasAtendidas = () => {
                 color = "rgb(19, 94, 19);"
             }
             newHtml += `<div class="col-6 d-flex align-items-center justify-content-center"><p class="h3 fw-bold"><span style="color: ${color}">${prefixo}</span>${senhaT}</p></div>`
-            newHtml += `<div class='col-6 d-flex align-items-center justify-content-center'><button class='btn btn-success fw-semibold' onclick="senhaAtual('${senha.senha}', '${senha.id}', '${idGuicheA}')">Chamar</button></div>`
+            newHtml += `<div class='col-6 d-flex align-items-center justify-content-center'><button class='btn btn-success fw-semibold' onclick="senhaAtual('${senha.senha}', '${senha.id}', '${senha.tipo}','${senha.status}', '${idGuicheA}')">Chamar</button></div>`
         })
         newHtml += `<div class='col-12 mt-2 d-flex justify-content-around align-items-center'><button class="btn btn-primary">Pesquisar</button><button class="btn btn-success" onclick="carregar('atendidas')">Carregar mais</button></div>`
         newHtml += `</div>`
@@ -273,7 +323,7 @@ const naoComparecidos = () => {
                     color = "rgb(19, 94, 19);"
                 }
                 newHtml += `<div class="col-6 d-flex align-items-center justify-content-center"><p class="h3 fw-bold"><span style="color: ${color}">${prefixo}</span>${senhaT}</p></div>`
-                newHtml += `<div class='col-6 d-flex align-items-center justify-content-center'><button class='btn btn-success fw-semibold' onclick="senhaAtual('${senha.senha}', '${senha.id}', '${idGuicheA}')">Chamar</button></div>`
+                newHtml += `<div class='col-6 d-flex align-items-center justify-content-center'><button class='btn btn-success fw-semibold' onclick="senhaAtual('${senha.senha}', '${senha.id}', '${senha.tipo}','${senha.status}', '${idGuicheA}')">Chamar</button></div>`
             })
             newHtml += `<div class='col-12 mt-2 d-flex justify-content-around align-items-center'><button class="btn btn-primary">Pesquisar</button><button class="btn btn-success" onclick="carregar('nao')">Carregar mais</button></div>`
             newHtml += `</div>`
