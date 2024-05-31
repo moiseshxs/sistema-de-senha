@@ -176,23 +176,53 @@ const atualizarHtmlProximasSenhas =  (response) =>{
 const update = status =>{
 
     if(localStorage.getItem('idSenhaAtual') != undefined){
-    $.ajax({
-        type: 'POST',
-        dataType: 'json',
-        data:{
-            status:status,
-            id: localStorage.getItem("idSenhaAtual")
-        },
-        url: '../app/Controller/atualizarSenhaChamadaPeloGuicheTriagem.php',
-        async: true,
-        
-        success: function(response) {
-            console.log(response)
-            localStorage.removeItem("idSenhaAtual")
-            $("#embacada").css('display', 'none')
-            $("#senhaAtual").html(`<p id="senhaAtual" class="text-center" style="font-size: 60px;"><span id="prefixo-atual" class="">00</span><span id="digitos-atual">000</span></p>`)
-        }
-    })
+    if(localStorage.getItem('senha-modificada')){
+        let infos = localStorage.getItem('senha-modificada').split(',')
+        console.log($("#senhaAtual").text())
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            data:{
+                status:infos[1],
+                outra_etapa: true,
+                retomada:true,
+                tipo: infos[0],
+                senha: $("#senhaAtual").text(),
+                idGuiche: idGuicheA
+            },
+            url: '../app/Controller/recallSenha.php',
+            async: true,
+            
+            success: function(response) {
+                console.log(response)
+                localStorage.removeItem("idSenhaAtual")
+                localStorage.removeItem("senha-modificada")
+                $("#embacada").css('display', 'none')
+                $("#senhaAtual").html(`<p id="senhaAtual" class="text-center" style="font-size: 60px;"><span id="prefixo-atual" class="">00</span><span id="digitos-atual">000</span></p>`)
+            },
+            error: (e) =>{
+                console.log(e)
+            }
+        })
+    }else{
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            data:{
+                status:status,
+                id: localStorage.getItem("idSenhaAtual")
+            },
+            url: '../app/Controller/atualizarSenhaChamadaPeloGuicheTriagem.php',
+            async: true,
+            
+            success: function(response) {
+                console.log(response)
+                localStorage.removeItem("idSenhaAtual")
+                $("#embacada").css('display', 'none')
+                $("#senhaAtual").html(`<p id="senhaAtual" class="text-center" style="font-size: 60px;"><span id="prefixo-atual" class="">00</span><span id="digitos-atual">000</span></p>`)
+            }
+        })
+    }
 }
 }
 
@@ -287,26 +317,40 @@ const reCall = async (senha, id,tipo,status) =>{
     console.log(id)
     await updateSenha(senha, id, tipo, status)
     setTimeout(() =>{
-     trazerSenhas()
+     buscarUltimasSenhas()
 }, 500)     
 }
 
 const updateSenha = async (senha, id, tipo, status) =>{
+    let statusAtualizado = 0
     localStorage.setItem('idSenhaAtual', id)
+    let dados;
     if(tipo != 'Triagem'){
         localStorage.setItem('senha-modificada', `${tipo},${status}`)
+        let newSenha = senha.toString() 
+         dados = {
+            senha: newSenha,
+            tipo: "Triagem",
+            idGuiche: idGuicheA,
+            outra_etapa: true,
+            status: statusAtualizado
+        }
+    }else{
+        dados = {
+            senha: newSenha,
+            idGuiche: idGuicheA
+        }
     }
     $(document).ready(function() {
-    let newSenha = senha.toString() 
+    
     $.ajax({
         type: 'POST',
         dataType: 'json',
         url: '../app/Controller/recallSenha.php',
         async: true,
-        data: {senha:newSenha,
-               idGuiche: guicheId
-        },
+        data: dados,
         success: function(response) {
+            console.log(response)
             let prefixo = tratamentoPrefixo(senha)
             let color
             if(prefixo == "AM"){

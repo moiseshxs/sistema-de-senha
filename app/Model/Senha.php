@@ -185,9 +185,29 @@
             return $senhasC;
         }
 
-        public static function update($id, $status, $tipo, $idGuiche)
+        public static function update($senha,$status, $tipo, $idGuiche, $data)
         {
-            
+           $pdo = Conexao::conexao();
+           if($data == null){
+                $com = "UPDATE tbsenha SET statusSenha = :ss, tipoSenha = :ts, idGuiche = :ig
+                WHERE senha = :s";
+           }else{
+                $com = "UPDATE tbsenha SET statusSenha = :ss, tipoSenha = :ts, idGuiche = :ig, updateAt = :ua
+                WHERE senha = :s";
+           }
+           $stmt = $pdo->prepare($com);
+           $stmt->bindValue(":ts", $tipo);
+           $stmt->bindValue(":ss", $status);
+           $stmt->bindValue(":ig", $idGuiche);
+           if($data != null){
+           $stmt->bindValue(":ua", $data); 
+           }
+           $stmt->bindParam(":s", $senha);
+           $stmt->execute();
+           if($stmt->rowCount() >0){
+               return true;
+           }
+           return false;
         }
 
         public static function updateTriagem($id, $status)
