@@ -14,73 +14,118 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
   <link rel="stylesheet" href="../css/admin.css" />
-
-
+  <link rel="stylesheet" href="../css/apm.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 
 <body>
-  <div class="container-fluid w-100 vh-100">
-    <div class="content h-100 w-100">
-      <div class="row cima-2 bg-light d-flex align-itens-center">
-      <button id="abrirModal" type="button"
-            class="btn btn-dark btn-sm " data-bs-toggle="modal" data-bs-target="#config">
-            Alterar
-          </button>
-        <div class="col vazia h-100 d-flex pt-1 justify-content-start">
-        <?php include ("./componentes/logo.php");?>
-        </div>
-        <div class="col"></div>
-        <div class="col d-flex flex-column senha-atual h-100">
-          <div class=" h-25 d-flex justify-content-center fs-4 fw-bold text-uppercase">
-            <p class="text-center" style="font-size: 30px;">Senha Atual</p>
-          </div>
-          <div class=" h-75 d-flex justify-content-center fs-1 fw-bold">
-            <p id="senhaAtual" class="text-center" style="font-size: 60px;"><span class="text-success">AP</span>000</p>
-          </div>
-        </div>
-        <div class="col">
+  <section class="container-fluid vh-100 m-0 px-3">
 
+    <div class="row h-100">
+
+      <div class="row h-30">
+
+        <div class="col d-flex justify-content-start align-items-start mt-3">
+          <?php include ("./componentes/logo.php");?>
         </div>
-        <div class="col d-flex flex-column suas-informacoes h-100" id="infos">
-          <div class=" d-flex justify-content-end fs-5 fw-bold text-uppercase">
-            Suas Informações
+        <div class="col-6">
+
+          <div class="row ">
+            <p class="text-center fw-bold text-uppercase p-0 m-0 fs-2">Senha Atual</p>
+            <p id="senhaAtual" class="text-center fs-60 fw-bold text-uppercase p-0 m-0"><span id="prefixo-atual"
+                class="">XX</span><span id="digitos-atual">000</span></p>
           </div>
-          <div class=" d-flex justify-content-end fs-5"><span class="fw-bold fs-5">Sala</span>: </div>
 
-          <div class=" d-flex justify-content-end fs-5"><span class="fw-bold fs-5">Guichê</span>: </div>
-          <input type="hidden" id="guiche" value="2">
+          <div class="row d-flex flex-column align-items-center justify-content-center">
+            <div class="fs-6 text-center w-100">O atendimentou terminou?</div>
+            <div id="compareceu-area"
+              class="w-100 d-flex flex-row align-items-center justify-content-center gap-5 mt-2">
+              <button onclick="compareceu('1')" class="btn btn-success btn-redondo"><i class="fas fa-check"></i></button>
+              <button onclick="compareceu('2')" class="btn btn-danger btn-redondo"><i class="fas fa-times"></i></button>
+            </div>
+          </div>
         </div>
-        <div id="compareceu-area" class="col d-flex justify-content-center align-items-center">
-          <button onclick="compareceu('1')" class="btn btn-success me-3">Compareceu</button>
-          <button onclick="compareceu('2')" class="btn btn-danger ms-3">Não Compareceu</button>
-        </div>
-    </div>
-      
 
-      <div class="row meio border border-secondary"  id="conteudo">
-      <div id="embaca">
+        <div class="col d-flex flex-column" id="infos">
+
+          <div class="row p-0 my-2 d-flex">
+            <div class="col d-flex justify-content-end">
+              <button id="abrirModal" type="button" class="btn btn-dark btn-redondo" data-bs-toggle="modal"
+                data-bs-target="#config">
+                <i class="fas fa-cog"></i>
+              </button>
+            </div>
+          </div>
+
+
+          <div class="row p-0 m-0 d-flex">
+            <div class="col m-0 p-0">
+              <p class="fs-5 fw-bold text-uppercase text-end p-0 m-0">Suas informações</p>
+            </div>
+          </div>
+          <div class="row p-0 m-0">
+            <p class="fw-bold fs-5 p-0 m-0 text-end">Sala: <span class="fs-4">X</span></p>
+            <p class="fw-bold fs-5 p-0 m-0 text-end">Guichê: <span class="fs-4">X</span></p>
+            <input type="hidden" id="guiche" value="2">
+          </div>
+        </div>
+      </div>
+
+
+      <div class="row h-65" id="conteudo">
+        <div id="embaca">
           <h3 style="color:#fff">Termine o Atendimento Atual</h3>
         </div>
-        <div class="col p-0">
-          <div class="titulo matricula">
-            <div class="text1 h-25 w-100 text-center text-light h6 fw-normal">
-              Atendimento
-            </div>
-            <div class="text2 h-50 w-100 text-center text-light h3">
-              Próximos
-            </div>
+
+        <div class="col p-0 m-0 border">
+          <div class="titulo matricula h-20">
+            <p class="p-0 m-0 text-center text-light">Atendimento</p>
+            <p class="p-0 m-0 text-center text-light text-uppercase fs-3 fw-bold">Proximos</p>
           </div>
           <div class="conteudo p-2 overflow-auto d-flex flex-column justify-content-start">
             <div id="proximos" class="row item">
-              <div class="col d-flex align-items-center justify-content-center">
-                <p class="h3 fw-bold">AP001</p>
-              </div>
-              <div class="col d-flex align-items-center justify-content-center"><button
-                  class="btn btn-success fw-semibold">Chamar</button></div>
+            <p class="h3 fw-bold text-center">Nenhum atendimento</p>
             </div>
           </div>
         </div>
-        <div class="col p-0 bg-cinza">
+
+        <div class="col p-0 m-0 border">
+          <div class="titulo preferencial h-20">
+            <p class="p-0 m-0 text-center text-light">Atendimento</p>
+            <p class="p-0 m-0 text-center text-light text-uppercase fs-3 fw-bold">Preferencial</p>
+          </div>
+          <div class="conteudo p-2 overflow-auto d-flex flex-column justify-content-start">
+            <div id="preferenciais" class="row item">
+            <p class="h3 fw-bold text-center">Nenhum atendimento</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col p-0 m-0 border">
+          <div class="titulo remanescente h-20">
+            <p class="p-0 m-0 text-center text-light">Atendimento</p>
+            <p class="p-0 m-0 text-center text-light text-uppercase fs-3 fw-bold">Atendidas</p>
+          </div>
+          <div class="conteudo p-2 overflow-auto d-flex flex-column justify-content-start">
+            <div id="atendidas" class="row item">
+            <p class="h3 fw-bold text-center">Nenhum atendimento</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col p-0 m-0 border">
+          <div class="titulo listas h-20">
+            <p class="p-0 m-0 text-center text-light">Atendimento</p>
+            <p class="p-0 m-0 text-center text-light text-uppercase fs-3 fw-bold">Não comparecidas</p>
+          </div>
+          <div class="conteudo p-2 overflow-auto d-flex flex-column justify-content-start">
+            <div id="nao-comparecidas" class="row item ">
+            <p class="h3 fw-bold text-center">Nenhum atendimento</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- <div class="col p-0 bg-cinza">
           <div class="titulo preferencial">
             <div class="text1 h-25 w-100 text-center text-light h6 fw-normal">
               Atendimento
@@ -99,6 +144,7 @@
             </div>
           </div>
         </div>
+
         <div class="col p-0">
           <div class="titulo remanescente">
             <div class="text1 h-25 w-100 text-center text-light h6 fw-normal">
@@ -118,6 +164,7 @@
             </div>
           </div>
         </div>
+
         <div class="col p-0 ">
           <div class="titulo listas">
             <div class="text1 h-25 w-100 text-center text-light h6 fw-normal">
@@ -136,11 +183,14 @@
                   class="btn btn-success fw-semibold">Chamar</button></div>
             </div>
           </div>
-        </div>
+        </div> -->
+
       </div>
     </div>
 
-  </div>
+  </section>
+
+
   <div class="modal fade" id="config" tabindex="-1" aria-labelledby="config" aria-hidden="true">
     <div class="modal-dialog modal-xl bg-secondary">
       <div class="modal-content bg-secondary">

@@ -45,7 +45,7 @@ ob_flush();
           </div>
         </div>
         <!-- Informações -->
-        <div class="col d-flex  flex-column" id="infos">
+        <div class="col d-flex flex-column" id="infos">
           <!-- Botao de Alterar -->
           <div class="row p-0 my-2 d-flex">
             <div class="col d-flex justify-content-end">
