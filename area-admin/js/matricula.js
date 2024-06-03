@@ -234,14 +234,20 @@ const focar = (div,nomeGuiche, idSala, idGuiche) => {
         });
         div.style.border = "3px solid #00FF00";
     }
-        newHtml = `<button type="button" class="btn btn-danger btn-safado" data-bs-dismiss="modal">Cancelar</button>`
-        newHtml += `<button type="button" class="btn btn-success" data-bs-dismiss="modal" onclick="trocarInfos('${idSala}', '${guicheAtual}', '${idGuiche}')">Salvar</button>`
-    $('.modal-footer').html(newHtml)
+    newHtml = `<button id="home-btn" type="button" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Ir para home"><i class="fas fa-home"></i></button>`
+    newHtml += `<button type="button" class="btn btn-success" data-bs-dismiss="modal" onclick="trocarInfos('${idSala}', '${guicheAtual}', '${idGuiche}')">Salvar</button>`
+$('.modal-footer').html(newHtml)
+
+ $('[data-bs-toggle="tooltip"]').tooltip();
+
+ $('#home-btn').on('click', function() {
+     window.location.href = '../index.php'
+ });
 }
 
 const trocarInfos = async (idSala, guicheAtual, idGuiche) => {
     console.log(idGuiche);
-    
+    idGuicheA = idGuiche
     let newHtml = `
         <div class="col d-flex flex-column" id="infos">
           <div class="row p-0 my-2 d-flex">
@@ -264,7 +270,7 @@ const trocarInfos = async (idSala, guicheAtual, idGuiche) => {
           </div>
         </div>
     `;
-    idGuicheA = idGuiche
+    
     $('#infos').html(newHtml);
 }
 

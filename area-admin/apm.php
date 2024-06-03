@@ -13,7 +13,6 @@
   <link rel="icon" type="image/x-icon" href="./imgs/etec-guaianazes.png">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
-  <link rel="stylesheet" href="../css/admin.css" />
   <link rel="stylesheet" href="../css/apm.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
@@ -221,9 +220,9 @@
             </div>
           </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger btn-safado" data-bs-dismiss="modal">Cancelar</button>
-          <button type="button" class="btn btn-success">Salvar</button>
+        <div class="modal-footer d-flex justify-content-between">
+              <button id="home-btn" type="button" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Ir para home"><i class="fas fa-home"></i></button>
+              <button type="button" class="btn btn-success">Salvar</button>
         </div>
       </div>
     </div>
@@ -267,6 +266,15 @@
     var button = document.getElementById("abrirModal");
     button.click();
   });
+
+  $(document).ready(function() {
+      $('[data-bs-toggle="tooltip"]').tooltip();
+
+      
+      $('#home-btn').on('click', function() {
+        window.location.href = '../index.php';
+      });
+    });
   </script>
 
   <script async src="https://app2.weatherwidget.org/js/?id=ww_f5c4ab7d7d6c6"></script>

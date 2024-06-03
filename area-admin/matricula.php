@@ -173,9 +173,9 @@ ob_flush();
             </div>
           </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger btn-safado" data-bs-dismiss="modal">Cancelar</button>
-          <button type="button" class="btn btn-success">Salvar</button>
+        <div class="modal-footer d-flex justify-content-between">
+              <button id="home-btn" type="button" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Ir para home"><i class="fas fa-home"></i></button>
+              <button type="button" class="btn btn-success">Salvar</button>
         </div>
       </div>
     </div>
@@ -209,7 +209,7 @@ ob_flush();
         <button class="fw-bold text-white p-2 px-4 rounded-3" id="fechando-modal" style="outline:none;border:none;background-color: rgb(192, 24, 24);" >Fechar</button>
         <button onclick="chamaDnv()" class="fw-bold text-white p-2 px-4 rounded-3" style="outline:none;border:none;background-color: green;">Salvar</button>
       </div>
-</div>
+  </div>
 
 
 
@@ -218,6 +218,15 @@ ob_flush();
     var button = document.getElementById("abrirModal");
     button.click();
   });
+
+  $(document).ready(function() {
+      $('[data-bs-toggle="tooltip"]').tooltip();
+
+      
+      $('#home-btn').on('click', function() {
+        window.location.href = '../index.php';
+      });
+    });
   </script>
 
   <script async src="https://app2.weatherwidget.org/js/?id=ww_f5c4ab7d7d6c6"></script>
