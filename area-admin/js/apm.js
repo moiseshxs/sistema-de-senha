@@ -3,7 +3,7 @@ let idGuicheA;
 let clicksCarregar =1
 let atendidos = 1
 let nao =1
-
+let modalInfos = {}
 $('#abrirModal').on('click', function (e){
     $.ajax({
         type: 'GET',
@@ -24,6 +24,159 @@ $('#abrirModal').on('click', function (e){
          }
     })
 })
+
+const fade = document.querySelector('#fades');
+const modal = document.querySelector('#pesquisa-sala');
+    
+const colocaInfo = (senha, id, tipo) => {
+    modalInfos = {senha, id, tipo};
+    console.log(modalInfos);
+}
+const chamaDnv = () => {
+    senhaAtual(modalInfos.senha, modalInfos.id, idGuicheA);
+    fade.style.display = "none";
+    modal.style.display = "none";
+}
+const todasSalas = async() => {
+    fade.style.display = "block";
+    modal.style.display = "block";
+    $.ajax ({
+        type: 'POST',
+        data: {
+            tipo: 'Nenhum',
+            limit: 100
+        },
+        dataType: 'json',
+        url: '../app/Controller/trazerSenhas.php',
+        async: true,
+        success: function(response) {
+            console.log(response)
+            var formataData;
+            let newHtml = `<table class="w-100 h-100" id="modalSenhasAll">`
+                newHtml += `<tr style="border-bottom: 1px solid black;background-color: rgb(182, 170, 170);height: 10%;">`
+                newHtml += `<td class="blocos p-2" style="border-right: 1px solid black;">Senha</td>`
+                newHtml += `<td class="blocos" style="border-right: 1px solid black;">Etapa</td>`
+                newHtml += `<td class="blocos" style="border-right: 1px solid black;">Atendimento Concluido</td>`
+                newHtml += `<td class="blocos">Horario</td>`
+                newHtml += `</tr>`
+            response.result.forEach(senhas => {
+                let atendida;
+                if(senhas.status === 1) {
+                    atendida = "Atendida"
+                } else {
+                    atendida = "Não Atendida"
+                }
+                let prefixo = senhas.senha.substring(0,2);
+                let restoSenha = senhas.senha.substring(2);
+
+                let color
+                if(prefixo == "AM"){
+                    color = "rgb(26, 26, 26);"
+                }else if(prefixo == "AR"){
+                    color = "rgb(16, 48, 96);"
+                }else{
+                    color = "rgb(19, 94, 19);"
+                }
+
+                formataData = senhas.ua.split(" ");
+                formataData = formataData[1].split(":");
+                newData = formataData[0]+":"+formataData[1]+":"+formataData[2];
+
+                newHtml += `<tr onclick="colocaInfo('${senhas.senha}', '${senhas.id}', '${senhas.tipo}','${senhas.status}')" style="border-bottom: 1px solid rgb(161, 152, 152);height: 10%;" id="senhasAll">`
+                newHtml += `<td class="blocos" style="border-right: 1px solid black;"><span style="color: ${color}">${prefixo}</span>${restoSenha}</td>`
+                newHtml += `<td class="blocos" style="border-right: 1px solid black;">${senhas.tipo}</td>`
+                newHtml += `<td class="blocos" style="border-right: 1px solid black;">${atendida}</td>`
+                newHtml += `<td class="blocos">${newData}</td>`
+                newHtml += `</tr>`
+            })
+            newHtml += `<tr style="border-bottom: 1px solid rgb(161, 152, 152);height: 90%;"></tr>`
+            newHtml += `</div>`
+            $('#modalSenhasAll').html(newHtml);
+
+        }
+
+
+    })
+
+    $('#fechando-modal').click(function () {
+        fade.style.display = "none";
+        modal.style.display = "none";
+
+    })
+}
+
+const buscar = (b) => {
+    $.ajax ({
+        type: 'POST',
+        url: '../app/Controller/pesquisaSenha.php',
+        dataType: 'json',
+        data: {busca: b},
+
+        success: function(response) {
+            let newHtml = `<table class="w-100 h-100" id="modalSenhasAll">`
+            newHtml += `<tr style="border-bottom: 1px solid black;background-color: rgb(182, 170, 170);height: 10%;">`
+            newHtml += `<td class="blocos p-2" style="border-right: 1px solid black;">Senha</td>`
+            newHtml += `<td class="blocos" style="border-right: 1px solid black;">Etapa</td>`
+            newHtml += `<td class="blocos" style="border-right: 1px solid black;">Atendimento Concluido</td>`
+            newHtml += `<td class="blocos">Horario</td>`
+            newHtml += `</div>`
+            console.log(response);
+            if(response.result == false) {
+
+            } else {
+            response.result.forEach(senha => {
+                console.log(senha.statusSenha)
+                let atendida;
+                if(senha.statusSenha === 1) {
+                    atendida = "Atendida"
+                } else {
+                    atendida = "Não Atendida"
+                }
+                let prefixo = senha.senha.substring(0,2);
+                let restoSenha = senha.senha.substring(2);
+
+                let color
+                if(prefixo == "AM"){
+                    color = "rgb(26, 26, 26);"
+                }else if(prefixo == "AR"){
+                    color = "rgb(16, 48, 96);"
+                }else{
+                    color = "rgb(19, 94, 19);"
+                }
+
+                formataData = senha.updateAt.split(" ");
+                formataData = formataData[1].split(":");
+                newData = formataData[0]+":"+formataData[1]+":"+formataData[2];
+
+                newHtml += `<tr style="border-bottom: 1px solid rgb(161, 152, 152);height: 10%;" id="senhasAll">`
+                newHtml += `<td class="blocos" style="border-right: 1px solid black;"><span style="color: ${color}">${prefixo}</span>${restoSenha}</td>`
+                newHtml += `<td class="blocos" style="border-right: 1px solid black;">${senha.tipoSenha}</td>`
+                newHtml += `<td class="blocos" style="border-right: 1px solid black;">${atendida}</td>`
+                newHtml += `<td class="blocos">${newData}</td>`
+            })
+        }
+            newHtml += `<tr style="border-bottom: 1px solid rgb(161, 152, 152);height: 90%;"></tr>`
+            newHtml += `</div>`
+            $('#modalSenhasAll').html(newHtml);
+            console.log(response)
+        }, error: (e) => {
+            console.log(e);
+        }
+    })
+}
+
+$(document).ready(function () {
+    $('#buscaa').keyup(function () {
+        var b = $('#buscaa').val();
+        if(b != '') {
+            buscar(b);
+        } else {
+            buscar()
+        }
+    })
+})
+
+
 
 const trazerGuiches = async(idSala, nomeSala, div) => {
     if(div != null) {
@@ -248,8 +401,8 @@ const buscarUltimasSenhasT = async() =>{
                 newHtml += `<div class='col-6 d-flex align-items-center justify-content-center'><button class='btn btn-success fw-semibold' onclick="senhaAtual('${senha.senha}', '${senha.id}',${idGuicheA})">Chamar</button></div>`
                 }
             });
-            newHtml += `<div class='col-12 mt-2 d-flex justify-content-around align-items-center'><button class="btn btn-primary">Pesquisar</button><button class="btn btn-success" onclick="carregar('normal')">Carregar mais</button></div>`
-            newHtmlP += `<div class='col-12 mt-2 d-flex justify-content-around align-items-center'><button class="btn btn-primary">Pesquisar</button><button class="btn btn-success" onclick="carregar('normal')">Carregar mais</button></div>`
+            newHtml += `<div class='col-12 mt-2 d-flex justify-content-around align-items-center'><button class="btn btn-primary" id="pesquisarSalas" onclick="todasSalas()">Pesquisar</button><button class="btn btn-success" onclick="carregar('normal')">Carregar mais</button></div>`
+            newHtmlP += `<div class='col-12 mt-2 d-flex justify-content-around align-items-center'><button class="btn btn-primary" id="pesquisarSalas" onclick="todasSalas()">Pesquisar</button><button class="btn btn-success" onclick="carregar('normal')">Carregar mais</button></div>`
             newHtml += "</div>"
             newHtmlP += "</div>"
             //atualizando html
@@ -289,7 +442,7 @@ const buscarUltimasSenhasAtendidas = async() =>{
                 newHtml += `<div class='col-6 d-flex align-items-center justify-content-center'><button class='btn btn-success fw-semibold' onclick="senhaAtual('${senha.senha}', '${senha.id}',${idGuicheA})">Chamar</button></div>`
                 
             });
-            newHtml += `<div class='col-12 mt-2 d-flex justify-content-around align-items-center'><button class="btn btn-primary">Pesquisar</button><button class="btn btn-success" onclick="carregar('atendidas')">Carregar mais</button></div>`
+            newHtml += `<div class='col-12 mt-2 d-flex justify-content-around align-items-center'><button class="btn btn-primary" id="pesquisarSalas" onclick="todasSalas()">Pesquisar</button><button class="btn btn-success" onclick="carregar('atendidas')">Carregar mais</button></div>`
             newHtml += "</div>"
           
             //atualizando html
@@ -328,7 +481,7 @@ const buscarNaoComparecidas = async() =>{
                 newHtml += `<div class='col-6 d-flex align-items-center justify-content-center'><button class='btn btn-success fw-semibold' onclick="senhaAtual('${senha.senha}', '${senha.id}', ${idGuicheA})">Chamar</button></div>`
                 
             });
-            newHtml += `<div class='col-12 mt-2 d-flex justify-content-around align-items-center'><button class="btn btn-primary">Pesquisar</button><button class="btn btn-success" onclick="carregar('nao')">Carregar mais</button></div>`
+            newHtml += `<div class='col-12 mt-2 d-flex justify-content-around align-items-center'><button class="btn btn-primary" id="pesquisarSalas" onclick="todasSalas()">Pesquisar</button><button class="btn btn-success" onclick="carregar('nao')">Carregar mais</button></div>`
             newHtml += "</div>"
           
             //atualizando html
