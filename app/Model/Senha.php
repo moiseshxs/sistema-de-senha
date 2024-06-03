@@ -104,9 +104,14 @@
                   
                 ORDER BY updateAt DESC
                 LIMIT $limit";
-            }
-            else {
-                $comAM = "SELECT  senha, statusSenha as 'status', idSenha as id, tipoSenha as tipo  FROM tbsenha
+            } else if($valor = "Apm-All"){
+                $comAM = "SELECT senha, statusSenha as 'status', idSenha as id, tipoSenha as tipo, updateAt as ua FROM `tbsenha`
+                 WHERE (statusSenha !=0 AND tipoSenha != 'Triagem')
+                  
+                ORDER BY updateAt DESC
+                LIMIT $limit";
+            } else {
+                $comAM = "SELECT  senha, statusSenha as 'status', idSenha as id, tipoSenha as tipo, updateAt as ua  FROM tbsenha
                 WHERE statusSenha !=0
                 
                 ORDER BY updateAt DESC
@@ -265,6 +270,21 @@
             } else {
                 return false;
             }
+        }
+        public static function pesquisarSenhas($busca) {
+            $pdo = Conexao::conexao();
+            $com = "SELECT * FROM tbsenha WHERE senha LIKE '%".$busca."%'
+            OR updateAt LIKE '%".$busca."%'
+            OR tipoSenha LIKE '%".$busca."%'
+            ";
+            $stmt = $pdo->prepare($com);
+            $stmt->execute();
+            if($stmt->rowCount() > 0) {
+                $resul = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            } else {
+                return false;
+            }
+            return $resul;
         }
         public function setSenha($senha){
             $this->senha = $senha;

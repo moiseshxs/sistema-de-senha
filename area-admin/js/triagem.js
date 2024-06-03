@@ -2,6 +2,8 @@ let tipo = "Triagem"
 let limit = 8
 let clicksCarregar =1
 let idGuicheA;
+let modalInfos = {};
+
 
 $('#abrirModal').on('click', function (e){
     $.ajax({
@@ -11,7 +13,7 @@ $('#abrirModal').on('click', function (e){
         async: true,
     
          success: function(response) {
-               let newHtml = `<div class="col-4 bg-light d-flex gap-1 flex-column w-100 p-1" id="salasTotal">`
+               let newHtml = `<div class="col-4 bg-light d-flex gap-1 flex-column w-100 p-1 overflow-auto" id="salasTotal">`
                            response.salas.forEach(sala => {
                             newHtml +=`<div class="sala w-100 bg-secondary border border-dark d-flex justify-content-center align-items-center" onclick="trazerGuiches('${sala.idSala}', '${sala.nomeSala}', this)" id="salaa" style="border: 1px solid black">`
                             newHtml += `<p class="titulo-sala fs-1 fw-bold text-light">${sala.nomeSala}</p>`
@@ -23,10 +25,159 @@ $('#abrirModal').on('click', function (e){
          }
     })
 })
+    const fade = document.querySelector('#fades');
+    const modal = document.querySelector('#pesquisa-sala');
+    
+const colocaInfo = (senha, id, tipo, status) => {
+    modalInfos = {senha, id, tipo, status};
+}
+const chamaDnv = () => {
+    reCall(modalInfos.senha, modalInfos.id,modalInfos.tipo,modalInfos.status, idGuicheA);
+    fade.style.display = "none";
+        modal.style.display = "none";
+}
+const todasSalas = async() => {
+    fade.style.display = "block";
+    modal.style.display = "block";
+    $.ajax ({
+        type: 'POST',
+        data: {
+            tipo: 'Nenhum',
+            limit: 100
+        },
+        dataType: 'json',
+        url: '../app/Controller/trazerSenhas.php',
+        async: true,
+        success: function(response) {
+            console.log(response)
+            var formataData;
+            let newHtml = `<table class="w-100 h-100" id="modalSenhasAll">`
+                newHtml += `<tr style="border-bottom: 1px solid black;background-color: rgb(182, 170, 170);height: 10%;">`
+                newHtml += `<td class="blocos p-2" style="border-right: 1px solid black;">Senha</td>`
+                newHtml += `<td class="blocos" style="border-right: 1px solid black;">Etapa</td>`
+                newHtml += `<td class="blocos" style="border-right: 1px solid black;">Atendimento Concluido</td>`
+                newHtml += `<td class="blocos">Horario</td>`
+                newHtml += `</tr>`
+            response.result.forEach(senhas => {
+                let atendida;
+                if(senhas.status === 1) {
+                    atendida = "Atendida"
+                } else {
+                    atendida = "Não Atendida"
+                }
+                let prefixo = senhas.senha.substring(0,2);
+                let restoSenha = senhas.senha.substring(2);
 
+                let color
+                if(prefixo == "AM"){
+                    color = "rgb(26, 26, 26);"
+                }else if(prefixo == "AR"){
+                    color = "rgb(16, 48, 96);"
+                }else{
+                    color = "rgb(19, 94, 19);"
+                }
+
+                formataData = senhas.ua.split(" ");
+                formataData = formataData[1].split(":");
+                newData = formataData[0]+":"+formataData[1]+":"+formataData[2];
+
+                newHtml += `<tr onclick="colocaInfo('${senhas.senha}', '${senhas.id}', '${senhas.tipo}','${senhas.status}')" style="border-bottom: 1px solid rgb(161, 152, 152);height: 10%;" id="senhasAll">`
+                newHtml += `<td class="blocos" style="border-right: 1px solid black;"><span style="color: ${color}">${prefixo}</span>${restoSenha}</td>`
+                newHtml += `<td class="blocos" style="border-right: 1px solid black;">${senhas.tipo}</td>`
+                newHtml += `<td class="blocos" style="border-right: 1px solid black;">${atendida}</td>`
+                newHtml += `<td class="blocos">${newData}</td>`
+                newHtml += `</tr>`
+            })
+            newHtml += `<tr style="border-bottom: 1px solid rgb(161, 152, 152);height: 90%;"></tr>`
+            newHtml += `</div>`
+            $('#modalSenhasAll').html(newHtml);
+
+        }
+
+
+    })
+
+    $('#fechando-modal').click(function () {
+        fade.style.display = "none";
+        modal.style.display = "none";
+
+    })
+}
+
+const buscar = (b) => {
+    $.ajax ({
+        type: 'POST',
+        url: '../app/Controller/pesquisaSenha.php',
+        dataType: 'json',
+        data: {busca: b},
+
+        success: function(response) {
+            let newHtml = `<table class="w-100 h-100" id="modalSenhasAll">`
+            newHtml += `<tr style="border-bottom: 1px solid black;background-color: rgb(182, 170, 170);height: 10%;">`
+            newHtml += `<td class="blocos p-2" style="border-right: 1px solid black;">Senha</td>`
+            newHtml += `<td class="blocos" style="border-right: 1px solid black;">Etapa</td>`
+            newHtml += `<td class="blocos" style="border-right: 1px solid black;">Atendimento Concluido</td>`
+            newHtml += `<td class="blocos">Horario</td>`
+            newHtml += `</div>`
+            console.log(response);
+            if(response.result == false) {
+
+            } else {
+            response.result.forEach(senha => {
+                console.log(senha.statusSenha)
+                let atendida;
+                if(senha.statusSenha === 1) {
+                    atendida = "Atendida"
+                } else {
+                    atendida = "Não Atendida"
+                }
+                let prefixo = senha.senha.substring(0,2);
+                let restoSenha = senha.senha.substring(2);
+
+                let color
+                if(prefixo == "AM"){
+                    color = "rgb(26, 26, 26);"
+                }else if(prefixo == "AR"){
+                    color = "rgb(16, 48, 96);"
+                }else{
+                    color = "rgb(19, 94, 19);"
+                }
+
+                formataData = senha.updateAt.split(" ");
+                formataData = formataData[1].split(":");
+                newData = formataData[0]+":"+formataData[1]+":"+formataData[2];
+
+                newHtml += `<tr style="border-bottom: 1px solid rgb(161, 152, 152);height: 10%;" id="senhasAll">`
+                newHtml += `<td class="blocos" style="border-right: 1px solid black;"><span style="color: ${color}">${prefixo}</span>${restoSenha}</td>`
+                newHtml += `<td class="blocos" style="border-right: 1px solid black;">${senha.tipoSenha}</td>`
+                newHtml += `<td class="blocos" style="border-right: 1px solid black;">${atendida}</td>`
+                newHtml += `<td class="blocos">${newData}</td>`
+            })
+        }
+            newHtml += `<tr style="border-bottom: 1px solid rgb(161, 152, 152);height: 90%;"></tr>`
+            newHtml += `</div>`
+            $('#modalSenhasAll').html(newHtml);
+            console.log(response)
+        }, error: (e) => {
+            console.log(e);
+        }
+    })
+}
+
+$(document).ready(function () {
+    $('#buscaa').keyup(function () {
+        var b = $('#buscaa').val();
+        if(b != '') {
+            buscar(b);
+        } else {
+            buscar()
+        }
+    })
+})
 
 const carregar = () =>{
     clicksCarregar ++
+
 }
 
 const trazerGuiches = async(idSala, nomeSala, div) => {
@@ -48,13 +199,17 @@ const trazerGuiches = async(idSala, nomeSala, div) => {
 
         success: function(response) {
             console.log(response);
-            let newHtml = `<div class="col-4 w-100 bg-light p-1 flex-column d-flex gap-3" id="guiches">`
+            let newHtml = `<div class="col-4 w-100 bg-light p-1 flex-column d-flex gap-3 overflow-y-auto" id="guiches">`
                 newHtml += `<p class="titulo-sala fs-3 fw-bold w-100 text-center text-uppercase">${nomeSala}</p>`
-                response.guiches.forEach(guiche => {
-                    newHtml += `<div class="guiche w-100 bg-secondary py-2 d-flex justify-content-center align-items-center" onclick="focar(this, '${guiche.nomeGuiche}', '${idSala}', '${guiche.idGuiche}')">`
-                    newHtml += `<p class="titulo-sala fs-1 fw-bold text-light text-uppercase">${guiche.nomeGuiche}</p>`
-                    newHtml += `</div>`
-                })
+                if(response.guiches == false) {
+
+                } else {
+                    response.guiches.forEach(guiche => {
+                        newHtml += `<div class="guiche w-100 bg-secondary py-2 d-flex justify-content-center align-items-center" onclick="focar(this, '${guiche.nomeGuiche}', '${idSala}', '${guiche.idGuiche}')">`
+                        newHtml += `<p class="titulo-sala fs-1 fw-bold text-light text-uppercase">${guiche.nomeGuiche}</p>`
+                        newHtml += `</div>`
+                    })
+                }
                 newHtml += `</div>`
                 $('#guiches').html(newHtml)
         }
@@ -256,8 +411,7 @@ const buscarUltimasSenhas = async() =>{
                 newHtml += `<div class='col-3 d-flex align-items-center justify-content-center'>${icon}</div>`
                 newHtml += `<div onclick="reCall('${senha.senha}', '${senha.id}', '${senha.tipo}','${senha.status}', ${idGuicheA})" class="col-4 d-flex align-items-center justify-content-center"><button class="btn btn-success fw-semibold">Chamar</button></div>`
             });
-            newHtml += `<div class='col-12 mt-2 d-flex justify-content-around align-items-center'><button class="btn btn-primary">Pesquisar</button><button class="btn btn-success" onclick="carregar()">Carregar mais</button></div>`
-           
+            newHtml += `<div class='col-12 mt-2 d-flex justify-content-around align-items-center'><button class="btn btn-primary" id="pesquisarSalas" onclick="todasSalas()">Pesquisar</button><button class="btn btn-success" onclick="carregar(this)">Carregar mais</button></div>`
             newHtml += "</div>"
             //atualizando html
             $('#ultimos').html(newHtml) 
