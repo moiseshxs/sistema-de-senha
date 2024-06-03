@@ -87,6 +87,7 @@ const focar = (div,nomeGuiche, idSala, idGuiche) => {
 
 const trocarInfos = async (idSala, guicheAtual, idGuiche) => {
     console.log(idGuiche);
+    idGuicheA = idGuiche
     let newHtml = `<div class="col d-flex flex-column" id="infos">`;
     newHtml += `<div class="row p-0 my-2 d-flex">
                   <div class="col d-flex justify-content-end">

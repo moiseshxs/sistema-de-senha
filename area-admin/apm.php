@@ -119,7 +119,7 @@
             <p class="p-0 m-0 text-center text-light text-uppercase fs-3 fw-bold">Não comparecidas</p>
           </div>
           <div class="conteudo p-2 overflow-auto d-flex flex-column justify-content-start">
-            <div id="nao-comparecidas" class="row item ">
+            <div id="nao-comparecidos" class="row item ">
             <p class="h3 fw-bold text-center">Nenhum atendimento</p>
             </div>
           </div>
