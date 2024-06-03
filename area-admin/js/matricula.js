@@ -88,17 +88,33 @@ const focar = (div,nomeGuiche, idSala, idGuiche) => {
     $('.modal-footer').html(newHtml)
 }
 
-const trocarInfos = async(idSala, guicheAtual, idGuiche) => {
-    console.log(idGuiche)
-        newHtml = `<div class="col d-flex flex-column suas-informacoes h-100" id="infos">`
-            newHtml += `<div class="d-flex justify-content-end fs-5 fw-bold text-uppercase">`
-                newHtml += `Suas Informações`
-            newHtml += `</div>`
-        newHtml += `<div class=" d-flex justify-content-end fs-5"><span class="fw-bold fs-5">Sala</span>: ${idSala}</div>`
-            newHtml += `<div class=" d-flex justify-content-end fs-5"><span class="fw-bold fs-5">Guichê</span>: ${guicheAtual}</div>`
-        newHtml += `<input type="hidden" id="guiche" value="${idGuiche}">`
-        idGuicheA = idGuiche
-        $('#infos').html(newHtml);
+const trocarInfos = async (idSala, guicheAtual, idGuiche) => {
+    console.log(idGuiche);
+    
+    let newHtml = `
+        <div class="col d-flex flex-column" id="infos">
+          <div class="row p-0 my-2 d-flex">
+            <div class="col d-flex justify-content-end">
+              <button id="abrirModal" type="button" class="btn btn-dark btn-redondo" data-bs-toggle="modal"
+                data-bs-target="#config">
+                <i class="fas fa-cog"></i>
+              </button>
+            </div>
+          </div>
+          <div class="row d-flex m-0 p-0">
+            <div class="col m-0 p-0">
+              <p class="fs-5 fw-bold text-uppercase text-end p-0 m-0">Suas informações</p>
+            </div>
+          </div>
+          <div class="row p-0 m-0">
+            <p class="fw-bold fs-5 p-0 m-0 text-end">Sala: <span class="fs-4">${idSala}</span></p>
+            <p class="fw-bold fs-5 p-0 m-0 text-end">Guichê: <span class="fs-4">${guicheAtual}</span></p>
+            <input type="hidden" id="guiche" value="${idGuiche}">
+          </div>
+        </div>
+    `;
+    idGuicheA = idGuiche
+    $('#infos').html(newHtml);
 }
 
 
@@ -231,7 +247,7 @@ const senhaAtual = async(senha, id, tipo, status) =>{
                     localStorage.removeItem("idSenhaAtual")
                     localStorage.removeItem("senha-modificada")
                     $("#embacada").css('display', 'none')
-                    $("#senhaAtual").html(`<p id="senhaAtual" class="text-center" style="font-size: 60px;"><span id="prefixo-atual" class="">00</span><span id="digitos-atual">000</span></p>`)
+                    $("#senhaAtual").html(`<p id="senhaAtual" class="text-center fw-bold text-uppercase p-0 m-0 fs-60"><span id="prefixo-atual" class="">XX</span><span id="digitos-atual">000</span></p>`)
                 },
                 error: (e) =>{
                     console.log(e)
@@ -254,7 +270,7 @@ const senhaAtual = async(senha, id, tipo, status) =>{
          success: function(response) {
             localStorage.removeItem("idSenhaAtualMatricula")
             $('#embaca').css('display', 'none')
-            $("#senhaAtual").html(`<p id="senhaAtual" class="text-center" style="font-size: 60px;"><span id="prefixo-atual" class="">00</span><span id="digitos-atual">000</span></p>`)
+            $("#senhaAtual").html(`<p id="senhaAtual" class="text-center fw-bold text-uppercase p-0 m-0 fs-60"><span id="prefixo-atual" class="">XX</span><span id="digitos-atual">000</span></p>`)
 
          }
      })
@@ -356,8 +372,8 @@ const naoComparecidos = () => {
                 color = "rgb(16, 48, 96);"
             }
             let newHtml
-            newHtml = `<div class=" h-75 d-flex justify-content-center fs-1 fw-bold" id="senhaAtual">`
-            newHtml += `<p class="text-center" style="font-size: 60px;"><span style="color: ${color}">${prefixo}</span>${senhaT}</p>`
+            newHtml = `<div class=" h-100 p-0 m-0 d-flex justify-content-center fs-1 fw-bold" >`
+            newHtml += `<p id="senhaAtual" class="text-center fw-bold text-uppercase p-0 m-0 fs-60"><span style="color: ${color}">${prefixo}</span>${senhaT}</p>`
             newHtml += `</div>`
             $("#senhaAtual").html(newHtml)
             $("#embaca").css('display','flex')
@@ -374,3 +390,4 @@ setInterval(() =>{
     chamarSenhasAtendidas()
     naoComparecidos()
 },1000)
+

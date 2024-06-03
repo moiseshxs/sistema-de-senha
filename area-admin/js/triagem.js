@@ -74,22 +74,39 @@ const focar = (div,nomeGuiche, idSala, idGuiche) => {
         });
         div.style.border = "3px solid #00FF00";
     }
-        newHtml = `<button type="button" class="btn btn-danger btn-safado" data-bs-dismiss="modal">Cancelar</button>`
+        newHtml = `<button id="home-btn" type="button" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Ir para home"><i class="fas fa-home"></i></button>`
         newHtml += `<button type="button" class="btn btn-success" data-bs-dismiss="modal" onclick="trocarInfos('${idSala}', '${guicheAtual}', '${idGuiche}')">Salvar</button>`
     $('.modal-footer').html(newHtml)
+
+     $('[data-bs-toggle="tooltip"]').tooltip();
+
+     $('#home-btn').on('click', function() {
+         window.location.href = '../index.php'
+     });
 }
 
-const trocarInfos = async(idSala, guicheAtual, idGuiche) => {
-    console.log(idGuiche)
-        newHtml = `<div class="col d-flex flex-column suas-informacoes h-100" id="infos">`
-            newHtml += `<div class="d-flex justify-content-end fs-5 fw-bold text-uppercase">`
-                newHtml += `Suas Informações`
-            newHtml += `</div>`
-        newHtml += `<div class=" d-flex justify-content-end fs-5"><span class="fw-bold fs-5">Sala</span>: ${idSala}</div>`
-            newHtml += `<div class=" d-flex justify-content-end fs-5"><span class="fw-bold fs-5">Guichê</span>: ${guicheAtual}</div>`
-        newHtml += `<input type="hidden" id="guiche" value="${idGuiche}">`
-        idGuicheA = idGuiche
-        $('#infos').html(newHtml);
+const trocarInfos = async (idSala, guicheAtual, idGuiche) => {
+    console.log(idGuiche);
+    let newHtml = `<div class="col d-flex flex-column" id="infos">`;
+    newHtml += `<div class="row p-0 my-2 d-flex">
+                  <div class="col d-flex justify-content-end">
+                    <button id="abrirModal" type="button" class="btn btn-dark btn-redondo" data-bs-toggle="modal" data-bs-target="#config">
+                      <i class="fas fa-cog"></i>
+                    </button>
+                  </div>
+                </div>`;
+    newHtml += `<div class="row p-0 m-0 d-flex">
+                  <div class="col m-0 p-0">
+                    <p class="fs-5 fw-bold text-uppercase text-end p-0 m-0">Suas informações</p>
+                  </div>
+                </div>`;
+    newHtml += `<div class="row p-0 m-0">
+                  <p class="fw-bold fs-5 p-0 m-0 text-end">Sala: <span class="fs-4">${idSala}</span></p>
+                  <p class="fw-bold fs-5 p-0 m-0 text-end">Guichê: <span class="fs-4">${guicheAtual}</span></p>
+                  <input type="hidden" id="guiche" value="${idGuiche}">
+                </div>`;
+    newHtml += `</div>`;
+    $('#infos').html(newHtml);
 }
 
 
@@ -198,7 +215,7 @@ const update = status =>{
                 localStorage.removeItem("idSenhaAtual")
                 localStorage.removeItem("senha-modificada")
                 $("#embacada").css('display', 'none')
-                $("#senhaAtual").html(`<p id="senhaAtual" class="text-center" style="font-size: 60px;"><span id="prefixo-atual" class="">00</span><span id="digitos-atual">000</span></p>`)
+                $("#senhaAtual").html(`<p id="senhaAtual" class="text-center fs-60 fw-bold text-uppercase p-0 m-0"><span id="prefixo-atual" class="">XX</span><span id="digitos-atual">000</span></p>`)
             },
             error: (e) =>{
                 console.log(e)
@@ -219,7 +236,7 @@ const update = status =>{
                 console.log(response)
                 localStorage.removeItem("idSenhaAtual")
                 $("#embacada").css('display', 'none')
-                $("#senhaAtual").html(`<p id="senhaAtual" class="text-center" style="font-size: 60px;"><span id="prefixo-atual" class="">00</span><span id="digitos-atual">000</span></p>`)
+                $("#senhaAtual").html(`<p id="senhaAtual" class="text-center fs-60 fw-bold text-uppercase p-0 m-0"><span id="prefixo-atual" class="">XX</span><span id="digitos-atual">000</span></p>`)
             }
         })
     }
