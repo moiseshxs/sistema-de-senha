@@ -104,7 +104,7 @@
                   
                 ORDER BY updateAt DESC
                 LIMIT $limit";
-            } else if($valor = "Apm-All"){
+            } else if($valor == "Apm-All"){
                 $comAM = "SELECT senha, statusSenha as 'status', idSenha as id, tipoSenha as tipo, updateAt as ua FROM `tbsenha`
                  WHERE (statusSenha !=0 AND tipoSenha != 'Triagem')
                   
