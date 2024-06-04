@@ -27,7 +27,7 @@ $(document).ready(function() {
             response.senhas.forEach(senhas => {
                 
                if(!primeira){ 
-               newHtml += `<div class="row w-75 my-3 border-bottom border-light border-4"><div class="col  justify-content-center align-items-center"><div class=" row justify-content-center align-items-center d-flex "><div class="col d-flex align-items-center  justify-content-center"><p class="fw-bold text-center text-center text-uppercase fs-1 text-light lh-1" style="font-size: 20px;">${senhas.senha}</p></div><div class="col d-flex align-items-center justify-content-center"><p class="fw-bold text-center text-uppercase text-light lh-1" style="font-size: 20px;">${senhas.tipo}</p></div></div></div><div class="col"><div class="row"><div class="col d-flex align-items-center"><p class="fw-bold text-center text-uppercase text-light lh-1" style="font-size: 20px;">${senhas.sala}</p></div></div><div class="row"><div class="col d-flex align-items-center"><p class="fw-bold text-center text-uppercase text-light lh-1" style="font-size: 20px;">${senhas.guiche}</p></div></div></div></div>` 
+               newHtml += `<div class="row w-75 my-3 border-bottom border-light border-4"><div class="col  justify-content-center align-items-center"><div class=" row justify-content-center align-items-center d-flex "><div class="col d-flex align-items-center  justify-content-center"><p class="fw-bold text-center text-center text-uppercase fs-1 text-light lh-1" style="font-size: 20px;">${senhas.senha}</p></div><div class="col d-flex align-items-center justify-content-center"><p class="fw-bold text-center text-uppercase text-light lh-1" style="font-size: 35px;">${senhas.tipo}</p></div></div></div><div class="col"><div class="row"><div class="col d-flex align-items-center"><p class="fw-bold text-center text-uppercase text-light lh-1" style="font-size: 20px;">${senhas.sala}</p></div></div><div class="row"><div class="col d-flex align-items-center"><p class="fw-bold text-center text-uppercase text-light lh-1" style="font-size: 20px;">${senhas.guiche}</p></div></div></div></div>` 
                }
                primeira = false
             });
@@ -45,12 +45,12 @@ $(document).ready(function() {
                 color = "rgb(19, 94, 19);"
             }
 
-            let senhaHtml = `<p class='fw-bold text-center text-uppercase text-dark' style='font-size: 150px;'><span style='color: ${color};'>${prefixo}</span>${digitos}</p>`
+            let senhaHtml = `<p class='fw-bold text-center text-uppercase text-dark' style='font-size: 200px;'><span style='color: ${color};'>${prefixo}</span>${digitos}</p>`
             let salaAtual = infos.sala.split(" ")[1]
             let guicheAtual = infos.guiche.split(" ")[1]
-            let salaHtml = "<p id='salaAtual' class='fw-bold text-center text-uppercase lh-1' style='font-size: 40px; color: #106018;'>" +salaAtual+ "</p>"
-            let guicheHtml = "<p id='guicheAtual' class='fw-bold text-center text-uppercase lh-1' style='font-size: 40px; color: #106018;'>"+guicheAtual+"</p>"
-            let tipoAtual = `<p id="tipo" class="fs-1 text-uppercase fw-bold">${infos.tipo}</p>`
+            let salaHtml = "<p id='salaAtual' class='fw-bold text-center text-uppercase lh-1' style='font-size: 80px; color: #106018;'>" +salaAtual+ "</p>"
+            let guicheHtml = "<p id='guicheAtual' class='fw-bold text-center text-uppercase lh-1' style='font-size: 80px; color: #106018;'>"+guicheAtual+"</p>"
+            let tipoAtual = `<p id="tipo" class="text-uppercase fw-bold" style='font-size: 60px'>${infos.tipo}</p>`
             $("#senhaAtual").html(senhaHtml)
             $("#salaAtual").html(salaHtml)
             $("#guicheAtual").html(guicheHtml)

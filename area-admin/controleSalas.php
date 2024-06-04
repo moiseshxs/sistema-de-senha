@@ -22,39 +22,29 @@
 
 <body>
   <div class="container-fluid p-0 vw-100 vh-100">
-    <div class="row m-0 w-100 cima" style="height: 15%;">
+    <div class="row m-0 w-100 h-15" >
       <div class="col d-flex align-items-center">
         <a href="../index.php"><img src="./imgs/home.png" alt="" class="imga home">
         </a>
       </div>
       <div class="col d-flex align-items-center justify-content-center">
-        <p class="fs-1 fw-semibold text-uppercase">Controle de Salas</p>
+        <p class="fs-1 fw-bold text-uppercase">Controle de Salas</p>
       </div>
-      <div class="col pt-1 d-flex justify-content-end align-items-center">
+      <div class="col d-flex justify-content-end align-items-center">
         <?php include ("./componentes/logo.php");?>
       </div>
     </div>
-    <div class="row m-0 w-100 meio">
+    <div class="row m-0 w-100 h-70 bg-cinza">
       <div class="col"></div>
       <div class="col-4 d-flex align-items-center">
-        <div class="select w-100 overflow-auto" id="salasTotal" style="height: 400px !important">
-          <div class="opcao d-flex align-items-center justify-content-center" onclick="borda(this)" id="areaNome">
-            <p class="fs-1" id="salaNome">SALA 1 </p> <a id="trocarNomeSala"> <i class='bx bx-edit-alt'></i></a>
-          </div>
-          <div class="opcao bg-success add d-flex align-items-center justify-content-center ">
-            <p class="fs-1 fw-bold" data-bs-toggle="modal" data-bs-target="#modaal">+ ADD SALA</p>
-          </div>
+        <div class="select w-100 overflow-auto" id="salasTotal">
+          
         </div>
       </div>
       <div class="col"></div>
       <div class="col-4 d-flex align-items-center">
-        <div class="select w-100" style="height: 400px" id="allGuiches">
-          <div class="opcao safado d-flex align-items-center justify-content-center">
-            <p class="fs-1">GUICHÊ 1 </p>
-          </div>
-          <div class="add bg-success d-flex align-items-center justify-content-center">
-            <p class="fs-1 fw-bold">+ ADD GUICHE</p>
-          </div>
+        <div class="select w-100" id="allGuiches">
+                
         </div>
       </div>
       <div class="col"></div>
@@ -64,48 +54,8 @@
     <?php include ("./componentes/menu.php");?>
   </div>
 
-  <div class="modal" tabindex="-1" id="modaal">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header" style="border: transparent !important">
-          <h5 class="modal-title fs-3">INSIRA O NOME DA SALA</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form method="POST" action="" id="storeSala">
-            <input type="text" class="w-100 border border-none fs-2" id="nomeSala" maxlength="13" />
-        </div>
-        <div class="modal-footer" style="border: transparent !important">
-          <button type="button" class="btn btn-secondary fs-5" data-bs-dismiss="modal">Fechar</button>
-          <button type="button" class="btn btn-success fs-5" id="inserirSala">Salvar</button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
+    <?php include ("./componentes/modais-controleSalas.php");?>
 
-  <div class="modal" tabindex="-1" id="modalAltera">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header" style="border: transparent !important">
-          <h5 class="modal-title fs-3">TROQUE O NOME</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form method="POST" action="" id="updateSala">
-            <input type="text" class="w-100 border border-none fs-2" id="salaA" />
-        </div>
-        <div class="modal-footer" style="border: transparent !important">
-          <button type="button" class="btn btn-secondary fs-5" data-bs-dismiss="modal">Fechar</button>
-          <button type="button" class="btn btn-success fs-5" id="alterarSala">Salvar</button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-  
   <script>
   function borda1(div) {
     var divs = document.querySelectorAll('.safado');

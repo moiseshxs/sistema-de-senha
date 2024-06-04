@@ -5,15 +5,15 @@
   --cor-listas: gray;
 }
 
-.h-65{
+.h-65 {
   height: 65%;
 }
 
-.h-20{
+.h-20 {
   height: 20%;
 }
 
-.fs-60{
+.fs-60 {
   font-size: 60px;
 }
 
@@ -28,20 +28,8 @@
   padding: 0;
 }
 
-#pesquisa-sala {
-  display: none;
-  position: fixed;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  background-color: #fff;
-  z-index: 10;
-  width: 800px;
-  height: 600px;
-  border-radius: 20px;
-}
 
-#embaca{
+#embaca {
   position: absolute;
   background-color: rgba(0, 0, 0, 0.8);
   width: 100%;
@@ -55,33 +43,15 @@
 #fades {
   display: none;
   position: fixed;
-  top:0;
-  left:0;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.8);
   z-index: 5;
 }
 
-.blocos {
-  width: 25%;
-  text-align: center;
-  font-weight: bold;
-}
-
-.sala {
-  height: 20%;
-  cursor: pointer!important ;
-}
-
-
-.guiche {
-  height: 20%;
-  cursor: pointer!important ;
-}
-
-
-.icon{
+.icon {
   width: 24px;
   height: 24px;
   fill: currentColor;
@@ -95,7 +65,7 @@
 .matricula {
   background-color: var(--cor-matricula);
   border: solid;
-  border-color:rgb(0, 0, 0);
+  border-color: rgb(0, 0, 0);
 }
 
 .remanescente {
@@ -107,13 +77,13 @@
 .preferencial {
   background-color: var(--cor-preferencial);
   border: solid;
-  border-color:rgb(0, 74, 6);
+  border-color: rgb(0, 74, 6);
 }
 
 .listas {
   background-color: var(--cor-listas);
   border: solid;
-  border-color:rgb(78, 78, 78);
+  border-color: rgb(78, 78, 78);
 }
 
 .conteudo {
@@ -142,7 +112,7 @@
 
 .border-remanescente {
   border-color: var(--cor-remanescente);
-  
+
 }
 
 .border-preferencial {
@@ -153,13 +123,7 @@
   background-color: rgb(198, 198, 198);
 }
 
-.item{
+.item {
   height: 10%;
   width: 100%;
-}
-
-
-.modalzin {
-  min-height: 500px!important;
-  overflow-y: auto;
 }

@@ -369,7 +369,7 @@ const senhaAtual = async(senha, id, tipo, status) =>{
             newHtml += `<p class="text-center" style="font-size: 60px;"><span style="color: ${color}">${prefixo}</span>${senhaT}</p>`
             newHtml += `</div>`
     
-            $('#embaca').css('display','flex')
+            $('#embacada').css('display','flex')
             $('#senhaAtual').html(newHtml)
             localStorage.setItem("idSenhaAtualMatricula", id)
             seila = $('#guiche').val();
@@ -426,7 +426,7 @@ const senhaAtual = async(senha, id, tipo, status) =>{
 
          success: function(response) {
             localStorage.removeItem("idSenhaAtualMatricula")
-            $('#embaca').css('display', 'none')
+            $('#embacada').css('display', 'none')
             $("#senhaAtual").html(`<p id="senhaAtual" class="text-center fw-bold text-uppercase p-0 m-0 fs-60"><span id="prefixo-atual" class="">XX</span><span id="digitos-atual">000</span></p>`)
 
          }
@@ -533,7 +533,7 @@ const naoComparecidos = () => {
             newHtml += `<p id="senhaAtual" class="text-center fw-bold text-uppercase p-0 m-0 fs-60"><span style="color: ${color}">${prefixo}</span>${senhaT}</p>`
             newHtml += `</div>`
             $("#senhaAtual").html(newHtml)
-            $("#embaca").css('display','flex')
+            $("#embacada").css('display','flex')
         }
     })
  }

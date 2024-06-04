@@ -1,24 +1,15 @@
-.cima {
+.h-15 {
   height: 15%;
 }
 
-.baixo {
-  height: 10%;
-}
-
-.baixo1 {
-  height: 5%;
-}
-
-.meio {
+.h-70 {
   height: 70%;
+}
+
+.bg-cinza {
   background-color: rgb(198, 198, 198);
 }
 
-.meio1 {
-  height: 70%;
-  background-color: rgb(198, 198, 198);
-}
 #loader-space {
   position: absolute;
   height: 100vh;
@@ -36,10 +27,10 @@
   display: grid;
   color: rgba(0, 147, 0, 0.559);
   position: absolute;
-  background: conic-gradient(from 90deg at 3px 3px, #0000 90deg, currentColor 0) -3px -3px /
-    calc(50% + 1.5px) calc(50% + 1.5px);
+  background: conic-gradient(from 90deg at 3px 3px, #0000 90deg, currentColor 0) -3px -3px / calc(50% + 1.5px) calc(50% + 1.5px);
   animation: l28 2s infinite;
 }
+
 .loader::before,
 .loader::after {
   content: "";
@@ -48,9 +39,11 @@
   -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 3px), #000 0);
   border-radius: 50%;
 }
+
 .loader::after {
   margin: 20%;
 }
+
 @keyframes l28 {
   100% {
     transform: rotate(1turn);
@@ -58,7 +51,6 @@
 }
 
 .excluir {
-  width: 300px;
   height: 90%;
   color: #ffffff;
   display: flex !important;
@@ -114,7 +106,7 @@
 
 .select {
   background-color: #ffffff;
-  height: 80%;
+  height: 400px;
   overflow: auto;
 }
 
