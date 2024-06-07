@@ -7,19 +7,35 @@
         protected $idGuiche;
         protected $tipoSenha;
 
+        public function verificarSenhaNoBanco($senha)
+        {
+            $pdo = Conexao::conexao();
+            $com = "SELECT senha from tbsenha WHERE senha = :s";
+            $stmt = $pdo->prepare($com);
+            $stmt->bindValue(":s", $senha->getSenha());
+            $stmt->execute();
+            if($stmt->rowCount() > 0 ){
+                return true;
+            }
+            return false;
+        }
+
         public function storeSenha($senha)
         {
             
             $pdo = Conexao::conexao();
             $com = "INSERT INTO tbsenha VALUES (NULL, :s,:ss,:ts, :ua, :ig)";
             $stmt = $pdo->prepare($com);
-            $stmt->bindValue(":s", $senha->getSenha());
-            $stmt->bindValue(":ss", $senha->getStatusSenha());
-            $stmt->bindValue(":ts", $senha->getTipoSenha());
-            $stmt->bindValue(":ua", $senha->getUpdatedAt());
-            $stmt->bindValue(":ig", $senha->getIdGuiche());
-            $stmt->execute();
-            return $pdo->lastInsertId();
+            if(! $this->verificarSenhaNoBanco($senha)){
+                $stmt->bindValue(":s", $senha->getSenha());
+                $stmt->bindValue(":ss", $senha->getStatusSenha());
+                $stmt->bindValue(":ts", $senha->getTipoSenha());
+                $stmt->bindValue(":ua", $senha->getUpdatedAt());
+                $stmt->bindValue(":ig", $senha->getIdGuiche());
+                $stmt->execute();
+                return $pdo->lastInsertId();
+            }
+            return false;
         }
 
         public function getLastSenhas(){

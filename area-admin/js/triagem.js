@@ -459,8 +459,8 @@ const inserirSenha = async(senha, guiche) =>{
         },
         success: async function(response) {
             //callback em caso de sucesso na requisição
-              console.log(response)
-              let prefixo = tratamentoPrefixo(senha)
+              if(response.resposta){
+                let prefixo = tratamentoPrefixo(senha)
                 let color
                 if(prefixo == "AM"){
                     color = "rgb(26, 26, 26);"
@@ -475,9 +475,10 @@ const inserirSenha = async(senha, guiche) =>{
                 document.getElementById("digitos-atual").innerText = (senha).split(prefixo)[1]
                 localStorage.setItem("idSenhaAtual", response.idSenhaAtual)
                 $("#embacada").css('display', 'flex')
-            atualizarHtmlProximasSenhas(response)
-            
-            await buscarUltimasSenhas()
+                atualizarHtmlProximasSenhas(response)
+                
+                await buscarUltimasSenhas()
+            }
         },
         error: (e) =>{
             console.log(e)
