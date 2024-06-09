@@ -365,6 +365,9 @@ const senhaAtual = async(senha, id, tipo, status) =>{
         async:true,
 
         success: function(response) {
+            if(response == false) {
+                
+            }
             newHtml = `<div class=" h-75 d-flex justify-content-center fs-1 fw-bold" id="senhaAtual">`
             newHtml += `<p class="text-center" style="font-size: 60px;"><span style="color: ${color}">${prefixo}</span>${senhaT}</p>`
             newHtml += `</div>`
