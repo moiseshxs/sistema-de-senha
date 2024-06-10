@@ -400,7 +400,7 @@ const buscarUltimasSenhasT = async() =>{
         
         success: function(response) {
             //construção da tag html
-            console.log(response)
+            
             let newHtmlP ="<div class='row item'>" 
             let newHtml = "<div class='row item'>"
             response.result.forEach(senha => {
@@ -443,7 +443,7 @@ const buscarUltimasSenhasAtendidas = async() =>{
         
         success: function(response) {
             //construção da tag html
-            console.log(response)
+            
             
             let newHtml = "<div class='row item'>"
             response.result.forEach(senha => {
@@ -482,7 +482,7 @@ const buscarNaoComparecidas = async() =>{
         
         success: function(response) {
             //construção da tag html
-            console.log(response)
+            
             
             let newHtml = "<div class='row item'>"
             response.result.forEach(senha => {

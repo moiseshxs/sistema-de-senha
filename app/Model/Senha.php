@@ -265,7 +265,7 @@
         }
 
         public static function updateMatricula($id, $status, $data, $idGuiche) {
-            if($status === 0) {
+            if($status == 0 || $status == "0") {
                 if (Senha::verificarStatusSenhaNoBanco($id)) {
                     return false;
                 }
@@ -282,6 +282,7 @@
                 return true;
             }
             return false;
+        
         }
 
         public static function updateApm($id, $status, $data, $guicheId) {

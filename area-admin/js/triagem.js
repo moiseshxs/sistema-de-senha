@@ -390,6 +390,7 @@ const update = status =>{
             
             success: function(response) {
                 console.log(response)
+                console.log(localStorage.getItem('idSenhaAtual'))
                 localStorage.removeItem("idSenhaAtual")
                 $("#embacada").css('display', 'none')
                 $("#senhaAtual").html(`<p id="senhaAtual" class="text-center fs-60 fw-bold text-uppercase p-0 m-0"><span id="prefixo-atual" class="">XX</span><span id="digitos-atual">000</span></p>`)
@@ -459,6 +460,7 @@ const inserirSenha = async(senha, guiche) =>{
         },
         success: async function(response) {
             //callback em caso de sucesso na requisição
+            console.log(response)
               if(response.resposta){
                 let prefixo = tratamentoPrefixo(senha)
                 let color
@@ -473,7 +475,7 @@ const inserirSenha = async(senha, guiche) =>{
                 $("#prefixo-atual").html(html)
                 
                 document.getElementById("digitos-atual").innerText = (senha).split(prefixo)[1]
-                localStorage.setItem("idSenhaAtual", response.idSenhaAtual)
+                localStorage.setItem("idSenhaAtual", response.resposta)
                 $("#embacada").css('display', 'flex')
                 atualizarHtmlProximasSenhas(response)
                 

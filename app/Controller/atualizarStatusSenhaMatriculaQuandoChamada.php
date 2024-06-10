@@ -11,7 +11,7 @@ if(isset($_POST['outra_etapa'])){
         $data = date("Y-m-d H:i:s");
     }
     $troca = $senha->update($_POST['senha'],$_POST['status'], $_POST['tipo'], $_POST['idGuiche'], $data);
-    $response = array("success" => true, "troca" => true );
+    $response = array("success" => true, "achou" => "caiu 3" );
     echo json_encode($response);
     }else{
     $senha = new Senha();
@@ -22,11 +22,12 @@ if(isset($_POST['outra_etapa'])){
     if($row) {
         echo json_encode([
             'success' => true,
-            'foi' => 'HAHAHAH',
+            'achou' => "caiu 1",
         ]) ;
     } else {
         echo json_encode([
-            'error' => true,
+            'success' => true,
+            'achou' =>"caiu 2",
         ]);
     }
     }

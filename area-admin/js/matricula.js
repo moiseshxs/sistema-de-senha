@@ -23,7 +23,7 @@ const fade = document.querySelector('#fades');
     
 const colocaInfo = (senha, id, tipo) => {
     modalInfos = {senha, id, tipo};
-    console.log(modalInfos);
+    
 }
 const chamaDnv = () => {
     senhaAtual(modalInfos.senha, modalInfos.id, modalInfos.tipo ,idGuicheA);
@@ -43,7 +43,7 @@ const todasSalas = async() => {
         url: '../app/Controller/trazerSenhas.php',
         async: true,
         success: function(response) {
-            console.log(response)
+            
             var formataData;
             let newHtml = `<table class="w-100 h-100" id="modalSenhasAll">`
                 newHtml += `<tr style="border-bottom: 1px solid black;background-color: rgb(182, 170, 170);height: 10%;">`
@@ -288,11 +288,11 @@ const buscarUltimasSenhasT = async() =>{
         
         success: function(response) {
             //construção da tag html
-            console.log(response)
+            
             let newHtml = "<div class='row w-100 item'>"
             let newHtmlP = "<div class='row item'>"
             response.result.forEach(senha => {
-                console.log(senha)
+                
                 let prefixo = senha.senha.substring(0,2);
                 senhaT = senha.senha.substring(2);
                 let color
@@ -365,9 +365,10 @@ const senhaAtual = async(senha, id, tipo, status) =>{
         async:true,
 
         success: function(response) {
-            if(response == false) {
+            console.log(response)
+            if(response.achou) {
                 
-            }
+            
             newHtml = `<div class=" h-75 d-flex justify-content-center fs-1 fw-bold" id="senhaAtual">`
             newHtml += `<p class="text-center" style="font-size: 60px;"><span style="color: ${color}">${prefixo}</span>${senhaT}</p>`
             newHtml += `</div>`
@@ -377,7 +378,7 @@ const senhaAtual = async(senha, id, tipo, status) =>{
             localStorage.setItem("idSenhaAtualMatricula", id)
             seila = $('#guiche').val();
             console.log(seila)
-           
+            }
         }
     }) 
 }
@@ -450,7 +451,7 @@ const chamarSenhasAtendidas = () => {
         url: '../app/Controller/trazerSenhas.php',
         async: true,
         success: function(response) {
-            console.log(response)
+            
         let newHtml = `<div class='row item'>`
             response.result.forEach(senha => {
             let prefixo = senha.senha.substring(0,2);
@@ -485,7 +486,7 @@ const naoComparecidos = () => {
         async: true,
 
         success: function(response) {
-            console.log(response)
+            
             let newHtml = `<div class='row item' id='senhasNaoAtendidas'>`
             response.result.forEach(senha => {
                 let prefixo = senha.senha.substring(0,2);
