@@ -234,44 +234,89 @@ const focar = (div,nomeGuiche, idSala, idGuiche) => {
         });
         div.style.border = "3px solid #00FF00";
     }
-    newHtml = `<button id="home-btn" type="button" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Ir para home"><i class="fas fa-home"></i></button>`
-    newHtml += `<button type="button" class="btn btn-success" data-bs-dismiss="modal" onclick="trocarInfos('${idSala}', '${guicheAtual}', '${idGuiche}')">Salvar</button>`
-$('.modal-footer').html(newHtml)
+    $.ajax({
+        dataType: 'json',
+        url: '../app/Controller/verificaGuicheEmUso.php',
+        async: true,
+        type: 'POST',
+        data: {
+            idGuiche: idGuiche
+        },
+        success: function(response) {
+            newHtml = `<button id="home-btn" type="button" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Ir para home"><i class="fas fa-home"></i></button>`
+            if(response.verificado.statusGuiche == 1) {
+                newHtml += `<div class="w-75 justify-content-center d-flex align-items-center" style="width: 100%!important" ><p class="fw-bold fs-2 text-warning">GUICHÊ EM USO</p></div>`
+            } else {
+                newHtml += `<button type="button" class="btn btn-success" data-bs-dismiss="modal" onclick="trocarInfos('${idSala}', '${guicheAtual}', '${idGuiche}')">Salvar</button>`
+            }
+        $('.modal-footer').html(newHtml)
+        
+         $('[data-bs-toggle="tooltip"]').tooltip();
+        
+         $('#home-btn').on('click', function() {
+             window.location.href = '../index.php'
+         });
+        }
+    })
 
- $('[data-bs-toggle="tooltip"]').tooltip();
-
- $('#home-btn').on('click', function() {
-     window.location.href = '../index.php'
- });
 }
 
 const trocarInfos = async (idSala, guicheAtual, idGuiche) => {
     console.log(idGuiche);
-    idGuicheA = idGuiche
-    let newHtml = `
-        <div class="col d-flex flex-column" id="infos">
-          <div class="row p-0 my-2 d-flex">
-            <div class="col d-flex justify-content-end">
-              <button id="abrirModal" type="button" class="btn btn-dark btn-redondo" data-bs-toggle="modal"
-                data-bs-target="#config">
-                <i class="fas fa-cog"></i>
-              </button>
-            </div>
-          </div>
-          <div class="row d-flex m-0 p-0">
-            <div class="col m-0 p-0">
-              <p class="fs-5 fw-bold text-uppercase text-end p-0 m-0">Suas informações</p>
-            </div>
-          </div>
-          <div class="row p-0 m-0">
-            <p class="fw-bold fs-5 p-0 m-0 text-end">Sala: <span class="fs-4">${idSala}</span></p>
-            <p class="fw-bold fs-5 p-0 m-0 text-end">Guichê: <span class="fs-4">${guicheAtual}</span></p>
-            <input type="hidden" id="guiche" value="${idGuiche}">
-          </div>
-        </div>
-    `;
-    
-    $('#infos').html(newHtml);
+    $.ajax({
+        type: 'POST',
+        data: {
+            idGuiche: idGuiche,
+            status: 1
+        },
+        dataType: 'json',
+        url: '../app/Controller/alterarUsoGuiche.php',
+        success: function(response) {
+            console.log(idGuicheA, "idGuicheA");
+            if(response.success == true ) {
+                console.log(idGuiche, "status do guiche mudado");
+                if(idGuicheA != undefined){
+                    $.ajax({
+                        type: 'POST',
+                        data: {
+                            idGuiche: idGuicheA,
+                            status: 0
+                        },
+                        dataType: 'json',
+                        url: '../app/Controller/alterarUsoGuiche.php',
+                        success: function(response) {
+                            console.log("fodase")
+                        }
+                    })
+                }
+                idGuicheA = idGuiche
+                let newHtml = `
+                    <div class="col d-flex flex-column" id="infos">
+                      <div class="row p-0 my-2 d-flex">
+                        <div class="col d-flex justify-content-end">
+                          <button id="abrirModal" type="button" class="btn btn-dark btn-redondo" data-bs-toggle="modal"
+                            data-bs-target="#config">
+                            <i class="fas fa-cog"></i>
+                          </button>
+                        </div>
+                      </div>
+                      <div class="row d-flex m-0 p-0">
+                        <div class="col m-0 p-0">
+                          <p class="fs-5 fw-bold text-uppercase text-end p-0 m-0">Suas informações</p>
+                        </div>
+                      </div>
+                      <div class="row p-0 m-0">
+                        <p class="fw-bold fs-5 p-0 m-0 text-end">Sala: <span class="fs-4">${idSala}</span></p>
+                        <p class="fw-bold fs-5 p-0 m-0 text-end">Guichê: <span class="fs-4">${guicheAtual}</span></p>
+                        <input type="hidden" id="guiche" value="${idGuiche}">
+                      </div>
+                    </div>
+                `;
+                
+                $('#infos').html(newHtml);
+            }
+        }
+    })
 }
 
 
@@ -324,6 +369,7 @@ const buscarUltimasSenhasT = async() =>{
         }
     });
 }
+
 const senhaAtual = async(senha, id, tipo, status) =>{
     //pegando os 2 primeiros caracteres da senha
     let statusAtualizado =0

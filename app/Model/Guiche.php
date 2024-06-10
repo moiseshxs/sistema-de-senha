@@ -39,7 +39,32 @@ class Guiche {
             return false;
         }
 
+    }
+    public function verificaGuiche($id) {
+        $pdo = Conexao::conexao();
+        $com = "SELECT statusGuiche FROM tbguiche WHERE idGuiche = :ig";
+        $stmt = $pdo->prepare($com);
+        $stmt->bindParam(':ig', $id);
+        $stmt->execute();
+        if($stmt->rowCount() > 0) {
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        } else {
+            return false;
+        }
 
+    }   
+    public function alteraStatus($id, $status) {
+        $pdo = Conexao::conexao();
+        $com = "UPDATE tbguiche set statusGuiche = :s WHERE idGuiche =:ig";
+        $stmt = $pdo->prepare($com);
+        $stmt->bindParam(':ig', $id);
+        $stmt->bindValue(":s", $status);
+        $stmt->execute();
+        if($stmt->rowCount() > 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }
