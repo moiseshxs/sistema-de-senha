@@ -419,13 +419,31 @@ const senhaAtual = async(senha, idSenha, guicheId) =>{
         async:true,
 
         success: function(response) {
-            newHtml = `<div class=" h-75 d-flex justify-content-center fs-1 fw-bold" id="senhaAtual">`
-            newHtml += `<p class="text-center" style="font-size: 60px;"><span style="color: ${color}">${prefixo}</span>${senhaT}</p>`
-            newHtml += `</div>`
-    
-            $('#embaca').css('display','flex')
-            $('#senhaAtual').html(newHtml)
-            localStorage.setItem("idSenhaApm", idSenha)
+             
+            $.ajax ({
+                type: 'POST',
+                url: '../app/Controller/pegarIdGuicheDaSenhaChamada.php',
+                dataType: 'json',
+                data: {id: idSenha},
+
+                success: function(response) {
+                    if(response.idGuiche !== undefined){
+                        if(response.idGuiche == idGuicheA){
+                            newHtml = `<div class=" h-75 d-flex justify-content-center fs-1 fw-bold" id="senhaAtual">`
+                            newHtml += `<p class="text-center" style="font-size: 60px;"><span style="color: ${color}">${prefixo}</span>${senhaT}</p>`
+                            newHtml += `</div>`
+                    
+                            $('#embaca').css('display','flex')
+                            $('#senhaAtual').html(newHtml)
+                            localStorage.setItem("idSenhaApm", idSenha)
+                        }
+                }
+                },
+                error: (e) => {
+                    console.log(e)
+                }
+            })
+          
     
            
         }

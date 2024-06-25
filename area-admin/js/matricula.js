@@ -221,7 +221,7 @@ const trazerGuiches = async(idSala, nomeSala, div) => {
     })
 }
 const focar = (div,nomeGuiche, idSala, idGuiche) => {
-
+    console.log("dsad")
     let tratamentoNomeGuiche = nomeGuiche.split(' ');
     tratamentoNomeGuiche = tratamentoNomeGuiche[1].charAt(1)
     guicheAtual = tratamentoNomeGuiche;
@@ -243,6 +243,7 @@ const focar = (div,nomeGuiche, idSala, idGuiche) => {
             idGuiche: idGuiche
         },
         success: function(response) {
+            console.log(response)
             newHtml = `<button id="home-btn" type="button" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Ir para home"><i class="fas fa-home"></i></button>`
             if(response.verificado.statusGuiche == 1) {
                 newHtml += `<div class="w-75 justify-content-center d-flex align-items-center" style="width: 100%!important" ><p class="fw-bold fs-2 text-warning">GUICHÊ EM USO</p></div>`
@@ -256,6 +257,9 @@ const focar = (div,nomeGuiche, idSala, idGuiche) => {
          $('#home-btn').on('click', function() {
              window.location.href = '../index.php'
          });
+        },
+        error: (e) =>{
+            console.log(e)
         }
     })
 
@@ -263,6 +267,7 @@ const focar = (div,nomeGuiche, idSala, idGuiche) => {
 
 const trocarInfos = async (idSala, guicheAtual, idGuiche) => {
     console.log(idGuiche);
+    console.log("pinto")
     $.ajax({
         type: 'POST',
         data: {
@@ -315,6 +320,9 @@ const trocarInfos = async (idSala, guicheAtual, idGuiche) => {
                 
                 $('#infos').html(newHtml);
             }
+        },
+        error: (e) =>{
+            console.log(e)
         }
     })
 }
@@ -410,20 +418,43 @@ const senhaAtual = async(senha, id, tipo, status) =>{
         url: '../app/Controller/atualizarStatusSenhaMatriculaQuandoChamada.php',
         async:true,
 
-        success: function(response) {
+        success: async function(response) {
             console.log(response)
             if(response.achou) {
                 
             
-            newHtml = `<div class=" h-75 d-flex justify-content-center fs-1 fw-bold" id="senhaAtual">`
-            newHtml += `<p class="text-center" style="font-size: 60px;"><span style="color: ${color}">${prefixo}</span>${senhaT}</p>`
-            newHtml += `</div>`
+           
+             
+    $.ajax ({
+        type: 'POST',
+        url: '../app/Controller/pegarIdGuicheDaSenhaChamada.php',
+        dataType: 'json',
+        data: {id: id},
+
+        success: function(response) {
+            if(response.idGuiche !== undefined){
+                if(response.idGuiche == idGuicheA){
+                    newHtml = `<div class=" h-75 d-flex justify-content-center fs-1 fw-bold" id="senhaAtual">`
+                    newHtml += `<p class="text-center" style="font-size: 60px;"><span style="color: ${color}">${prefixo}</span>${senhaT}</p>`
+                    newHtml += `</div>`
+            
+                    $('#embacada').css('display','flex')
+                    $('#senhaAtual').html(newHtml)
     
-            $('#embacada').css('display','flex')
-            $('#senhaAtual').html(newHtml)
-            localStorage.setItem("idSenhaAtualMatricula", id)
-            seila = $('#guiche').val();
-            console.log(seila)
+                    localStorage.setItem("idSenhaAtualMatricula", id)
+                    seila = $('#guiche').val();
+                }
+            }
+        },
+        error: (e) => {
+                console.log(e)
+            }
+        })
+            
+            console.log(idGuicheA)
+            console.log(idGuicheSenhaAtual)
+            
+
             }
         }
     }) 

@@ -20,6 +20,20 @@
             return false;
         }
 
+        public function getIdGuicheBySenha($id)
+        {
+            $pdo = Conexao::conexao();
+            $com = "SELECT idGuiche FROM tbsenha WHERE idSenha = :id";
+            $stmt = $pdo->prepare($com);
+            $stmt->bindValue(":id", $id);
+            $stmt->execute();
+            if($stmt->rowCount() > 0)
+            {
+                return $stmt->fetch(PDO::FETCH_ASSOC);
+            }
+            return false;
+        }
+
         public function storeSenha($senha)
         {
             
