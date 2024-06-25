@@ -7,6 +7,22 @@
         protected $idGuiche;
         protected $tipoSenha;
 
+        public function trazerNomeSalaEGuiche($idGuiche)
+        {
+            $pdo = Conexao::conexao();
+            $com = "SELECT nomeSala as sala, nomeGuiche as guiche FROM tbsala as s
+            INNER JOIN tbguiche g
+            ON s.idSala = g.idSala
+            WHERE g.idGuiche = :id";
+            $stmt = $pdo->prepare($com);
+            $stmt->bindValue(":id", $idGuiche);
+            $stmt->execute();
+            if($stmt->rowCount() > 0 ){
+                return $stmt->fetch(PDO::FETCH_ASSOC);
+            }
+            return false;
+        }
+
         public function verificarSenhaNoBanco($senha)
         {
             $pdo = Conexao::conexao();

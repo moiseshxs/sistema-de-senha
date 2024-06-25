@@ -242,7 +242,7 @@ const trazerGuiches = async(idSala, nomeSala, div) => {
 const focar = (div,nomeGuiche, idSala, idGuiche) => {
 
     let tratamentoNomeGuiche = nomeGuiche.split(' ');
-    tratamentoNomeGuiche = tratamentoNomeGuiche[1].charAt(1)
+    tratamentoNomeGuiche = tratamentoNomeGuiche[1]
     guicheAtual = tratamentoNomeGuiche;
     //troca a cor da borda dos demais blocos de guiche para preto e o escolhido troca para verde
     if(div != null) {
@@ -318,31 +318,14 @@ const trocarInfos = async (idSala, guicheAtual, idGuiche) => {
                 }
                 //definindo o id do guiche da resposta como o id do guiche 
                 idGuicheA = idGuiche
+                localStorage.setItem("idGuicheEmUso", idGuiche)
+                let url = window.location.href
+                url = url.split("/")
+                url = url[url.length -1]
+                console.log(url)
+                localStorage.setItem("urlQuandoSelecionouGuiche", url)
                 //montando o novo html que fica na parte superior da tela do sistema, mostrando as informações atuais de sala e guiche 
-                let newHtml = `
-                    <div class="col d-flex flex-column" id="infos">
-                      <div class="row p-0 my-2 d-flex">
-                        <div class="col d-flex justify-content-end">
-                          <button id="abrirModal" type="button" class="btn btn-dark btn-redondo" data-bs-toggle="modal"
-                            data-bs-target="#config">
-                            <i class="fas fa-cog"></i>
-                          </button>
-                        </div>
-                      </div>
-                      <div class="row d-flex m-0 p-0">
-                        <div class="col m-0 p-0">
-                          <p class="fs-5 fw-bold text-uppercase text-end p-0 m-0">Suas informações</p>
-                        </div>
-                      </div>
-                      <div class="row p-0 m-0">
-                        <p class="fw-bold fs-5 p-0 m-0 text-end">Sala: <span class="fs-4">${idSala}</span></p>
-                        <p class="fw-bold fs-5 p-0 m-0 text-end">Guichê: <span class="fs-4">${guicheAtual}</span></p>
-                        <input type="hidden" id="guiche" value="${idGuiche}">
-                      </div>
-                    </div>
-                `;
-                
-                $('#infos').html(newHtml);
+               trazerNomeSalaEGuiche(idGuicheA)
             }
         }
     })

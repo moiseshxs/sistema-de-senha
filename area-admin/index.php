@@ -133,10 +133,12 @@ ob_flush();
   <?php include("./componentes/modal-pesquisa-sala.php"); ?>
 
   <script>
+    if(localStorage.getItem("idGuicheEmUso") == undefined){
     document.addEventListener("DOMContentLoaded", function() {
       var button = document.getElementById("abrirModal");
       button.click();
     });
+  }
 
     $(document).ready(function() {
       $('[data-bs-toggle="tooltip"]').tooltip();
@@ -156,6 +158,7 @@ ob_flush();
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
   </script>
   <script src="./js/triagem.js"></script>
+  <script src="./js/geral.js"></script>
 </body>
 
 </html>

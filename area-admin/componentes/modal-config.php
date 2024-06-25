@@ -1,4 +1,4 @@
-<div class="modal fade" id="config" tabindex="-1" aria-labelledby="config" aria-hidden="true">
+<div class="modal fade" id="config" tabindex="-1" aria-labelledby="config" aria-hidden="    ">
     <div class="modal-dialog modal-xl bg-secondary">
         <div class="modal-content bg-secondary">
             <div class="modal-header bg-secondary">
