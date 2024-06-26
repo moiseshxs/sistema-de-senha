@@ -42,7 +42,7 @@ class Guiche {
     }
     public function verificaGuiche($id) {
         $pdo = Conexao::conexao();
-        $com = "SELECT statusGuiche FROM tbguiche WHERE idGuiche = :ig";
+        $com = "SELECT statusGuiche, idGuiche as id FROM tbguiche WHERE idGuiche = :ig";
         $stmt = $pdo->prepare($com);
         $stmt->bindParam(':ig', $id);
         $stmt->execute();

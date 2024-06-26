@@ -53,6 +53,29 @@ const trazerNomeSalaEGuiche = (id) => {
     </div>
 `;
 $('#infos').html(newHtml);
+$('#abrirModal').on('click', function (e){
+  //requisição ajax para buscar as salas do sistema
+  console.log("pinto")
+  $.ajax({
+      type: 'GET',
+      dataType: 'json',
+      url: '../app/Controller/trazerSalas.php',
+      async: true,
+  
+       success: function(response) {
+          //com a resposta 'response', monta e atualiza o novo html contendo as salas do sistema
+             let newHtml = `<div class="col-4 bg-light d-flex gap-1 flex-column w-100 p-1 overflow-auto" id="salasTotal">`
+                         response.salas.forEach(sala => {
+                          newHtml +=`<div class="sala w-100 bg-secondary border border-dark d-flex justify-content-center align-items-center" onclick="trazerGuiches('${sala.idSala}', '${sala.nomeSala}', this)" id="salaa" style="border: 1px solid black">`
+                          newHtml += `<p class="titulo-sala fs-1 fw-bold text-light">${sala.nomeSala}</p>`
+                          newHtml +=`</div>`
+                         })
+
+             newHtml +=`</div>`
+             $('#salasTotal').html(newHtml)
+       }
+  })
+})
         },
         error: (e) =>{
             console.log(e)

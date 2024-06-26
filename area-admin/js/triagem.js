@@ -1,3 +1,8 @@
+//colocar esse esquema do guiche e etc nas outras abas
+
+
+
+
 let tipo = "Triagem" 
 let limit = 8 //essa variavel esta relacionada a quantas senhas serão carregadas nos blocos de visualizar as ultimas, no inicio, se limitam a 8
 let clicksCarregar =1 //toda vez que clicarem em carregar mais senhas, será acrescida de + 1, assim definindo o limite de senhas multiplicando pela variavel acima
@@ -7,6 +12,7 @@ let modalInfos = {};
 //função que se ativa juntamente com o modal
 $('#abrirModal').on('click', function (e){
     //requisição ajax para buscar as salas do sistema
+    console.log("pinto")
     $.ajax({
         type: 'GET',
         dataType: 'json',
@@ -264,9 +270,10 @@ const focar = (div,nomeGuiche, idSala, idGuiche) => {
             idGuiche: idGuiche
         },
         success: function(response) {
+            console.log(response)
             //com a resposta monta-se o html, porem se o guiche estiver em uso. não é mostrado o botao de escolher o guiche para o usuario
             newHtml = `<button id="home-btn" type="button" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Ir para home"><i class="fas fa-home"></i></button>`
-            if(response.verificado.statusGuiche == 1) {
+            if(response.verificado.statusGuiche == 1 && localStorage.getItem("idGuicheEmUso") != response.verificado.id ) {
                 newHtml += `<div class="w-75 justify-content-center d-flex align-items-center" style="width: 100%!important" ><p class="fw-bold fs-2 text-warning">GUICHÊ EM USO</p></div>`
             } else {
                 newHtml += `<button type="button" class="btn btn-success" data-bs-dismiss="modal" onclick="trocarInfos('${idSala}', '${guicheAtual}', '${idGuiche}')">Salvar</button>`
