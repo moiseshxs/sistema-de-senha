@@ -6,11 +6,13 @@ include_once('../Model/Senha.php');
     if($rows){
         echo json_encode([
             'success' => true,
+            'respostsaasdasd' => $rows
             
         ]);
     }else{
         echo json_encode([
-            'error' => true
+            'error' => true,
+            'respostsaasdasd' => $rows
         ]);
     }
 

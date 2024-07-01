@@ -4,6 +4,16 @@ let clicksCarregar =1
 let atendidos = 1
 let nao =1
 let modalInfos = {}
+
+
+
+if(localStorage.getItem("idGuicheEmUso") == undefined){
+    console.log("caiu")
+    $("#embaca").css('display', 'flex')
+    document.getElementById("text-embacada").innerText = "Selecione um guichê para começar o atendimento"
+}
+
+
 $('#abrirModal').on('click', function (e){
     $.ajax({
         type: 'GET',
@@ -24,6 +34,7 @@ $('#abrirModal').on('click', function (e){
          }
     })
 })
+
 
 const fade = document.querySelector('#fades');
 const modal = document.querySelector('#pesquisa-sala');
@@ -223,23 +234,101 @@ const focar = (div,nomeGuiche, idSala, idGuiche) => {
         });
         div.style.border = "3px solid #00FF00";
     }
-        newHtml = `<button type="button" class="btn btn-danger btn-safado" data-bs-dismiss="modal">Cancelar</button>`
-        newHtml += `<button type="button" class="btn btn-success" data-bs-dismiss="modal" onclick="trocarInfos('${idSala}', '${guicheAtual}', '${idGuiche}')">Salvar</button>`
-    $('.modal-footer').html(newHtml)
+    $.ajax({
+        dataType: 'json',
+        url: '../app/Controller/verificaGuicheEmUso.php',
+        async: true,
+        type: 'POST',
+        data: {
+            idGuiche: idGuiche
+        },
+        success: function(response) {
+            newHtml = `<button id="home-btn" type="button" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Ir para home"><i class="fas fa-home"></i></button>`
+            if(response.verificado.statusGuiche == 1  && localStorage.getItem("idGuicheEmUso") != response.verificado.id) {
+                newHtml += `<div class="w-75 justify-content-center d-flex align-items-center" style="width: 100%!important" ><p class="fw-bold fs-2 text-warning">GUICHÊ EM USO</p></div>`
+            } else {
+                newHtml += `<button type="button" class="btn btn-success" data-bs-dismiss="modal" onclick="trocarInfos('${idSala}', '${guicheAtual}', '${idGuiche}')">Salvar</button>`
+            }
+        $('.modal-footer').html(newHtml)
+        
+         $('[data-bs-toggle="tooltip"]').tooltip();
+        
+         $('#home-btn').on('click', function() {
+             window.location.href = '../index.php'
+         });
+        }
+    })
+
 }
 
-const trocarInfos = async(idSala, guicheAtual, idGuiche) => {
-    console.log(idGuiche)
-    idGuicheA = idGuiche
-        newHtml = `<div class="col d-flex flex-column suas-informacoes h-100" id="infos">`
-            newHtml += `<div class="d-flex justify-content-end fs-5 fw-bold text-uppercase">`
-                newHtml += `Suas Informações`
-            newHtml += `</div>`
-        newHtml += `<div class=" d-flex justify-content-end fs-5"><span class="fw-bold fs-5">Sala</span>: ${idSala}</div>`
-            newHtml += `<div class=" d-flex justify-content-end fs-5"><span class="fw-bold fs-5">Guichê</span>: ${guicheAtual}</div>`
-        newHtml += `<input type="hidden" id="guiche" value="${idGuiche}">`
-        idGuicheA = idGuiche
-        $('#infos').html(newHtml);
+const trocarInfos = async (idSala, guicheAtual, idGuiche) => {
+    console.log(idGuiche);
+    $.ajax({
+        type: 'POST',
+        data: {
+            idGuiche: idGuiche,
+            status: 1
+        },
+        dataType: 'json',
+        url: '../app/Controller/alterarUsoGuiche.php',
+        success: function(response) {
+            console.log(idGuicheA, "idGuicheA");
+            if(response.success == true ) {
+                console.log(idGuiche, "status do guiche mudado");
+                if(idGuicheA != undefined || localStorage.getItem('idGuicheEmUso') != undefined){
+                    $.ajax({
+                        type: 'POST',
+                        data: {
+                            idGuiche: localStorage.getItem("idGuicheEmUso"),
+                            status: 0
+                        },
+                        dataType: 'json',
+                        url: '../app/Controller/alterarUsoGuiche.php',
+                        success: function(response) {
+                            console.log(response)
+                        },
+                        error: (e) =>{
+                            console.log(e)
+                        }
+                    })
+                }
+                idGuicheA = idGuiche
+                localStorage.setItem("idGuicheEmUso", idGuiche)
+                let url = window.location.href
+                url = url.split("/")
+                url = url[url.length -1]
+                console.log(url)
+                localStorage.setItem("urlQuandoSelecionouGuiche", url)
+                let newHtml = `
+                    <div class="col d-flex flex-column" id="infos">
+                      <div class="row p-0 my-2 d-flex">
+                        <div class="col d-flex justify-content-end">
+                          <button id="abrirModal" type="button" class="btn btn-dark btn-redondo" data-bs-toggle="modal"
+                            data-bs-target="#config">
+                            <i class="fas fa-cog"></i>
+                          </button>
+                        </div>
+                      </div>
+                      <div class="row d-flex m-0 p-0">
+                        <div class="col m-0 p-0">
+                          <p class="fs-5 fw-bold text-uppercase text-end p-0 m-0">Suas informações</p>
+                        </div>
+                      </div>
+                      <div class="row p-0 m-0">
+                        <p class="fw-bold fs-5 p-0 m-0 text-end">Sala: <span class="fs-4">${idSala}</span></p>
+                        <p class="fw-bold fs-5 p-0 m-0 text-end">Guichê: <span class="fs-4">${guicheAtual}</span></p>
+                        <input type="hidden" id="guiche" value="${idGuiche}">
+                      </div>
+                    </div>
+                `;
+                $("#embaca").css('display', 'none')
+                document.getElementById("text-embacada").innerText = "Termine o Atendimento Atual"
+                $('#infos').html(newHtml);
+                
+                trazerNomeSalaEGuiche(idGuicheA)
+            }
+        }
+    })
 }
 
 
@@ -353,13 +442,31 @@ const senhaAtual = async(senha, idSenha, guicheId) =>{
         async:true,
 
         success: function(response) {
-            newHtml = `<div class=" h-75 d-flex justify-content-center fs-1 fw-bold" id="senhaAtual">`
-            newHtml += `<p class="text-center" style="font-size: 60px;"><span style="color: ${color}">${prefixo}</span>${senhaT}</p>`
-            newHtml += `</div>`
-    
-            $('#embaca').css('display','flex')
-            $('#senhaAtual').html(newHtml)
-            localStorage.setItem("idSenhaApm", idSenha)
+             
+            $.ajax ({
+                type: 'POST',
+                url: '../app/Controller/pegarIdGuicheDaSenhaChamada.php',
+                dataType: 'json',
+                data: {id: idSenha},
+
+                success: function(response) {
+                    if(response.idGuiche !== undefined){
+                        if(response.idGuiche == idGuicheA){
+                            newHtml = `<div class=" h-75 d-flex justify-content-center fs-1 fw-bold" id="senhaAtual">`
+                            newHtml += `<p class="text-center" style="font-size: 60px;"><span style="color: ${color}">${prefixo}</span>${senhaT}</p>`
+                            newHtml += `</div>`
+                    
+                            $('#embaca').css('display','flex')
+                            $('#senhaAtual').html(newHtml)
+                            localStorage.setItem("idSenhaApm", idSenha)
+                        }
+                }
+                },
+                error: (e) => {
+                    console.log(e)
+                }
+            })
+          
     
            
         }
@@ -380,7 +487,7 @@ const buscarUltimasSenhasT = async() =>{
         
         success: function(response) {
             //construção da tag html
-            console.log(response)
+            
             let newHtmlP ="<div class='row item'>" 
             let newHtml = "<div class='row item'>"
             response.result.forEach(senha => {
@@ -423,7 +530,7 @@ const buscarUltimasSenhasAtendidas = async() =>{
         
         success: function(response) {
             //construção da tag html
-            console.log(response)
+            
             
             let newHtml = "<div class='row item'>"
             response.result.forEach(senha => {
@@ -462,7 +569,7 @@ const buscarNaoComparecidas = async() =>{
         
         success: function(response) {
             //construção da tag html
-            console.log(response)
+            
             
             let newHtml = "<div class='row item'>"
             response.result.forEach(senha => {

@@ -21,10 +21,10 @@ class Guiche {
 
     public function storeGuicheSala($salaId, $nomeGuiche) {
         $pdo = Conexao::conexao();
-        $com = "INSERT INTO tbguiche VALUES(NULL, :ng, :is)";
+        $com = "INSERT INTO tbguiche VALUES(NULL, :ng,'0' , :ids)";
         $stmt = $pdo->prepare($com);
         $stmt->bindValue(":ng", $nomeGuiche->getNomeGuiche());
-        $stmt->bindValue(":is", $salaId);
+        $stmt->bindValue(":ids", $salaId);
         $stmt->execute();
     }
     public function selectAllGuicheDaSala($id) {
@@ -39,7 +39,32 @@ class Guiche {
             return false;
         }
 
+    }
+    public function verificaGuiche($id) {
+        $pdo = Conexao::conexao();
+        $com = "SELECT statusGuiche, idGuiche as id FROM tbguiche WHERE idGuiche = :ig";
+        $stmt = $pdo->prepare($com);
+        $stmt->bindParam(':ig', $id);
+        $stmt->execute();
+        if($stmt->rowCount() > 0) {
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        } else {
+            return false;
+        }
 
+    }   
+    public function alteraStatus($id, $status) {
+        $pdo = Conexao::conexao();
+        $com = "UPDATE tbguiche set statusGuiche = :s WHERE idGuiche =:ig";
+        $stmt = $pdo->prepare($com);
+        $stmt->bindParam(':ig', $id);
+        $stmt->bindValue(":s", $status);
+        $stmt->execute();
+        if($stmt->rowCount() > 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }

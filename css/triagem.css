@@ -126,17 +126,13 @@
   z-index: 1;
 }
 
-.modal-corpo {
-  min-height: 500px !important;
-  overflow-y: auto;
-}
-
-.sala {
-  height: 20%;
-  cursor: pointer !important ;
-}
-
-.guiche {
-  height: 20%;
-  cursor: pointer !important ;
+#fades {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 5;
 }

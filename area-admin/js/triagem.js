@@ -1,11 +1,24 @@
-let tipo = "Triagem"
-let limit = 8
-let clicksCarregar =1
-let idGuicheA;
+//colocar esse esquema do guiche e etc nas outras abas
+
+
+
+let tipo = "Triagem" 
+let limit = 8 //essa variavel esta relacionada a quantas senhas serão carregadas nos blocos de visualizar as ultimas, no inicio, se limitam a 8
+let clicksCarregar =1 //toda vez que clicarem em carregar mais senhas, será acrescida de + 1, assim definindo o limite de senhas multiplicando pela variavel acima
+let idGuicheA; //guarda o id do guiche atual
 let modalInfos = {};
 
 
+
+if(localStorage.getItem("idGuicheEmUso") == undefined){
+    $("#embacada").css('display', 'flex')
+    document.getElementById("text-embacada").innerText = "Selecione um guichê para começar o atendimento"
+}
+
+//função que se ativa juntamente com o modal
 $('#abrirModal').on('click', function (e){
+    //requisição ajax para buscar as salas do sistema
+    console.log("pinto")
     $.ajax({
         type: 'GET',
         dataType: 'json',
@@ -13,6 +26,7 @@ $('#abrirModal').on('click', function (e){
         async: true,
     
          success: function(response) {
+            //com a resposta 'response', monta e atualiza o novo html contendo as salas do sistema
                let newHtml = `<div class="col-4 bg-light d-flex gap-1 flex-column w-100 p-1 overflow-auto" id="salasTotal">`
                            response.salas.forEach(sala => {
                             newHtml +=`<div class="sala w-100 bg-secondary border border-dark d-flex justify-content-center align-items-center" onclick="trazerGuiches('${sala.idSala}', '${sala.nomeSala}', this)" id="salaa" style="border: 1px solid black">`
@@ -36,13 +50,16 @@ const chamaDnv = () => {
     fade.style.display = "none";
         modal.style.display = "none";
 }
+//função para o modal de pesquisa
 const todasSalas = async() => {
     fade.style.display = "block";
     modal.style.display = "block";
     $.ajax ({
         type: 'POST',
         data: {
+            //o tipo define o fluxo do codigo no controller trazer senhas
             tipo: 'Nenhum',
+            //o limit define quantas senhas serão permitidas no maximo na query
             limit: 100
         },
         dataType: 'json',
@@ -50,6 +67,7 @@ const todasSalas = async() => {
         async: true,
         success: function(response) {
             console.log(response)
+            //com o sucesso da requisição, monta-se o html da tabela
             var formataData;
             let newHtml = `<table class="w-100 h-100" id="modalSenhasAll">`
                 newHtml += `<tr style="border-bottom: 1px solid black;background-color: rgb(182, 170, 170);height: 10%;">`
@@ -80,7 +98,7 @@ const todasSalas = async() => {
                 formataData = senhas.ua.split(" ");
                 formataData = formataData[1].split(":");
                 newData = formataData[0]+":"+formataData[1]+":"+formataData[2];
-
+            
                 newHtml += `<tr onclick="colocaInfo('${senhas.senha}', '${senhas.id}', '${senhas.tipo}','${senhas.status}')" style="border-bottom: 1px solid rgb(161, 152, 152);height: 10%;" id="senhasAll">`
                 newHtml += `<td class="blocos" style="border-right: 1px solid black;"><span style="color: ${color}">${prefixo}</span>${restoSenha}</td>`
                 newHtml += `<td class="blocos" style="border-right: 1px solid black;">${senhas.tipo}</td>`
@@ -90,20 +108,21 @@ const todasSalas = async() => {
             })
             newHtml += `<tr style="border-bottom: 1px solid rgb(161, 152, 152);height: 90%;"></tr>`
             newHtml += `</div>`
+            //atualizando o html
             $('#modalSenhasAll').html(newHtml);
 
         }
 
 
     })
-
+    //função para fechar modal de pesquisa
     $('#fechando-modal').click(function () {
         fade.style.display = "none";
         modal.style.display = "none";
 
     })
 }
-
+//função de pesquisa no modal
 const buscar = (b) => {
     $.ajax ({
         type: 'POST',
@@ -112,6 +131,7 @@ const buscar = (b) => {
         data: {busca: b},
 
         success: function(response) {
+            //com a resposta, monta-se o html
             let newHtml = `<table class="w-100 h-100" id="modalSenhasAll">`
             newHtml += `<tr style="border-bottom: 1px solid black;background-color: rgb(182, 170, 170);height: 10%;">`
             newHtml += `<td class="blocos p-2" style="border-right: 1px solid black;">Senha</td>`
@@ -156,6 +176,7 @@ const buscar = (b) => {
         }
             newHtml += `<tr style="border-bottom: 1px solid rgb(161, 152, 152);height: 90%;"></tr>`
             newHtml += `</div>`
+            //atualiza o html
             $('#modalSenhasAll').html(newHtml);
             console.log(response)
         }, error: (e) => {
@@ -165,39 +186,53 @@ const buscar = (b) => {
 }
 
 $(document).ready(function () {
+    //função que ativa a função de busca
     $('#buscaa').keyup(function () {
+        //ok keyup, ou seja ao apertar uma tecla
         var b = $('#buscaa').val();
+        //pega o valor do input
         if(b != '') {
+            //se o valor for diferente de vazio, passa o valor como parametro
             buscar(b);
         } else {
+            //caso contrario nao se passa parametro
             buscar()
         }
     })
 })
 
 const carregar = () =>{
+    //função que acumula os clicks que o usuario der no botão 'carregar mais'
     clicksCarregar ++
 
 }
-
+//função que busca os guiches, ainda no modal de escolher guiche, é acionada ao clicar em uma sala 
 const trazerGuiches = async(idSala, nomeSala, div) => {
+
     if(div != null) {
+        //seleciona todos os blocos com sala
         var divs = document.querySelectorAll('.sala');
         console.log(divs)
         divs.forEach(function(element) {
+            //troca a cor da borda desses blocos para preto
             element.style.border = "1px solid black";
         });
+        //e o bloco selecionado troca-se a cor para verde
         div.style.border = "3px solid #00FF00";
         
     }
+    //requisição ajax para buscar os guiches no sistema de acordo com o id da sala
     $.ajax ({
         type: 'POST',
-        data: {idSala: idSala},
+        data: {
+            idSala: idSala
+        },
         dataType: 'json',
         url: '../app/Controller/trazerGuicheDasSalas.php',
         async: true,
-
+        
         success: function(response) {
+            //com a resposta da requisição, monta-se o html
             console.log(response);
             let newHtml = `<div class="col-4 w-100 bg-light p-1 flex-column d-flex gap-3 overflow-y-auto" id="guiches">`
                 newHtml += `<p class="titulo-sala fs-3 fw-bold w-100 text-center text-uppercase">${nomeSala}</p>`
@@ -211,6 +246,7 @@ const trazerGuiches = async(idSala, nomeSala, div) => {
                     })
                 }
                 newHtml += `</div>`
+                //atualizando html
                 $('#guiches').html(newHtml)
         }
     })
@@ -218,9 +254,9 @@ const trazerGuiches = async(idSala, nomeSala, div) => {
 const focar = (div,nomeGuiche, idSala, idGuiche) => {
 
     let tratamentoNomeGuiche = nomeGuiche.split(' ');
-    tratamentoNomeGuiche = tratamentoNomeGuiche[1].charAt(1)
+    tratamentoNomeGuiche = tratamentoNomeGuiche[1]
     guicheAtual = tratamentoNomeGuiche;
-
+    //troca a cor da borda dos demais blocos de guiche para preto e o escolhido troca para verde
     if(div != null) {
         var divs = document.querySelectorAll('.guiche');
         console.log(divs)
@@ -229,54 +265,106 @@ const focar = (div,nomeGuiche, idSala, idGuiche) => {
         });
         div.style.border = "3px solid #00FF00";
     }
-        newHtml = `<button id="home-btn" type="button" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Ir para home"><i class="fas fa-home"></i></button>`
-        newHtml += `<button type="button" class="btn btn-success" data-bs-dismiss="modal" onclick="trocarInfos('${idSala}', '${guicheAtual}', '${idGuiche}')">Salvar</button>`
-    $('.modal-footer').html(newHtml)
+    //requisição ajax para saber se o guiche esta em uso de acordo com seu id
+    $.ajax({
 
-     $('[data-bs-toggle="tooltip"]').tooltip();
+        dataType: 'json',
+        url: '../app/Controller/verificaGuicheEmUso.php',
+        async: true,
+        type: 'POST',
+        data: {
+            idGuiche: idGuiche
+        },
+        success: function(response) {
+            console.log(response)
+            //com a resposta monta-se o html, porem se o guiche estiver em uso. não é mostrado o botao de escolher o guiche para o usuario
+            newHtml = `<button id="home-btn" type="button" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Ir para home"><i class="fas fa-home"></i></button>`
+            if(response.verificado.statusGuiche == 1 && localStorage.getItem("idGuicheEmUso") != response.verificado.id ) {
+                newHtml += `<div class="w-75 justify-content-center d-flex align-items-center" style="width: 100%!important" ><p class="fw-bold fs-2 text-warning">GUICHÊ EM USO</p></div>`
+            } else {
+                newHtml += `<button type="button" class="btn btn-success" data-bs-dismiss="modal" onclick="trocarInfos('${idSala}', '${guicheAtual}', '${idGuiche}')">Salvar</button>`
+            }
+        $('.modal-footer').html(newHtml)
+        
+         $('[data-bs-toggle="tooltip"]').tooltip();
+        
+         $('#home-btn').on('click', function() {
+             window.location.href = '../index.php'
+         });
+        }
+    })
 
-     $('#home-btn').on('click', function() {
-         window.location.href = '../index.php'
-     });
 }
-
+//função acionada quando o guiche for selecionado pelo usuario 
 const trocarInfos = async (idSala, guicheAtual, idGuiche) => {
     console.log(idGuiche);
-    idGuicheA = idGuiche
-    let newHtml = `<div class="col d-flex flex-column" id="infos">`;
-    newHtml += `<div class="row p-0 my-2 d-flex">
-                  <div class="col d-flex justify-content-end">
-                    <button id="abrirModal" type="button" class="btn btn-dark btn-redondo" data-bs-toggle="modal" data-bs-target="#config">
-                      <i class="fas fa-cog"></i>
-                    </button>
-                  </div>
-                </div>`;
-    newHtml += `<div class="row p-0 m-0 d-flex">
-                  <div class="col m-0 p-0">
-                    <p class="fs-5 fw-bold text-uppercase text-end p-0 m-0">Suas informações</p>
-                  </div>
-                </div>`;
-    newHtml += `<div class="row p-0 m-0">
-                  <p class="fw-bold fs-5 p-0 m-0 text-end">Sala: <span class="fs-4">${idSala}</span></p>
-                  <p class="fw-bold fs-5 p-0 m-0 text-end">Guichê: <span class="fs-4">${guicheAtual}</span></p>
-                  <input type="hidden" id="guiche" value="${idGuiche}">
-                </div>`;
-    newHtml += `</div>`;
-    $('#infos').html(newHtml);
+    //requisição que fará o update no campo de 'emUso' do guiche com seu id
+    $.ajax({
+        type: 'POST',
+        data: {
+            idGuiche: idGuiche,
+            status: 1
+        },
+        dataType: 'json',
+        url: '../app/Controller/alterarUsoGuiche.php',
+        success: function(response) {
+            console.log(idGuicheA, "idGuicheA");
+            //se der sucesso na função
+            if(response.success == true ) {
+                console.log(idGuiche, "status do guiche mudado");
+                //se a variavel que guarda o id do guiche, estiver diferente de indefinida, ou seja, se ja havia um guiche em usi
+                if(idGuicheA != undefined || localStorage.getItem("idGuicheEmUso") != undefined){
+                    //faz-se uma requisição ajax para alterar o 'emUso' do guiche para false
+                    $.ajax({
+                        type: 'POST',
+                        data: {
+                            idGuiche: localStorage.getItem("idGuicheEmUso"),
+                            //aqui definindo o status do guice como 0(false)
+                            status: 0
+                        },
+                        dataType: 'json',
+                        url: '../app/Controller/alterarUsoGuiche.php',
+                        success: function(response) {
+                            
+                        }
+                    })
+                }
+                //definindo o id do guiche da resposta como o id do guiche 
+                idGuicheA = idGuiche
+                localStorage.setItem("idGuicheEmUso", idGuiche)
+                let url = window.location.href
+                url = url.split("/")
+                url = url[url.length -1]
+                console.log(url)
+                localStorage.setItem("urlQuandoSelecionouGuiche", url)
+                
+
+                $("#embacada").css('display', 'none')
+                document.getElementById("text-embacada").innerText = "Termine o Atendimento Atual"
+                //montando o novo html que fica na parte superior da tela do sistema, mostrando as informações atuais de sala e guiche 
+               trazerNomeSalaEGuiche(idGuicheA)
+            }
+        }
+    })
 }
 
 
+//função que pega o id da senha atual e busca suas informações, atualizando o html para o usuario 
 const senhaAtual = () =>{
     $.ajax({
         type: 'POST',
         dataType: 'json',
-        data:{idSenha:localStorage.getItem("idSenhaAtual")},
+        data:{
+            idSenha:localStorage.getItem("idSenhaAtual")
+            //o id da senha é armazenado no armazenamento local do navegador, isso acontece porque mesmo que se recarregue a pagina, a senha continue sendo vista pelo usuario
+        },
         url: '../app/Controller/senhaChamadaPeloGuicheTriagem.php',
+        //apesar do nome do controller, ele é chamado em outras etapas de atendimento também...
         async: true,
         success: (response) => {
             console.log(response[0].senha)
             if(response[0].senha){
-                console.log("fodase")
+                
                 let prefixo = tratamentoPrefixo(response[0].senha.senha)
                 let color
                 if(prefixo == "AM"){
@@ -390,6 +478,7 @@ const update = status =>{
             
             success: function(response) {
                 console.log(response)
+                console.log(localStorage.getItem('idSenhaAtual'))
                 localStorage.removeItem("idSenhaAtual")
                 $("#embacada").css('display', 'none')
                 $("#senhaAtual").html(`<p id="senhaAtual" class="text-center fs-60 fw-bold text-uppercase p-0 m-0"><span id="prefixo-atual" class="">XX</span><span id="digitos-atual">000</span></p>`)
@@ -459,8 +548,9 @@ const inserirSenha = async(senha, guiche) =>{
         },
         success: async function(response) {
             //callback em caso de sucesso na requisição
-              console.log(response)
-              let prefixo = tratamentoPrefixo(senha)
+            console.log(response)
+              if(response.resposta){
+                let prefixo = tratamentoPrefixo(senha)
                 let color
                 if(prefixo == "AM"){
                     color = "rgb(26, 26, 26);"
@@ -473,11 +563,12 @@ const inserirSenha = async(senha, guiche) =>{
                 $("#prefixo-atual").html(html)
                 
                 document.getElementById("digitos-atual").innerText = (senha).split(prefixo)[1]
-                localStorage.setItem("idSenhaAtual", response.idSenhaAtual)
+                localStorage.setItem("idSenhaAtual", response.resposta)
                 $("#embacada").css('display', 'flex')
-            atualizarHtmlProximasSenhas(response)
-            
-            await buscarUltimasSenhas()
+                atualizarHtmlProximasSenhas(response)
+                
+                await buscarUltimasSenhas()
+            }
         },
         error: (e) =>{
             console.log(e)

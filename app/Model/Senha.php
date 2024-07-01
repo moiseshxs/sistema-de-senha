@@ -7,19 +7,65 @@
         protected $idGuiche;
         protected $tipoSenha;
 
+        public function trazerNomeSalaEGuiche($idGuiche)
+        {
+            $pdo = Conexao::conexao();
+            $com = "SELECT nomeSala as sala, nomeGuiche as guiche FROM tbsala as s
+            INNER JOIN tbguiche g
+            ON s.idSala = g.idSala
+            WHERE g.idGuiche = :id";
+            $stmt = $pdo->prepare($com);
+            $stmt->bindValue(":id", $idGuiche);
+            $stmt->execute();
+            if($stmt->rowCount() > 0 ){
+                return $stmt->fetch(PDO::FETCH_ASSOC);
+            }
+            return false;
+        }
+
+        public function verificarSenhaNoBanco($senha)
+        {
+            $pdo = Conexao::conexao();
+            $com = "SELECT senha from tbsenha WHERE senha = :s";
+            $stmt = $pdo->prepare($com);
+            $stmt->bindValue(":s", $senha->getSenha());
+            $stmt->execute();
+            if($stmt->rowCount() > 0 ){
+                return true;
+            }
+            return false;
+        }
+
+        public function getIdGuicheBySenha($id)
+        {
+            $pdo = Conexao::conexao();
+            $com = "SELECT idGuiche FROM tbsenha WHERE idSenha = :id";
+            $stmt = $pdo->prepare($com);
+            $stmt->bindValue(":id", $id);
+            $stmt->execute();
+            if($stmt->rowCount() > 0)
+            {
+                return $stmt->fetch(PDO::FETCH_ASSOC);
+            }
+            return false;
+        }
+
         public function storeSenha($senha)
         {
             
             $pdo = Conexao::conexao();
             $com = "INSERT INTO tbsenha VALUES (NULL, :s,:ss,:ts, :ua, :ig)";
             $stmt = $pdo->prepare($com);
-            $stmt->bindValue(":s", $senha->getSenha());
-            $stmt->bindValue(":ss", $senha->getStatusSenha());
-            $stmt->bindValue(":ts", $senha->getTipoSenha());
-            $stmt->bindValue(":ua", $senha->getUpdatedAt());
-            $stmt->bindValue(":ig", $senha->getIdGuiche());
-            $stmt->execute();
-            return $pdo->lastInsertId();
+            if(! $this->verificarSenhaNoBanco($senha)){
+                $stmt->bindValue(":s", $senha->getSenha());
+                $stmt->bindValue(":ss", $senha->getStatusSenha());
+                $stmt->bindValue(":ts", $senha->getTipoSenha());
+                $stmt->bindValue(":ua", $senha->getUpdatedAt());
+                $stmt->bindValue(":ig", $senha->getIdGuiche());
+                $stmt->execute();
+                return $pdo->lastInsertId();
+            }
+            return false;
         }
 
         public function getLastSenhas(){
@@ -190,8 +236,27 @@
             return $senhasC;
         }
 
+        
+        public static function verificarStatusSenhaNoBanco($idSenha)
+        {
+            $pdo = Conexao::conexao();
+            $com = "SELECT senha from tbsenha WHERE statusSenha = 0 AND senha = :s";
+            $stmt = $pdo->prepare($com);
+            $stmt->bindValue(":s", $idSenha);
+            $stmt->execute();
+            if($stmt->rowCount() > 0 ){
+                return true;
+            }
+            return false;
+        }
+
         public static function update($senha,$status, $tipo, $idGuiche, $data)
         {
+            if($status === 0) {
+                if (Senha::verificarStatusSenhaNoBanco($senha)) {
+                    return false;
+                }
+            } 
            $pdo = Conexao::conexao();
            if($data == null){
                 $com = "UPDATE tbsenha SET statusSenha = :ss, tipoSenha = :ts, idGuiche = :ig
@@ -228,7 +293,13 @@
             }
             return false;
         }
+
         public static function updateMatricula($id, $status, $data, $idGuiche) {
+            if($status === 0) {
+                if (Senha::verificarStatusSenhaNoBanco($id)) {
+                    return false;
+                }
+            } 
             $pdo = Conexao::conexao();
             $com = "UPDATE tbsenha SET statusSenha = :ss, updateAt = :ua, tipoSenha ='Matricula', idGuiche = :ig WHERE idSenha = :id";
             $stmt = $pdo->prepare($com);
@@ -241,6 +312,7 @@
                 return true;
             }
             return false;
+        
         }
 
         public static function updateApm($id, $status, $data, $guicheId) {
