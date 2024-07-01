@@ -401,7 +401,7 @@ const senhaAtual = async(senha, id, tipo, status) =>{
         dados = {
             idSenha: id,
             statusSenha: 0,
-            idGuiche: idGuicheA,
+            idGuiche: localStorage.getItem("idGuicheEmUso"),
         }
     }else{
         localStorage.setItem('senha-modificada', `${tipo},${status}`)
@@ -410,7 +410,7 @@ const senhaAtual = async(senha, id, tipo, status) =>{
          dados = {
             senha: newSenha,
             tipo: "Matricula",
-            idGuiche: idGuicheA,
+            idGuiche: localStorage.getItem("idGuicheEmUso"),
             outra_etapa: true,
             status: statusAtualizado
         }
@@ -446,7 +446,7 @@ const senhaAtual = async(senha, id, tipo, status) =>{
 
         success: function(response) {
             if(response.idGuiche !== undefined){
-                if(response.idGuiche == idGuicheA){
+                if(response.idGuiche == localStorage.getItem("idGuicheEmUso")){
                     newHtml = `<div class=" h-75 d-flex justify-content-center fs-1 fw-bold" id="senhaAtual">`
                     newHtml += `<p class="text-center" style="font-size: 60px;"><span style="color: ${color}">${prefixo}</span>${senhaT}</p>`
                     newHtml += `</div>`
@@ -464,8 +464,8 @@ const senhaAtual = async(senha, id, tipo, status) =>{
             }
         })
             
-            console.log(idGuicheA)
-            console.log(idGuicheSenhaAtual)
+            
+            
             
 
             }
@@ -488,7 +488,7 @@ const senhaAtual = async(senha, id, tipo, status) =>{
                     retomada:true,
                     tipo: infos[0],
                     senha: $("#senhaAtual").text(),
-                    idGuiche: idGuicheA
+                    idGuiche: localStorage.getItem("idGuicheEmUso")
                 },
                 url: '../app/Controller/recallSenha.php',
                 async: true,

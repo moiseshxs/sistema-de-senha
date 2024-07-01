@@ -449,7 +449,7 @@ const update = status =>{
                 retomada:true,
                 tipo: infos[0],
                 senha: $("#senhaAtual").text(),
-                idGuiche: idGuicheA
+                idGuiche: localStorage.getItem("idGuicheEmUso") 
             },
             url: '../app/Controller/recallSenha.php',
             async: true,
@@ -594,14 +594,14 @@ const updateSenha = async (senha, id, tipo, status) =>{
          dados = {
             senha: newSenha,
             tipo: "Triagem",
-            idGuiche: idGuicheA,
+            idGuiche: localStorage.getItem("idGuicheEmUso"),
             outra_etapa: true,
             status: statusAtualizado
         }
     }else{
         dados = {
             senha: newSenha,
-            idGuiche: idGuicheA
+            idGuiche: localStorage.getItem("idGuicheEmUso") 
         }
     }
     $(document).ready(function() {

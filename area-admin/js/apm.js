@@ -436,7 +436,7 @@ const senhaAtual = async(senha, idSenha, guicheId) =>{
         data: {
             idSenha: idSenha,
             statusSenha: 0,
-            idGuiche: guicheId
+            idGuiche: localStorage.getItem("idGuicheEmUso")
         },
         url: '../app/Controller/atualizarStatusSenhaApm.php',
         async:true,
@@ -451,7 +451,7 @@ const senhaAtual = async(senha, idSenha, guicheId) =>{
 
                 success: function(response) {
                     if(response.idGuiche !== undefined){
-                        if(response.idGuiche == idGuicheA){
+                        if(response.idGuiche == localStorage.getItem("idGuicheEmUso")){
                             newHtml = `<div class=" h-75 d-flex justify-content-center fs-1 fw-bold" id="senhaAtual">`
                             newHtml += `<p class="text-center" style="font-size: 60px;"><span style="color: ${color}">${prefixo}</span>${senhaT}</p>`
                             newHtml += `</div>`
