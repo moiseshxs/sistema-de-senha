@@ -54,9 +54,9 @@ $(document).ready(function() {
                 //montando o html da senha atual
                 let senhaHtml = `<p class='fw-bold text-center text-uppercase text-dark' style='font-size: 150px;'><span style='color: ${color};'>${prefixo}</span>${digitos}</p>`
                 //pegando a sala e guiche atual, é melhor tirar o split, já que se o nome da sala ou do guiche for unico, ocorre um bug
-                let salaAtual = infos.sala.split(" ")[1]
+                let salaAtual = infos.sala
 
-                let guicheAtual = infos.guiche.split(" ")[1]
+                let guicheAtual = infos.guiche
 
                 let salaHtml = "<p id='salaAtual' class='fw-bold text-center text-uppercase lh-1' style='font-size: 40px; color: #106018;'>" +salaAtual+ "</p>"
                 let guicheHtml = "<p id='guicheAtual' class='fw-bold text-center text-uppercase lh-1' style='font-size: 40px; color: #106018;'>"+guicheAtual+"</p>"
@@ -80,8 +80,14 @@ $(document).ready(function() {
             }
         });
     let date = new Date()
+    const fixHora = (hora) => {
+        if(hora.toString().lenght <=1 ){
+            return `0${hora}`
+        }
+        return hora
+    }
     //arrumar essa função de horario
-    let horarioHtml =date.getHours() + ":" + date.getMinutes()
+    let horarioHtml =fixHora(date.getHours()) + ":" + fixHora(date.getMinutes())
     $("#horario").html(horarioHtml)
 }, 1000)
 

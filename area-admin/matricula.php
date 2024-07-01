@@ -72,7 +72,7 @@ ob_flush();
 
       <div class="row h-65">
         <div id="embacada">
-          <h3 style="color:#fff">Termine o Atendimento Atual</h3>
+          <h3 id="text-embacada" style="color:#fff">Termine o Atendimento Atual</h3>
         </div>
 
         <div class="col">
@@ -148,10 +148,12 @@ ob_flush();
   <?php include("./componentes/modal-pesquisa-sala.php"); ?>
 
   <script>
-  document.addEventListener("DOMContentLoaded", function() {
-    var button = document.getElementById("abrirModal");
-    button.click();
-  });
+  if(localStorage.getItem("idGuicheEmUso") == undefined){
+    document.addEventListener("DOMContentLoaded", function() {
+      var button = document.getElementById("abrirModal");
+      button.click();
+    });
+  }
 
   $(document).ready(function() {
       $('[data-bs-toggle="tooltip"]').tooltip();

@@ -70,7 +70,7 @@ ob_flush();
       <div class="row h-65">
         <!-- Mensagem que não permite atender atender ate q se confirme -->
         <div id="embacada">
-          <h3 style="color:#fff">Termine o Atendimento Atual</h3>
+          <h3 id="text-embacada" style="color:#fff">Termine o Atendimento Atual</h3>
         </div>
         <!-- matricula -->
         <div class="col border">

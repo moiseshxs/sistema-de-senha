@@ -1,7 +1,7 @@
 let url = window.location.href
 url = url.split("/")
 url = url[url.length -1]
-if (localStorage.getItem("idGuicheEmUso") !== undefined &&  url != localStorage.getItem("urlQuandoSelecionouGuiche")){
+if (localStorage.getItem("idGuicheEmUso") != undefined &&  url != localStorage.getItem("urlQuandoSelecionouGuiche")){
 
     $.ajax({
         type: 'POST',

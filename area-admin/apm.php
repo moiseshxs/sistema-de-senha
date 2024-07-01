@@ -74,7 +74,7 @@
 
       <div class="row h-65" id="conteudo">
         <div id="embaca">
-          <h3 style="color:#fff">Termine o Atendimento Atual</h3>
+          <h3 id="text-embacada" style="color:#fff">Termine o Atendimento Atual</h3>
         </div>
 
         <div class="col p-0 m-0 border">
@@ -133,10 +133,12 @@
   <?php include("./componentes/modal-pesquisa-sala.php"); ?>
 
   <script>
-  document.addEventListener("DOMContentLoaded", function() {
-    var button = document.getElementById("abrirModal");
-    button.click();
-  });
+  if(localStorage.getItem("idGuicheEmUso") == undefined){
+    document.addEventListener("DOMContentLoaded", function() {
+      var button = document.getElementById("abrirModal");
+      button.click();
+    });
+  }
 
   $(document).ready(function() {
       $('[data-bs-toggle="tooltip"]').tooltip();

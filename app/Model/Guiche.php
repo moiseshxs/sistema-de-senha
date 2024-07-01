@@ -21,10 +21,10 @@ class Guiche {
 
     public function storeGuicheSala($salaId, $nomeGuiche) {
         $pdo = Conexao::conexao();
-        $com = "INSERT INTO tbguiche VALUES(NULL, :ng, :is)";
+        $com = "INSERT INTO tbguiche VALUES(NULL, :ng,'0' , :ids)";
         $stmt = $pdo->prepare($com);
         $stmt->bindValue(":ng", $nomeGuiche->getNomeGuiche());
-        $stmt->bindValue(":is", $salaId);
+        $stmt->bindValue(":ids", $salaId);
         $stmt->execute();
     }
     public function selectAllGuicheDaSala($id) {

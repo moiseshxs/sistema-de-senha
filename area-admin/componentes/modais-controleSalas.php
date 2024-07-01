@@ -7,7 +7,7 @@
         </div>
         <div class="modal-body">
           <form method="POST" action="" id="storeSala">
-            <input type="text" class="w-100 border border-none fs-2" id="nomeSala" maxlength="13" />
+            <input type="text" class="w-100 border border-none fs-2" id="nomeSala" maxlength="14" />
         </div>
         <div class="modal-footer" style="border: transparent !important">
           <button type="button" class="btn btn-secondary fs-5" data-bs-dismiss="modal">Fechar</button>

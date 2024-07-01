@@ -50,7 +50,7 @@
                         </div>
                         <div class="row">
                             <div class="col d-flex align-items-center justify-content-center flex-column">
-                                <p class="fw-bold text-center text-uppercase lh-1" style="font-size: 40px;">Sala</p>
+                                <p class="fw-bold text-center text-uppercase lh-1" style="font-size: 40px;">Local</p>
                                 <p id="salaAtual" class="fw-bold text-center text-uppercase lh-1" style="font-size: 80px; color: #106018;">0</p>
                             </div>
                             <div class="col d-flex align-items-center justify-content-center flex-column">

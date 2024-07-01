@@ -3,7 +3,7 @@
        
 
         public static function conexao(){
-        $db = "bdchamadordesenhas";
+        $db = "dbchamadordesenhas";
         $user = "root";
         $password = "";
         $host = "localhost";
@@ -21,7 +21,7 @@
             $pdo->query("DROP TABLE IF EXISTS tbsenha");
             $pdo->query("DROP TABLE IF EXISTS tbguiche");
             $pdo->query("DROP TABLE IF EXISTS tbsala");
-            $pdo->query("CREATE TABLE tbsala(idSala INT PRIMARY KEY AUTO_INCREMENT, nomeSala VARCHAR(8))");
+            $pdo->query("CREATE TABLE tbsala(idSala INT PRIMARY KEY AUTO_INCREMENT, nomeSala VARCHAR(14))");
             $pdo->query("CREATE TABLE tbguiche(idGuiche INT PRIMARY KEY AUTO_INCREMENT, nomeGuiche VARCHAR(9), statusGuiche INT(1), idSala INT, FOREIGN KEY(idSala) REFERENCES tbsala(idSala))");
             $pdo->query("CREATE TABLE tbsenha(idSenha INT PRIMARY KEY AUTO_INCREMENT, senha VARCHAR(5), statusSenha BOOLEAN,tipoSenha VARCHAR(11), updateAt DATETIME, idGuiche INT, FOREIGN KEY(idGuiche) REFERENCES tbguiche(idGuiche))");
             $stmt = $pdo->prepare("INSERT INTO tbsala VALUES(NULL,'Sala 01'), (NULL, 'Sala 02'), (NULL, 'Sala 03')");

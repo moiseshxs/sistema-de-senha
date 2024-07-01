@@ -4,6 +4,16 @@ let clicksCarregar =1
 let atendidos = 1
 let nao =1
 let modalInfos = {}
+
+
+
+if(localStorage.getItem("idGuicheEmUso") == undefined){
+    console.log("caiu")
+    $("#embaca").css('display', 'flex')
+    document.getElementById("text-embacada").innerText = "Selecione um guichê para começar o atendimento"
+}
+
+
 $('#abrirModal').on('click', function (e){
     $.ajax({
         type: 'GET',
@@ -24,6 +34,7 @@ $('#abrirModal').on('click', function (e){
          }
     })
 })
+
 
 const fade = document.querySelector('#fades');
 const modal = document.querySelector('#pesquisa-sala');
@@ -233,7 +244,7 @@ const focar = (div,nomeGuiche, idSala, idGuiche) => {
         },
         success: function(response) {
             newHtml = `<button id="home-btn" type="button" class="btn btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Ir para home"><i class="fas fa-home"></i></button>`
-            if(response.verificado.statusGuiche == 1) {
+            if(response.verificado.statusGuiche == 1  && localStorage.getItem("idGuicheEmUso") != response.verificado.id) {
                 newHtml += `<div class="w-75 justify-content-center d-flex align-items-center" style="width: 100%!important" ><p class="fw-bold fs-2 text-warning">GUICHÊ EM USO</p></div>`
             } else {
                 newHtml += `<button type="button" class="btn btn-success" data-bs-dismiss="modal" onclick="trocarInfos('${idSala}', '${guicheAtual}', '${idGuiche}')">Salvar</button>`
@@ -264,21 +275,30 @@ const trocarInfos = async (idSala, guicheAtual, idGuiche) => {
             console.log(idGuicheA, "idGuicheA");
             if(response.success == true ) {
                 console.log(idGuiche, "status do guiche mudado");
-                if(idGuicheA != undefined){
+                if(idGuicheA != undefined || localStorage.getItem('idGuicheEmUso') != undefined){
                     $.ajax({
                         type: 'POST',
                         data: {
-                            idGuiche: idGuicheA,
+                            idGuiche: localStorage.getItem("idGuicheEmUso"),
                             status: 0
                         },
                         dataType: 'json',
                         url: '../app/Controller/alterarUsoGuiche.php',
                         success: function(response) {
-                            console.log("fodase")
+                            console.log(response)
+                        },
+                        error: (e) =>{
+                            console.log(e)
                         }
                     })
                 }
                 idGuicheA = idGuiche
+                localStorage.setItem("idGuicheEmUso", idGuiche)
+                let url = window.location.href
+                url = url.split("/")
+                url = url[url.length -1]
+                console.log(url)
+                localStorage.setItem("urlQuandoSelecionouGuiche", url)
                 let newHtml = `
                     <div class="col d-flex flex-column" id="infos">
                       <div class="row p-0 my-2 d-flex">
@@ -301,8 +321,11 @@ const trocarInfos = async (idSala, guicheAtual, idGuiche) => {
                       </div>
                     </div>
                 `;
-                
+                $("#embaca").css('display', 'none')
+                document.getElementById("text-embacada").innerText = "Termine o Atendimento Atual"
                 $('#infos').html(newHtml);
+                
+                trazerNomeSalaEGuiche(idGuicheA)
             }
         }
     })

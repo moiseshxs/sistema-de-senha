@@ -2,12 +2,18 @@
 
 
 
-
 let tipo = "Triagem" 
 let limit = 8 //essa variavel esta relacionada a quantas senhas serão carregadas nos blocos de visualizar as ultimas, no inicio, se limitam a 8
 let clicksCarregar =1 //toda vez que clicarem em carregar mais senhas, será acrescida de + 1, assim definindo o limite de senhas multiplicando pela variavel acima
 let idGuicheA; //guarda o id do guiche atual
 let modalInfos = {};
+
+
+
+if(localStorage.getItem("idGuicheEmUso") == undefined){
+    $("#embacada").css('display', 'flex')
+    document.getElementById("text-embacada").innerText = "Selecione um guichê para começar o atendimento"
+}
 
 //função que se ativa juntamente com o modal
 $('#abrirModal').on('click', function (e){
@@ -307,19 +313,19 @@ const trocarInfos = async (idSala, guicheAtual, idGuiche) => {
             if(response.success == true ) {
                 console.log(idGuiche, "status do guiche mudado");
                 //se a variavel que guarda o id do guiche, estiver diferente de indefinida, ou seja, se ja havia um guiche em usi
-                if(idGuicheA != undefined){
+                if(idGuicheA != undefined || localStorage.getItem("idGuicheEmUso") != undefined){
                     //faz-se uma requisição ajax para alterar o 'emUso' do guiche para false
                     $.ajax({
                         type: 'POST',
                         data: {
-                            idGuiche: idGuicheA,
+                            idGuiche: localStorage.getItem("idGuicheEmUso"),
                             //aqui definindo o status do guice como 0(false)
                             status: 0
                         },
                         dataType: 'json',
                         url: '../app/Controller/alterarUsoGuiche.php',
                         success: function(response) {
-                            console.log("fodase")
+                            
                         }
                     })
                 }
@@ -331,6 +337,10 @@ const trocarInfos = async (idSala, guicheAtual, idGuiche) => {
                 url = url[url.length -1]
                 console.log(url)
                 localStorage.setItem("urlQuandoSelecionouGuiche", url)
+                
+
+                $("#embacada").css('display', 'none')
+                document.getElementById("text-embacada").innerText = "Termine o Atendimento Atual"
                 //montando o novo html que fica na parte superior da tela do sistema, mostrando as informações atuais de sala e guiche 
                trazerNomeSalaEGuiche(idGuicheA)
             }
