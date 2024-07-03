@@ -1,0 +1,60 @@
+#Controllers
+
+Aqui estão os arquivos que servem como ponte entre a chamada ajax do javaScript e os CRUDS com o PHP
+A lógica aqui é a seguinte:
+
+1. Receber as requisições com paramêtros e definir o fluxo de código de acordo com esses paramêtros
+
+2. Chamar funções dos objetos para realizar um CRUD com o banco
+
+3. Retornar a resposta negativa ou não ao usuário
+
+
+Segue um exemplo comentado do código:
+
+
+<?php
+include_once('../Model/Senha.php');
+
+
+if(isset($_POST['outra_etapa'])){
+## se existir o campo "outra_etapa" no post, então:
+
+    #crie um objeto da classe Senha
+        $senha = new Senha();
+    #definindo o horário para a região atual
+        date_default_timezone_set('America/Sao_Paulo');
+    #se tiver o campo "retomada"
+        if(isset($_POST['retomada'])){
+            $data = null;
+            #define a variavel $data como null
+        }else{
+            $data = date("Y-m-d H:i:s");
+        }
+    #chamando a função update, passando de paramêtros: a senha, status, tipo, idGuiche e data atual
+        $troca = $senha->update($_POST['senha'],$_POST['status'], $_POST['tipo'], $_POST['idGuiche'], $data);
+        $response = array("success" => true, "achou" => "caiu 3" );
+        #devolvendo uma resposta de sucesso, em formato json, mais facil para ser lido no callback da requisição ajax
+        echo json_encode($response);
+    ## se não existir o campo "outra_etapa", então:    
+    }else{
+    $senha = new Senha();
+    date_default_timezone_set('America/Sao_Paulo');
+    $data = date("Y-m-d H:i:s");
+    #é chamada uma função mais simples, que apenas tem 3 paramêtros para a chamada
+    $row = $senha->updateMatricula($_POST['idSenha'], $_POST['statusSenha'], $data, $_POST['idGuiche']);
+
+    #verificação para dizer se afetou linhas ou não
+    if($row) {
+        echo json_encode([
+            'success' => true,
+            'achou' => "caiu 1",
+        ]) ;
+    } else {
+        echo json_encode([
+            'success' => true,
+            'achou' =>"caiu 2",
+        ]);
+    }
+    }
+?>
