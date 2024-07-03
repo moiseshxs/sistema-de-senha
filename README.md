@@ -2,6 +2,10 @@
 
 ![Captura de tela 2024-07-02 141751](https://github.com/moiseshxs/sistema-de-senha-etec/assets/142733241/308b4359-3804-4c65-b2d8-c2d7392cf2ea)
 
+
+![Captura de tela 2024-07-02 135552](https://github.com/moiseshxs/sistema-de-senha-etec/assets/142733241/3323bc68-19fc-46b8-afab-a27d1f942933)
+
+
 > Status: Em desenvolvimento 🕒
 
 ### Uma aplicação web, planejada pelos desenvolvedores em conjunto com os responsáveis pelo processo de matrículas da etec de Guaianases, com o intuito de automatizar processos relacionados a matrícula
