@@ -478,12 +478,18 @@ const senhaAtual = async(senha, id, tipo, status) =>{
 
         if(localStorage.getItem('senha-modificada')){
             let infos = localStorage.getItem('senha-modificada').split(',')
+            let statusAtualizado
+            if(infos[0] == "Matricula"){
+                statusAtualizado = status
+            }else{
+                statusAtualizado = infos[1]
+            }   
             console.log($("#senhaAtual").text())
             $.ajax({
                 type: 'POST',
                 dataType: 'json',
                 data:{
-                    status:infos[1],
+                    status:statusAtualizado,
                     outra_etapa: true,
                     retomada:true,
                     tipo: infos[0],
