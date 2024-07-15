@@ -1,0 +1,138 @@
+:root {
+  --cor-matricula: rgb(26, 26, 26);
+  --cor-preferencial: rgb(19, 94, 19);
+  --cor-remanescente: rgb(16, 48, 96);
+  --cor-listas: gray;
+}
+
+.h-5 {
+  height: 5%;
+}
+
+.h-10 {
+  height: 10%;
+}
+
+.h-25 {
+  height: 25%;
+}
+
+.h-30 {
+  height: 30%;
+}
+
+.h-20 {
+  height: 20%;
+}
+
+.h-65 {
+  height: 65%;
+}
+
+.fs-60 {
+  font-size: 60px;
+}
+
+.btn-redondo {
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  padding: 0;
+}
+
+.conteudo {
+  height: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: solid;
+  border-color: rgb(165, 165, 165);
+}
+
+.senha {
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: solid;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.listas {
+  background-color: var(--cor-listas);
+  border: solid;
+  border-color: rgb(78, 78, 78);
+}
+
+.border-matricula {
+  border-color: var(--cor-matricula);
+}
+
+.border-remanescente {
+  border-color: var(--cor-remanescente);
+}
+
+.border-preferencial {
+  border-color: var(--cor-preferencial);
+}
+
+.bg-cinza {
+  background-color: rgb(198, 198, 198);
+}
+
+.matricula {
+  background-color: var(--cor-matricula);
+  border: solid;
+  border-color: rgb(0, 0, 0);
+}
+
+.remanescente {
+  background-color: var(--cor-remanescente);
+  border: solid;
+  border-color: rgb(5, 5, 55);
+}
+
+.preferencial {
+  background-color: var(--cor-preferencial);
+  border: solid;
+  border-color: rgb(0, 74, 6);
+}
+
+.listas {
+  background-color: var(--cor-listas);
+  border: solid;
+  border-color: rgb(78, 78, 78);
+}
+
+.item {
+  height: 10%;
+  width: 100%;
+}
+
+#embacada {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.8);
+  width: 99%;
+  height: 65%;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+}
+
+#fades {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 5;
+}

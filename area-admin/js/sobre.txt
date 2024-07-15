@@ -1,0 +1,93 @@
+### Na pasta JS está contido todos os arquivos que farão chamadas ajax para os controllers
+
+#Para melhor entendimento, aqui estarão alguns exemplos com as chamadas e funções mais utilizadas nos arquivos
+
+#inicialização de variaveis "globais", essas serão utilizadas por boa parte do fluxo do código, como pivôs
+
+let tipo = "Triagem" 
+let limit = 8 //essa variavel esta relacionada a quantas senhas serão carregadas nos blocos de visualizar as ultimas, no inicio, se limitam a 8
+let clicksCarregar =1 //toda vez que clicarem em carregar mais senhas, será acrescida de + 1, assim definindo o limite de senhas multiplicando pela variavel acima
+let idGuicheA; //guarda o id do guiche atual
+let modalInfos = {};
+
+#foi utilizado o recurso de localStorage do js, para armazenar algumas informações, como o id do guiche em uso
+# id da senha que está sendo atendida 
+# Se uma senha foi rechamada e ela estava em outra etapa de atendimento, as informações de onde estava essa senha
+# serão armazenadas no localStorage para que essa senha retorne a seu estado original após finalização do atendimento
+
+
+if(localStorage.getItem("idGuicheEmUso") == undefined){
+    $("#embacada").css('display', 'flex')
+    document.getElementById("text-embacada").innerText = "Selecione um guichê para começar o atendimento"
+}
+
+#chamadas ajax e atualização do html para o usuario
+
+const senhaAtual = () =>{
+    #as chamadas ajax em sua maior parte estão dentro de funções que podem ser chamadas
+    $.ajax({
+        type: 'POST',
+        #tipo de requisição
+        dataType: 'json',
+        data:{
+            #os paramêtros post, que serão acessados no controller
+            idSenha:localStorage.getItem("idSenhaAtual")
+            //o id da senha é armazenado no armazenamento local do navegador, isso acontece porque mesmo que se recarregue a pagina, a senha continue sendo vista pelo usuario
+        },
+        #a url da requisição, serao a pasta e os nomes dos controllers
+        url: '../app/Controller/senhaChamadaPeloGuicheTriagem.php',
+        
+        async: true,
+        success: (response) => {
+            #se a requisição for um sucesso, a resposta será acessada por aqui
+            
+            if(response[0].senha){
+                
+                let prefixo = tratamentoPrefixo(response[0].senha.senha)
+                let color
+                if(prefixo == "AM"){
+                    color = "rgb(26, 26, 26);"
+                }else if(prefixo == "AR"){
+                    color = "rgb(16, 48, 96);"
+                }else{
+                    color = "rgb(19, 94, 19);"
+                }
+                #rescrevendo o html, é necessario muito cuidado ao alterar os htmls, já que alguns tem onclicks, que chamam outras funções e que recebem como parametros dados obtidos pela response
+                let html = `<span id="prefixo-atual" style="color:${color} !important">${prefixo}</span>`
+                #para atualizar o html com o jquery é necessario informar o id ou classe dentro do $("")
+                # o .html(), é a função que atualiza o html, passando a string que foi contruida acima "html"
+                $("#prefixo-atual").html(html)
+                
+                #algumas atualizações que so precisam alterar o texto por exemplo, são feitas com o js nativo
+                document.getElementById("digitos-atual").innerText = (response[0].senha.senha).split(prefixo)[1]
+            }
+        },
+        error:(e) => {
+            # se a requisição conter um erro, será printado esse erro no console e os htmls não serão atualizados
+            console.log(e)
+        }
+    })
+}
+
+
+#setInterval, essa função, que é executada varias vezes, com o tempo estipulado, nesse caso 1000 milisegundos(de 1 em 1 segundo)
+
+setInterval(()=>{
+    console.log("aaaaa")
+buscarUltimasSenhas()
+#executa a função de trazer as ultimas senhas
+
+#executa a chamada ajax para atualizar as proximas senhas nos blocos
+$.ajax({
+    type: 'GET',
+    dataType: 'json',
+    url: '../app/Controller/ultimasSenhas.php',
+    async: true,
+    
+    success: function(response) {
+        console.log(response)
+        atualizarHtmlProximasSenhas(response)
+
+    }
+})
+}, 1000)

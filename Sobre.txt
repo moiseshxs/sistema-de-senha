@@ -1,0 +1,20 @@
+Nas pastas mais importantes do sistema, você encontrará arquivos contendo explicações sobre aquela pasta e arquivos
+
+Vale destacar como funciona o fluxo de mostrar senhas nas telas
+
+de acordo com seu tipo e status as senhas serão exibidas assim:
+
+
+"Triagem", status 1 => será mostrado na tela de Matrícula, em próximos atendimentos
+
+"Triagem", status 2 => será mostrado na tela de Triagem como uma senha não comparecida
+
+"Matricula", status 1 => será mostrado na tela de APM
+
+"Matricula", status 2 => será mostrada na tela de Matricula como não comparecida
+
+TODAS AS SENHAS QUE JÁ PASSARAM PELO PROCESSO DE TRIAGEM, APARECERÃO NAS ÚLIMAS SENHAS CHAMADAS NA TELA DE TRIAGEM
+
+TODAS AS SENHAS QUE JÁ PASSARAM PELO PROCESSO DE MATRICULA, APARECERÃO NAS ÚLIMAS SENHAS CHAMADAS NA TELA DE MATRICULA
+
+TODAS AS SENHAS COM STATUS 0, APARECEM SOMENTE NA TELA DO GUICHE QUE A CHAMOU 
