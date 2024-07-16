@@ -64,7 +64,7 @@
 .listas {
   background-color: var(--cor-listas);
   border: solid;
-  border-color: rgb(78, 78, 78);
+  border-bottom: none;
 }
 
 .conteudo {
@@ -73,7 +73,7 @@
   justify-content: center;
   align-items: center;
   border: solid;
-  border-color: rgb(165, 165, 165);
+  border-bottom: none;
 }
 
 .senha {

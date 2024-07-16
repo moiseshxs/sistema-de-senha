@@ -487,6 +487,7 @@ const senhaAtual = async(senha, id, tipo, status) =>{
 
         if(localStorage.getItem('senha-modificada')){
             let infos = localStorage.getItem('senha-modificada').split(',')
+            console.log(infos)
             let statusAtualizado
             if(infos[0] == "Matricula"){
                 statusAtualizado = status
@@ -534,6 +535,7 @@ const senhaAtual = async(senha, id, tipo, status) =>{
          async:true,
 
          success: function(response) {
+            console.log(response)
             localStorage.removeItem("idSenhaAtualMatricula")
             $('#embacada').css('display', 'none')
             $("#senhaAtual").html(`<p id="senhaAtual" class="text-center fw-bold text-uppercase p-0 m-0 fs-60"><span id="prefixo-atual" class="">XX</span><span id="digitos-atual">000</span></p>`)

@@ -504,7 +504,7 @@ const buscarUltimasSenhas = async() =>{
         success: function(response) {
             console.log(response)
             //construção da tag html
-            let newHtml = "<div class='row item'>"
+            let newHtml = "<div class='row item mb-3'>"
             let icon;
             if(response.result){
             response.result.forEach(senha => {
@@ -518,7 +518,7 @@ const buscarUltimasSenhas = async() =>{
                 newHtml += `<div class='col-3 d-flex align-items-center justify-content-center'>${icon}</div>`
                 newHtml += `<div onclick="reCall('${senha.senha}', '${senha.id}', '${senha.tipo}','${senha.status}', ${idGuicheA})" class="col-4 d-flex align-items-center justify-content-center"><button class="btn btn-success fw-semibold">Chamar</button></div>`
             });
-            newHtml += `<div class='col-12 mt-2 d-flex justify-content-around align-items-center'><button class="btn btn-primary" id="pesquisarSalas" onclick="todasSalas()">Pesquisar</button><button class="btn btn-success" onclick="carregar(this)">Carregar mais</button></div>`
+            newHtml += `<div class='col-12 mt-2 mb-5 d-flex justify-content-around align-items-center'><button class="btn btn-primary" id="pesquisarSalas" onclick="todasSalas()">Pesquisar</button></div>`
             newHtml += "</div>"
             //atualizando html
             $('#ultimos').html(newHtml) 

@@ -73,7 +73,7 @@ ob_flush();
           <h3 id="text-embacada" style="color:#fff">Termine o Atendimento Atual</h3>
         </div>
         <!-- matricula -->
-        <div class="col border">
+        <div class="col ">
           <div class="row matricula h-20">
             <p class="p-0 m-0 text-center text-light">Atendimento</p>
             <p class="p-0 m-0 text-center text-light text-uppercase fs-3 fw-bold">Matrícula</p>
@@ -85,7 +85,7 @@ ob_flush();
           </div>
         </div>
         <!-- remanescente -->
-        <div class="col border">
+        <div class="col ">
           <div class="row remanescente h-20">
             <p class="p-0 m-0 text-center text-light">Atendimento</p>
             <p class="p-0 m-0 text-center text-light text-uppercase fs-3 fw-bold">Remanescente</p>
@@ -97,7 +97,7 @@ ob_flush();
           </div>
         </div>
         <!-- preferencial -->
-        <div class="col border">
+        <div class="col ">
           <div class="row preferencial h-20">
             <p class="p-0 m-0 text-center text-light">Atendimento</p>
             <p class="p-0 m-0 text-center text-light text-uppercase fs-3 fw-bold">Preferencial</p>
@@ -109,28 +109,26 @@ ob_flush();
           </div>
         </div>
         <!-- ja chamados -->
-        <div class="col border">
+        <div class="col ">
           <div class="row listas h-20">
             <p class="p-0 m-0 text-center text-light">Listagem</p>
             <p class="p-0 m-0 text-center text-light text-uppercase fs-3 fw-bold">Chamados</p>
           </div>
-          <div class="row conteudo d-flex flex-column justify-content-start">
-            <div id="ultimos" class="row item mb-1 h-100 overflow-auto">
+          <div class="row p-2 conteudo d-flex flex-column justify-content-start">
+            <div id="ultimos" class="row item mb-1 h-100 ">
               <p class="h4 text-center mt-1">Chame uma senha</p>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="row h-5">
-
-      </div>
+     
     </div>
   </section>
 
   <!-- Modal de mudar sala e guiche -->
-  <?php include("./componentes/modal-config.php"); ?>
-  <?php include("./componentes/modal-pesquisa-sala.php"); ?>
+  <?php include "./componentes/modal-config.php"; ?>
+  <?php include "./componentes/modal-pesquisa-sala.php"; ?>
 
   <script>
     if(localStorage.getItem("idGuicheEmUso") == undefined){

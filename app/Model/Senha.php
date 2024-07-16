@@ -73,8 +73,7 @@
             $senhas = array();
             $comAM = "SELECT  senha FROM tbsenha
             WHERE senha LIKE 'AM%'
-            ORDER BY senha DESC
-            LIMIT 1";
+            ORDER BY senha DESC";
             $stmt = $pdo->prepare($comAM);
             $stmt->execute();
             if($stmt->rowCount() > 0){
@@ -115,53 +114,53 @@
                 $comAM = "SELECT senha, statusSenha as 'status', idSenha as id, tipoSenha as tipo FROM `tbsenha`
                  WHERE (statusSenha =1 AND tipoSenha = 'Triagem')
                 
-                ORDER BY updateAt DESC
-                LIMIT $limit";
+                ORDER BY updateAt ASC
+                 ";
             } 
             else if($valor == "Matricula-Atendidos"){
                 $comAM = "SELECT senha, statusSenha as 'status', idSenha as id, tipoSenha as tipo FROM `tbsenha`
                  WHERE  (statusSenha = 1 AND tipoSenha = 'Matricula') OR (statusSenha != 0 AND tipoSenha = 'Apm')
                 ORDER BY updateAt DESC
-                LIMIT $limit";
+                 ";
             }
             else if($valor == "Matricula-Nao"){
                 $comAM = "SELECT senha, statusSenha as 'status', idSenha as id, tipoSenha as tipo FROM `tbsenha`
                  WHERE  (statusSenha = 2 AND tipoSenha = 'Matricula') 
-                ORDER BY updateAt DESC
-                LIMIT $limit";
+                ORDER BY updateAt ASC
+                 ";
             }
             else if($valor == "Apm"){
                 $comAM = "SELECT senha, statusSenha as 'status', idSenha as id, tipoSenha as tipo FROM `tbsenha`
                  WHERE (statusSenha =1 AND tipoSenha = 'Matricula')
                   
-                ORDER BY updateAt DESC
-                LIMIT $limit";
+                ORDER BY updateAt ASC
+                 ";
             }
             else if($valor == "Apm-Atendidas"){
                 $comAM = "SELECT senha, statusSenha as 'status', idSenha as id, tipoSenha as tipo FROM `tbsenha`
                  WHERE (statusSenha =1 AND tipoSenha = 'Apm')
                   
                 ORDER BY updateAt DESC
-                LIMIT $limit";
+                 ";
             }
             else if($valor == "Apm-Nao"){
                 $comAM = "SELECT senha, statusSenha as 'status', idSenha as id, tipoSenha as tipo FROM `tbsenha`
                  WHERE (statusSenha =2 AND tipoSenha = 'Apm')
                   
-                ORDER BY updateAt DESC
-                LIMIT $limit";
+                ORDER BY updateAt ASC
+                 ";
             } else if($valor == "Apm-All"){
                 $comAM = "SELECT senha, statusSenha as 'status', idSenha as id, tipoSenha as tipo, updateAt as ua FROM `tbsenha`
                  WHERE (statusSenha !=0 AND tipoSenha != 'Triagem')
                   
                 ORDER BY updateAt DESC
-                LIMIT $limit";
+                 ";
             } else {
                 $comAM = "SELECT  senha, statusSenha as 'status', idSenha as id, tipoSenha as tipo, updateAt as ua  FROM tbsenha
                 WHERE statusSenha !=0
                 
                 ORDER BY updateAt DESC
-                LIMIT $limit";
+                 ";
             }
             $stmt = $pdo->prepare($comAM);
             $stmt->execute();
